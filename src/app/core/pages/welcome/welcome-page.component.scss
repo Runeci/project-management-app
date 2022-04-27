@@ -1,0 +1,47 @@
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+ // padding-top: 100px;
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    row-gap: 20px;
+    width: 40%;
+
+    h1 {
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.2;
+      text-align: left;
+    }
+
+    p {
+      text-align: left;
+      font-size: 20px;
+      line-height: 1.4;
+    }
+  }
+
+  &__image {
+    width: 60%;
+    margin-left: 50px;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+.team {
+    height: 100vh;
+}

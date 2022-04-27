@@ -1,0 +1,36 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.mat-toolbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  font: 800 28px/32px Montserrat, "Montserrat", sans-serif;
+  z-index: 1030;
+  transition: background 1s ease 0s;
+}
+
+.logo {
+  width: 40px;
+  margin-right: 7px;
+}
+
+.mat-flat-button {
+  font-size: 16px;
+  background: transparent;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.bg-primary {
+  background-color: #0065ff;
+}
+
+.scroll {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+}
