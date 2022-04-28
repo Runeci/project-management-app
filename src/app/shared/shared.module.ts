@@ -5,7 +5,7 @@ import { HeaderAnimateDirective } from './directives/header-animate.directive';
 
 @NgModule({
   declarations: [
-    HeaderAnimateDirective
+    HeaderAnimateDirective,
   ],
   imports: [
     CommonModule,
@@ -13,7 +13,7 @@ import { HeaderAnimateDirective } from './directives/header-animate.directive';
   ],
   exports: [
     MaterialModule,
-    HeaderAnimateDirective
+    HeaderAnimateDirective,
   ],
 })
 export class SharedModule { }

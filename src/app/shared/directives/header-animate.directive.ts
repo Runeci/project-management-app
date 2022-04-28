@@ -1,4 +1,9 @@
-import { Directive, ElementRef, HostBinding, HostListener } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  HostBinding,
+  HostListener,
+} from '@angular/core';
 
 @Directive({
   selector: '[appHeaderAnimate]',
@@ -9,7 +14,6 @@ export class HeaderAnimateDirective {
   @HostBinding('class.scroll') scrolled!: boolean;
 
   @HostListener('window:scroll') onScroll() {
-    console.log('scroll')
     if (window.scrollY > this.elementRef.nativeElement.offsetHeight) {
       this.scrolled = true;
     } else {

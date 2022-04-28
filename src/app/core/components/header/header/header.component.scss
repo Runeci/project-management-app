@@ -2,6 +2,10 @@
   flex: 1 1 auto;
 }
 
+.example-icon {
+  display: none;
+}
+
 .mat-toolbar {
   position: fixed;
   top: 0;
@@ -32,6 +36,21 @@
 }
 
 .scroll {
-    background-color: #fff;
-    box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+  background-color: #fff;
+  box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+}
+
+@media (max-width: 1024px) {
+  .example-icon {
+    display: block;
+  }
+}
+
+@media (max-width: 420px) {
+  .mat-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
+    height: 16%;
+  }
 }

@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
   height: 100vh;
+  padding: 0 26px;
 
   &__content {
     display: flex;
@@ -43,4 +44,59 @@
 
 .team {
   height: 100vh;
+}
+
+@media (min-width: 992px) {
+  .hero__image {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero__content {
+    h1 {
+      font-size: 28px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 720px;
+    width: 100%;
+  }
+
+  .hero {
+    margin-right: -15px;
+    margin-left: -15px;
+
+    &__content {
+      width: 100%;
+    }
+  }
+
+  .hero__image {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+  .hero__content {
+    align-items: center;
+
+    h1 {
+      text-align: center;
+    }
+
+    p {
+      text-align: center;
+    }
+  }
 }
