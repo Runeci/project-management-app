@@ -1,0 +1,57 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.example-icon {
+  display: none;
+}
+
+.mat-toolbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  font: 800 28px/32px Montserrat, "Montserrat", sans-serif;
+  background: transparent;
+  z-index: 1030;
+  transition: background 1s ease 0s;
+}
+
+.logo {
+  width: 40px;
+  margin-right: 7px;
+}
+
+.mat-flat-button {
+  font-size: 16px;
+  margin-left: 10px;
+  background: transparent;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.bg-primary {
+  background-color: #0065ff;
+}
+
+.scroll {
+  background-color: #fff;
+  box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+}
+
+@media (max-width: 1024px) {
+  .example-icon {
+    display: block;
+  }
+}
+
+@media (max-width: 420px) {
+  .mat-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
+    height: 17%;
+  }
+}
