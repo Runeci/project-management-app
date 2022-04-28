@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class BoardsService {
   private authHeader = {
     headers: new HttpHeaders()
-      .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1NWU4MDY3Yy0wMzMzLTQ2YTgtOTczZC1iNjE2YTk3YWE5MDUiLCJsb2dpbiI6IjEyMyIsImlhdCI6MTY1MTEyODgxNX0.xcFV8NhEOzHUqw4QN2x5h1lGCSuh0Qw6aQGEW9aBvqs')
+      .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1NWU4MDY3Yy0wMzMzLTQ2YTgtOTczZC1iNjE2YTk3YWE5MDUiLCJsb2dpbiI6IjEyMyIsImlhdCI6MTY1MTE1MjI4NX0.4F10EnMJ3tiSTwU5kXQ-OxugVWWBuQ__JkNqQI74pSA')
   };
 
   constructor(private http: HttpClient) {

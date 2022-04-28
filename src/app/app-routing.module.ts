@@ -9,7 +9,7 @@ const routes: Routes = [
     path: Path.homePage,
     component: WelcomePageComponent,
   },
-  { path: Path.boardsPage, loadChildren: () => import('./boards/boards.module')
+  { path: 'boards', loadChildren: () => import('./boards/boards.module')
       .then((m) => m.BoardsModule)}
 ];
 
