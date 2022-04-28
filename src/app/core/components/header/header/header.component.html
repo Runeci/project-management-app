@@ -2,8 +2,8 @@
     <img class="logo" src="assets/icons/logo-1.svg" alt="">
     <span class="logo-text">RSTrello</span>
     <span class="example-spacer"></span>
-    <button mat-flat-button>Войти</button>
-    <button mat-flat-button class="text-white bg-primary">Регистрация</button>
+    <button mat-flat-button (click)="togglePath('login')">Войти</button>
+    <button mat-flat-button class="text-white bg-primary" (click)="togglePath('signup')">Регистрация</button>
 </mat-toolbar>
 
 <ng-template>
