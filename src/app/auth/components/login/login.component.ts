@@ -27,8 +27,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.formGroup.valid) {
       this.authService.login(this.formGroup.value).subscribe(
-        ({token}) => {
-          this.authService.getUser(token).subscribe((res) => console.log(res))
+        () => {
           this.formGroup.reset();
         },
         (error) => {

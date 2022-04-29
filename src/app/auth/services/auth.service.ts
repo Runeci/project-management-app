@@ -1,9 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import {
- catchError, Observable, of, tap, throwError,
-} from 'rxjs';
+import { catchError, Observable, of, tap, throwError } from 'rxjs';
 
 import { LocalstorageService } from '@core/services/localstorage.service';
 import { Path, STORAGE_NAME } from 'src/app/app.constants';
@@ -16,7 +14,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private storageService: LocalstorageService,
-    private router: Router,
+    private router: Router
   ) {
     this.storageService.loadFromLocalStorage(STORAGE_NAME);
   }
@@ -24,7 +22,7 @@ export class AuthService {
   signUp(user: UserAuth): Observable<UserInfo> {
     return this.http.post<UserInfo>('/api/signup', user).pipe(
       tap(() => this.router.navigate([Path.loginPage])),
-      catchError(AuthService.handleAuthError),
+      catchError(AuthService.handleAuthError)
     );
   }
 
@@ -35,9 +33,9 @@ export class AuthService {
         tap(({ token }) => {
           this.setStorage(token);
           this.router.navigate([Path.homePage]);
-          return token
+          return token;
         }),
-        catchError(AuthService.handleAuthError),
+        catchError(AuthService.handleAuthError)
       );
   }
 
@@ -49,11 +47,7 @@ export class AuthService {
     if (!token) {
       return of(undefined);
     }
-    return this.http.get<UserInfo>('/api/users', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    return this.http.get<UserInfo>('/api/users');
   }
 
   static handleAuthError(error: HttpErrorResponse) {
@@ -65,6 +59,6 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    return this.storageService.getStorageData()
+    return this.storageService.getStorageData();
   }
 }
