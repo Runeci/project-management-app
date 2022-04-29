@@ -13,10 +13,15 @@ const routes: Routes = [
     path: Path.authPage,
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
+ path: 'boards',
+loadChildren: () => import('./boards/boards.module')
+      .then((m) => m.BoardsModule),
+},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
+
 export class AppRoutingModule {}
