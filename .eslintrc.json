@@ -23,6 +23,7 @@
       "rules": {
         "@typescript-eslint/indent": 0,
         "import/prefer-default-export": 0,
+        "no-return-assign": 0,
         "@angular-eslint/directive-selector": [
           "error",
           {

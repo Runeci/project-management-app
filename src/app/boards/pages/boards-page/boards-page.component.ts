@@ -16,8 +16,6 @@ export class BoardsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.boardsService.getBoards()
-      .pipe((r) => {
-        return this.boardsArr$ = r;
-      });
+      .pipe((r) => this.boardsArr$ = r);
   }
 }

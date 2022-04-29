@@ -17,8 +17,8 @@ export class NewBoardDialogComponent {
   constructor(private boardsService: BoardsService) {
   }
 
-  public onSubmit(event: Event) {
-    event.preventDefault();
-    this.boardsService.createBoard(this.titleFormControl.value);
+  public onSubmit() {
+    this.boardsService.createBoard(this.titleFormControl.value)
+      .subscribe();
   }
 }
