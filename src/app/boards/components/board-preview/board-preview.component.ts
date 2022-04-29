@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import {
+ animate, state, style, transition, trigger,
+} from '@angular/animations';
 import { Board } from '../../../shared/models/boards.interfaces';
-import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-board-preview',
@@ -10,27 +12,20 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     trigger('hoveredBoard', [
       state('start', style({
         right: '-40px',
-        bottom: '10px'
+        bottom: '10px',
       })),
       state('end', style({
         right: '10px',
-        bottom: '10px'
+        bottom: '10px',
       })),
-      transition('start <=> end', animate('200ms ease-out'))
-    ])
-  ]
+      transition('start <=> end', animate('200ms ease-out')),
+    ]),
+  ],
 })
-export class BoardPreviewComponent implements OnInit {
-
+export class BoardPreviewComponent {
   @Input() board: Board | undefined;
 
   public animationStatus: string = 'start';
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
   public startAnimation(): void {
     this.animationStatus = 'end';

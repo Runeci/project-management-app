@@ -9,13 +9,15 @@ import { BoardsService } from '../../services/boards.service';
   styleUrls: ['./boards-page.component.scss'],
 })
 export class BoardsPageComponent implements OnInit {
-
   public boardsArr$: Observable<Board[]> | undefined;
 
-  constructor(private boardsService: BoardsService) { }
+  constructor(private boardsService: BoardsService) {
+  }
 
   ngOnInit(): void {
     this.boardsService.getBoards()
-      .pipe( (r) => this.boardsArr$ = r)
+      .pipe((r) => {
+        return this.boardsArr$ = r;
+      });
   }
 }

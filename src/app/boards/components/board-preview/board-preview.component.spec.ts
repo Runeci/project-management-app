@@ -8,7 +8,7 @@ describe('BoardPreviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BoardPreviewComponent ]
+      declarations: [BoardPreviewComponent],
     })
     .compileComponents();
   });

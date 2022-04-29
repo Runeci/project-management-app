@@ -9,8 +9,11 @@ const routes: Routes = [
     path: Path.homePage,
     component: WelcomePageComponent,
   },
-  { path: 'boards', loadChildren: () => import('./boards/boards.module')
-      .then((m) => m.BoardsModule)}
+  {
+ path: 'boards',
+loadChildren: () => import('./boards/boards.module')
+      .then((m) => m.BoardsModule),
+},
 ];
 
 @NgModule({
