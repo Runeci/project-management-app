@@ -35,6 +35,7 @@ export class AuthService {
         tap(({ token }) => {
           this.setStorage(token);
           this.router.navigate([Path.homePage]);
+          return token
         }),
         catchError(AuthService.handleAuthError),
       );
@@ -61,5 +62,9 @@ export class AuthService {
       errorMessage = error.error;
     } else errorMessage = error.error;
     return throwError(errorMessage);
+  }
+
+  isLoggedIn() {
+    return this.storageService.getStorageData()
   }
 }
