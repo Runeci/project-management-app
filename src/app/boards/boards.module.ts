@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BoardsRoutingModule } from './boards-routing.module';
 import { BoardsPageComponent } from './pages/boards-page/boards-page.component';
 import { MaterialModule } from '../shared/modules/material/material.module';
@@ -21,10 +21,12 @@ import { NewBoardDialogComponent } from './components/new-board-dialog/new-board
     BoardsRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
   exports: [
     BoardsPageComponent,
     ReactiveFormsModule,
+    FormsModule,
   ],
 })
 export class BoardsModule { }
