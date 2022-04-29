@@ -10,7 +10,7 @@ import { NewBoardDialogComponent } from '../new-board-dialog/new-board-dialog.co
 export class AddNewBoardComponent {
   constructor(public dialog: MatDialog) {}
 
-  openDialog() {
+  public openDialog(): void {
     const dialogRef = this.dialog.open(NewBoardDialogComponent);
 
     dialogRef.afterClosed().subscribe(() => {

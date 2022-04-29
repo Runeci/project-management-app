@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { NewBoardDialogComponent } from '@boards/components/new-board-dialog/new-board-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -7,14 +9,20 @@ import { Event, NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  currentRoute: string;
+  public currentRoute: string = '';
 
-  constructor(private router: Router) {
-    this.currentRoute = '';
+  constructor(
+    public dialog: MatDialog,
+    private router: Router,
+  ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         this.currentRoute = event.url;
       }
     });
+  }
+
+  public openDialog(): void {
+   this.dialog.open(NewBoardDialogComponent);
   }
 }

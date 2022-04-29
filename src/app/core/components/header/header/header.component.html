@@ -7,7 +7,10 @@
   <ng-template
     [ngIf]="currentRoute !== '/' && currentRoute !== '/home'"
   >
-    <button mat-button color="accent" class="add-btn">Add board</button>
+    <button
+      (click)="openDialog()"
+      mat-button color="accent" class="add-btn"
+    >Add board</button>
   </ng-template>
   <span class="example-spacer"></span>
   <ng-template
