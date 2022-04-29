@@ -1,5 +1,6 @@
 export const enum Path {
     homePage = 'home',
-    registrationPage = 'signup',
+    authPage = 'auth',
+    signupPage = 'signup',
     loginPage = 'login'
   }
