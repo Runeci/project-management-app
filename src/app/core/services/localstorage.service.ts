@@ -2,10 +2,11 @@ import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LocalstorageService {
   private usedLocalStorage: Storage | undefined;
+
   currentToken: string | undefined;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {

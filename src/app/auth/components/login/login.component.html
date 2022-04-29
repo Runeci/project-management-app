@@ -3,7 +3,7 @@
         <div class="close">
             <div class="close-icon" routerLink='/home'></div>
         </div>
-        <form class="example-form form" [formGroup]="formGroup">
+        <form class="example-form form" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
             <h2>Войти</h2>
             <div class="form__container">
 

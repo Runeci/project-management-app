@@ -1,9 +1,13 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs';
-import { STORAGE_NAME } from 'src/app/app.constants';
-import { LocalstorageService } from 'src/app/core/services/localstorage.service';
-import { User } from 'src/app/shared/models/user';
+import { Router } from '@angular/router';
+import {
+ catchError, Observable, of, tap, throwError,
+} from 'rxjs';
+
+import { LocalstorageService } from '@core/services/localstorage.service';
+import { Path, STORAGE_NAME } from 'src/app/app.constants';
+import { UserAuth, UserInfo, UserResponse } from '@shared/models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -11,25 +15,51 @@ import { User } from 'src/app/shared/models/user';
 export class AuthService {
   constructor(
     private http: HttpClient,
-    private storageService: LocalstorageService
+    private storageService: LocalstorageService,
+    private router: Router,
   ) {
     this.storageService.loadFromLocalStorage(STORAGE_NAME);
   }
 
-  signUp(user: User) {
-    return this.http.post<User>('/api/signup', user);
+  signUp(user: UserAuth): Observable<UserInfo> {
+    return this.http.post<UserInfo>('/api/signup', user).pipe(
+      tap(() => this.router.navigate([Path.loginPage])),
+      catchError(AuthService.handleAuthError),
+    );
   }
 
-  login(login: string, password: string) {
-    return this.http.post<{ token: string }>('', { login, password }).pipe(
-      tap(({ token }) => {
-        this.setStorage(token)
-        return token;
-      })
-    );
+  login({ login, password }: UserAuth): Observable<UserResponse> {
+    return this.http
+      .post<{ token: string }>('/api/signin', { login, password })
+      .pipe(
+        tap(({ token }) => {
+          this.setStorage(token);
+          this.router.navigate([Path.homePage]);
+        }),
+        catchError(AuthService.handleAuthError),
+      );
   }
 
   setStorage(token: string): void {
     this.storageService.setStorageData(token, STORAGE_NAME);
+  }
+
+  getUser(token: string): Observable<UserInfo | undefined> {
+    if (!token) {
+      return of(undefined);
+    }
+    return this.http.get<UserInfo>('/api/users', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  static handleAuthError(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.status) {
+      errorMessage = error.error;
+    } else errorMessage = error.error;
+    return throwError(errorMessage);
   }
 }

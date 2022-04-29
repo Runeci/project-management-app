@@ -13,13 +13,13 @@ import { HeaderAnimateDirective } from './directives/header-animate.directive';
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
   exports: [
     MaterialModule,
     HeaderAnimateDirective,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
 })
 export class SharedModule { }

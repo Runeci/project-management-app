@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Path } from 'src/app/app.constants';
-import { AuthService } from '../../services/auth.service';
+
+import { AuthService } from '@auth/services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -12,6 +12,8 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SignupComponent implements OnInit {
   formGroup!: FormGroup;
+
+  errorMessage: string | undefined = undefined;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -25,13 +27,12 @@ export class SignupComponent implements OnInit {
 
   onSubmit(): void {
     this.authService.signUp(this.formGroup.value).subscribe(
-      (response: any) => {
+      () => {
         this.formGroup.reset();
-        this.router.navigate([Path.loginPage]);
       },
-      (error: any) => {
-        console.warn(error);
-      }
+      (error) => {
+        this.errorMessage = error;
+      },
     );
   }
 }
