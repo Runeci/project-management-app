@@ -1,0 +1,14 @@
+<mat-card class="board-preview"
+          (mouseenter)="startAnimation()"
+          (mouseleave)="stopAnimation()"
+>
+  <mat-card-header class="text-oneline">
+    <mat-card-title>{{ board?.title }}</mat-card-title>
+  </mat-card-header>
+  <mat-icon
+    class="delete-btn"
+    [@hoveredBoard]="this.animationStatus"
+    (click)="onDelete(board?.id)"
+  >highlight_off</mat-icon>
+</mat-card>
+
