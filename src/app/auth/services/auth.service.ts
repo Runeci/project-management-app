@@ -53,8 +53,8 @@ export class AuthService {
   static handleAuthError(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.status) {
-      errorMessage = error.error;
-    } else errorMessage = error.error;
+      errorMessage = error.error.message;
+    } else errorMessage = error.error.message;
     return throwError(errorMessage);
   }
 

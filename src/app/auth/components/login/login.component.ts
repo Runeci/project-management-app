@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 
 import { AuthService } from '@auth/services/auth.service';
 
@@ -13,9 +13,10 @@ import { AuthService } from '@auth/services/auth.service';
 export class LoginComponent implements OnInit {
   formGroup!: FormGroup;
 
-  errorMessage: string | undefined = undefined;
-
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private toast: NgToastService
+  ) {}
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
@@ -31,8 +32,12 @@ export class LoginComponent implements OnInit {
           this.formGroup.reset();
         },
         (error) => {
-          this.errorMessage = error;
-        },
+          this.toast.error({
+            detail: 'Error Message',
+            summary: error,
+            duration: 10000,
+          });
+        }
       );
     }
   }
