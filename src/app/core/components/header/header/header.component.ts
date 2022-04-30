@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { NewBoardDialogComponent } from '@boards/components/new-board-dialog/new-board-dialog.component';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -26,5 +25,9 @@ export class HeaderComponent {
 
   public openDialog(): void {
    this.dialog.open(NewBoardDialogComponent);
+  }
+
+  togglePath(path: string) {
+    this.router.navigate([path]);
   }
 }

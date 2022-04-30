@@ -16,8 +16,8 @@
   <ng-template
     [ngIf]="currentRoute === '/home' || currentRoute === '/'"
   >
-    <button mat-flat-button>Войти</button>
-    <button mat-flat-button color="primary" class="text-white">Регистрация</button>
+    <button mat-flat-button (click)="togglePath('login')">Войти</button>
+    <button mat-flat-button color="primary" class="text-white" (click)="togglePath('signup')">Регистрация</button>
   </ng-template>
   <ng-template
     [ngIf]="currentRoute !== '/' && currentRoute !== '/home'"
@@ -25,9 +25,6 @@
     <mat-icon class="user-icon">account_circle</mat-icon>
     <button mat-button color="accent">Выход</button>
   </ng-template>
-    <span class="example-spacer"></span>
-    <button mat-flat-button (click)="togglePath('login')">Войти</button>
-    <button mat-flat-button class="text-white bg-primary" (click)="togglePath('signup')">Регистрация</button>
 </mat-toolbar>
 
 
