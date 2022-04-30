@@ -10,6 +10,9 @@ const routes: Routes = [
     component: WelcomePageComponent,
   },
   {
+    path: Path.authPage,
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
  path: 'boards',
 loadChildren: () => import('./boards/boards.module')
       .then((m) => m.BoardsModule),
@@ -20,5 +23,5 @@ loadChildren: () => import('./boards/boards.module')
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+
+export class AppRoutingModule {}

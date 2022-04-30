@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { NewBoardDialogComponent } from '@boards/components/new-board-dialog/new-board-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +10,7 @@ import { NewBoardDialogComponent } from '@boards/components/new-board-dialog/new
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
+
   public currentRoute: string = '';
 
   constructor(
