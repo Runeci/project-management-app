@@ -1,13 +1,33 @@
-<mat-toolbar appHeaderAnimate>
+<mat-toolbar
+  [class.header-color]="currentRoute !== '/' && currentRoute !== '/home'"
+  appHeaderAnimate
+>
     <img class="logo" src="assets/icons/logo-1.svg" alt="">
     <span class="logo-text">RSTrello</span>
+  <ng-template
+    [ngIf]="currentRoute !== '/' && currentRoute !== '/home'"
+  >
+    <button
+      (click)="openDialog()"
+      mat-button color="accent" class="add-btn"
+    >Add board</button>
+  </ng-template>
+  <span class="example-spacer"></span>
+  <ng-template
+    [ngIf]="currentRoute === '/home' || currentRoute === '/'"
+  >
+    <button mat-flat-button>Войти</button>
+    <button mat-flat-button color="primary" class="text-white">Регистрация</button>
+  </ng-template>
+  <ng-template
+    [ngIf]="currentRoute !== '/' && currentRoute !== '/home'"
+  >
+    <mat-icon class="user-icon">account_circle</mat-icon>
+    <button mat-button color="accent">Выход</button>
+  </ng-template>
     <span class="example-spacer"></span>
     <button mat-flat-button (click)="togglePath('login')">Войти</button>
     <button mat-flat-button class="text-white bg-primary" (click)="togglePath('signup')">Регистрация</button>
 </mat-toolbar>
 
-<ng-template>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-        <mat-icon>menu</mat-icon>
-    </button>
-</ng-template>
+

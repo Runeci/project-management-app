@@ -13,7 +13,6 @@
   left: 0;
   font: 800 28px/32px Montserrat, "Montserrat", sans-serif;
   background: transparent;
-  z-index: 1030;
   transition: background 1s ease 0s;
 }
 
@@ -25,20 +24,40 @@
 .mat-flat-button {
   font-size: 16px;
   margin-left: 10px;
-  background: transparent;
 }
 
 .text-white {
   color: #fff;
 }
 
-.bg-primary {
-  background-color: #0065ff;
+.scroll {
+  background-color: #8462C6 !important;
+  -webkit-box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
 }
 
-.scroll {
-  background-color: #fff;
-  box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+.header-color {
+  background: #663bb8;
+  color: white;
+}
+
+.user-icon {
+  color: white;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: #ffd740;
+  }
+}
+
+.user-icon,
+.add-btn {
+  margin: 0 10px;
 }
 
 @media (max-width: 1024px) {
