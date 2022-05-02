@@ -5,8 +5,8 @@ import { TokenInterceptor } from './token.interceptor';
 describe('TokenInterceptor', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
-      TokenInterceptor
-      ]
+      TokenInterceptor,
+      ],
   }));
 
   it('should be created', () => {

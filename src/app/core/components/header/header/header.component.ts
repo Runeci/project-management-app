@@ -9,7 +9,6 @@ import { NewBoardDialogComponent } from '@boards/components/new-board-dialog/new
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-
   public currentRoute: string = '';
 
   constructor(

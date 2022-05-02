@@ -15,8 +15,7 @@ const routes: Routes = [
   },
   {
     path: 'boards',
-    loadChildren: () =>
-      import('./boards/boards.module').then((m) => m.BoardsModule),
+    loadChildren: () => import('./boards/boards.module').then((m) => m.BoardsModule),
   },
 ];
 
