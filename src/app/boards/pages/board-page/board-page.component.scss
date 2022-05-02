@@ -1,3 +1,7 @@
 .container {
   padding: 80px 20px 20px 20px;
+  height: 100vh;
+  display: flex;
+  overflow-y: hidden;
+  background-color: rgba(102, 59, 184, 0.1);
 }

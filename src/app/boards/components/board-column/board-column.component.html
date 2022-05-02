@@ -1,1 +1,14 @@
-<p>board-column works!</p>
+<div class="column-container">
+  <h2>{{ column.title }}</h2>
+  <div
+    cdkDropList
+    [cdkDropListData]="done"
+    class="tasks-list"
+    (cdkDropListDropped)="drop($event)">
+    <app-column-task
+         *ngFor="let item of done"
+         [task]="item"
+         cdkDrag
+    ></app-column-task>
+  </div>
+</div>

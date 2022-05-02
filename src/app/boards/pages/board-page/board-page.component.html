@@ -1,3 +1,11 @@
-<div class="container">
-  <p>board-page works!</p>
-</div>
+<ng-container *ngIf="columnsArr">
+  <div class="container">
+    <ng-container cdkDropListGroup>
+      <app-board-column
+        *ngFor="let item of columnsArr"
+        [column]="item"
+      ></app-board-column>
+      <app-add-new-column [order]="columnsArr.length + 1"></app-add-new-column>
+    </ng-container>
+  </div>
+</ng-container>

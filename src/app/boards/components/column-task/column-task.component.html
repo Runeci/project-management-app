@@ -1,0 +1,8 @@
+<div
+  class="task-box"
+  (mouseenter)="startAnimation()"
+  (mouseleave)="stopAnimation()"
+>
+  <div>{{task}}</div>
+  <mat-icon [@hovered]="animationStatus">close</mat-icon>
+</div>

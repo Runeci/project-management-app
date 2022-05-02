@@ -10,6 +10,10 @@ import { AddNewBoardComponent } from './components/add-new-board/add-new-board.c
 import { NewBoardDialogComponent } from './components/new-board-dialog/new-board-dialog.component';
 import { BoardPageComponent } from './pages/board-page/board-page.component';
 import { BoardColumnComponent } from './components/board-column/board-column.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { AddNewColumnComponent } from './components/add-new-column/add-new-column.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { ColumnTaskComponent } from './components/column-task/column-task.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +23,8 @@ import { BoardColumnComponent } from './components/board-column/board-column.com
     NewBoardDialogComponent,
     BoardPageComponent,
     BoardColumnComponent,
+    AddNewColumnComponent,
+    ColumnTaskComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,14 @@
+<mat-accordion class="example-headers-align example-container" multi>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Add new list
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-form-field appearance="fill">
+      <mat-label>Bla</mat-label>
+      <input matInput [(ngModel)]="columnInput">
+    </mat-form-field>
+    <button mat-button (click)="addColumn()">Add</button>
+  </mat-expansion-panel>
+</mat-accordion>
