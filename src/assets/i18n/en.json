@@ -1,0 +1,22 @@
+{
+    "HEADER": {
+        "LOGIN": "Login",
+        "SIGNUP": "Register",
+        "LOGOUT": "Logout",
+        "ADD_BOARD": "Add board"
+    },
+    "HOME": {
+        "TITLE": "RSTrello - your next level of task design.",
+        "SUBTITLE": "An app with an intuitive interface and powerful features allows teams to effectively coordinate and manage their projects."
+    },
+    "AUTH": {
+        "NAME": "Name",
+        "EMAIL": "Email",
+        "PASSWORD": "Password",
+        "ROUT_REGISTR": "Register an account",
+        "ROUT_LOGIN": "Already have an account? Login"
+    },
+    "BUTTON": {
+        "LANG": "English"
+    }
+}

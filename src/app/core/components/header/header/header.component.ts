@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
+
 import { NewBoardDialogComponent } from '@boards/components/new-board-dialog/new-board-dialog.component';
 
 @Component({
@@ -9,12 +11,16 @@ import { NewBoardDialogComponent } from '@boards/components/new-board-dialog/new
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-
   public currentRoute: string = '';
+
+  slideValue: boolean = false;
+
+  lang!: string;
 
   constructor(
     public dialog: MatDialog,
     private router: Router,
+    private translateService: TranslateService,
   ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
@@ -24,10 +30,17 @@ export class HeaderComponent {
   }
 
   public openDialog(): void {
-   this.dialog.open(NewBoardDialogComponent);
+    this.dialog.open(NewBoardDialogComponent);
   }
 
   togglePath(path: string) {
     this.router.navigate([path]);
+  }
+
+  changeLang(value: boolean): void {
+    if (value) {
+      this.lang = 'en';
+    } else this.lang = 'ru';
+    this.translateService.use(this.lang);
   }
 }

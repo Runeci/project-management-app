@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
+import { TranslateService } from '@ngx-translate/core';
 
 import { AuthService } from '@auth/services/auth.service';
 
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private toast: NgToastService
+    private toast: NgToastService,
+    private translateService: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -37,7 +39,7 @@ export class LoginComponent implements OnInit {
             summary: error,
             duration: 10000,
           });
-        }
+        },
       );
     }
   }
