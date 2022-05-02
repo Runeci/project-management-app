@@ -12,7 +12,7 @@ import {
 
 import { LocalStorageService } from '@core/services/localstorage.service';
 import { Path, STORAGE_NAME } from 'src/app/app.constants';
-import { UserAuth, UserInfo, UserResponse } from '@shared/models/user';
+import { UserAuth, UserInfo, UserResponse } from '@shared/models/user.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -73,5 +73,10 @@ export class AuthService {
       errorMessage = error.error.message;
     } else errorMessage = error.error.message;
     return throwError(errorMessage);
+  }
+
+  logout(): void {
+    this.storageService.removeStorage(STORAGE_NAME);
+    this.isLoggedIn$.next(false);
   }
 }
