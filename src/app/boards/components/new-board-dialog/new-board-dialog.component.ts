@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { BoardsService } from '../../services/boards.service';
+import { BoardsApiService } from '../../services/boards-api.service';
 
 @Component({
   selector: 'app-new-board-dialog',
@@ -14,7 +14,7 @@ export class NewBoardDialogComponent {
     ],
 );
 
-  constructor(private boardsService: BoardsService) {
+  constructor(private boardsService: BoardsApiService) {
   }
 
   public onSubmit() {

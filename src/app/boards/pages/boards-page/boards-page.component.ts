@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Board } from '@shared/models/boards.interfaces';
-import { BoardsService } from '../../services/boards.service';
+import { BoardsApiService } from '../../services/boards-api.service';
 
 @Component({
   selector: 'app-boards-page',
@@ -11,7 +11,7 @@ import { BoardsService } from '../../services/boards.service';
 export class BoardsPageComponent implements OnInit {
   public boardsArr$: Observable<Board[]> | undefined;
 
-  constructor(private boardsService: BoardsService) {
+  constructor(private boardsService: BoardsApiService) {
   }
 
   ngOnInit(): void {

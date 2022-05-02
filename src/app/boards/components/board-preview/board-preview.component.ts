@@ -2,8 +2,9 @@ import { Component, Input } from '@angular/core';
 import {
  animate, state, style, transition, trigger,
 } from '@angular/animations';
+import { Router } from '@angular/router';
 import { Board } from '../../../shared/models/boards.interfaces';
-import { BoardsService } from '../../services/boards.service';
+import { BoardsApiService } from '../../services/boards-api.service';
 
 @Component({
   selector: 'app-board-preview',
@@ -26,7 +27,10 @@ import { BoardsService } from '../../services/boards.service';
 export class BoardPreviewComponent {
   @Input() board: Board | undefined;
 
-  constructor(private boardsService: BoardsService) {
+  constructor(
+    private boardsService: BoardsApiService,
+    private router: Router,
+    ) {
   }
 
   public animationStatus: string = 'start';
@@ -41,5 +45,9 @@ export class BoardPreviewComponent {
 
   public onDelete(id: Board['id']): void {
     this.boardsService.deleteBoard(id).subscribe();
+  }
+
+  public goToBoard(id: string | undefined): void {
+    this.router.navigate(['/boards', id]);
   }
 }

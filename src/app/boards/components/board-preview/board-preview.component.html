@@ -1,6 +1,7 @@
 <mat-card class="board-preview"
           (mouseenter)="startAnimation()"
           (mouseleave)="stopAnimation()"
+          (click)="goToBoard(board?.id)"
 >
   <mat-card-header class="text-oneline">
     <mat-card-title>{{ board?.title }}</mat-card-title>

@@ -15,15 +15,15 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(
     request: HttpRequest<unknown>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<unknown>> {
-    let authService = this.inject.get(AuthService);
+    const authService = this.inject.get(AuthService);
     return next.handle(
       request.clone({
         setHeaders: {
           Authorization: `Bearer ${authService.isLoggedIn()}`,
         },
-      })
+      }),
     );
   }
 }

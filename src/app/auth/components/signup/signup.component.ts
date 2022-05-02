@@ -15,7 +15,7 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private toast: NgToastService
+    private toast: NgToastService,
   ) {}
 
   ngOnInit(): void {
@@ -37,7 +37,7 @@ export class SignupComponent implements OnInit {
           summary: error,
           duration: 10000,
         });
-      }
+      },
     );
   }
 }

@@ -8,6 +8,8 @@ import { MaterialModule } from '../shared/modules/material/material.module';
 import { BoardPreviewComponent } from './components/board-preview/board-preview.component';
 import { AddNewBoardComponent } from './components/add-new-board/add-new-board.component';
 import { NewBoardDialogComponent } from './components/new-board-dialog/new-board-dialog.component';
+import { BoardPageComponent } from './pages/board-page/board-page.component';
+import { BoardColumnComponent } from './components/board-column/board-column.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,8 @@ import { NewBoardDialogComponent } from './components/new-board-dialog/new-board
     BoardPreviewComponent,
     AddNewBoardComponent,
     NewBoardDialogComponent,
+    BoardPageComponent,
+    BoardColumnComponent,
   ],
   imports: [
     CommonModule,
