@@ -23,10 +23,15 @@ export class HeaderComponent {
   }
 
   public openDialog(): void {
-   this.dialog.open(NewBoardDialogComponent);
+    this.dialog.open(NewBoardDialogComponent);
   }
 
-  togglePath(path: string) {
+  public togglePath(path: string): void {
     this.router.navigate([path]);
+  }
+
+  public checkRoute(route: string | string[]): boolean {
+    return Array.isArray(route) ?
+      route.includes(this.currentRoute) : route === this.currentRoute;
   }
 }

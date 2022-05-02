@@ -5,22 +5,25 @@
     <img class="logo" src="assets/icons/logo-1.svg" alt="">
     <span class="logo-text">RSTrello</span>
   <ng-template
-    [ngIf]="currentRoute !== '/' && currentRoute !== '/home'"
+    [ngIf]="checkRoute('/boards')"
   >
     <button
       (click)="openDialog()"
       mat-button color="accent" class="add-btn"
     >Add board</button>
   </ng-template>
+
   <span class="example-spacer"></span>
+
   <ng-template
-    [ngIf]="currentRoute === '/home' || currentRoute === '/'"
+    [ngIf]="checkRoute(['/home', '/'])"
   >
     <button mat-flat-button (click)="togglePath('login')">Войти</button>
     <button mat-flat-button color="primary" class="text-white" (click)="togglePath('signup')">Регистрация</button>
   </ng-template>
+
   <ng-template
-    [ngIf]="currentRoute !== '/' && currentRoute !== '/home'"
+    [ngIf]="!checkRoute(['/home', '/'])"
   >
     <mat-icon class="user-icon">account_circle</mat-icon>
     <button mat-button color="accent">Выход</button>
