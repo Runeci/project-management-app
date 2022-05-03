@@ -70,8 +70,8 @@ export class AuthService {
   static handleAuthError(error: HttpErrorResponse): Observable<never> {
     let errorMessage;
     if (error.status) {
-      errorMessage = error;
-    } else errorMessage = error;
+      errorMessage = error.error.message;
+    } else errorMessage = error.error.message;
     return throwError(errorMessage);
   }
 

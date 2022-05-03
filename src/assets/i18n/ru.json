@@ -19,5 +19,12 @@
     "BUTTON": {
         "LANG": "Русский",
         "CONTINUE": "Продолжить"
-    }
+    },
+    "name should not be empty": "имя не должно быть пустым",
+    "login should not be empty": "логин не должен быть пустым",
+    "password should not be empty": "пароль не должен быть пустым",
+    "User was not founded!": "Пользователь не найден!",
+    "User login already exists!": "Логин пользователя уже существует!",
+    "Task was not founded!": "Задача не найдена",
+    "Column was not founded!": ""
 }

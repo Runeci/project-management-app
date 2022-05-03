@@ -17,6 +17,14 @@
         "ROUT_LOGIN": "Already have an account? Login"
     },
     "BUTTON": {
-        "LANG": "English"
-    }
+        "LANG": "English",
+        "CONTINUE": "Continue"
+    },
+    "name should not be empty": "name should not be empty",
+    "login should not be empty": "login should not be empty",
+    "password should not be empty": "password should not be empty",
+    "User was not founded!": "User was not founded!",
+    "User login already exists!": "User login already exists!",
+    "Task was not founded!": "Task was not founded!",
+    "Column was not founded!": "Column was not founded!"
 }
