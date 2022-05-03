@@ -23,7 +23,7 @@
     [ngIf]="currentRoute !== '/' && currentRoute !== '/home'"
   >
     <mat-icon class="user-icon">account_circle</mat-icon>
-    <button mat-button color="accent">Выход</button>
+    <button mat-button color="accent" (click)="logout()">Выход</button>
   </ng-template>
 </mat-toolbar>
 
