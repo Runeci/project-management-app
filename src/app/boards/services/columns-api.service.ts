@@ -5,10 +5,9 @@ import { Observable } from 'rxjs';
 import { Column } from '@shared/models/columns.interfaces';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ColumnsApiService {
-
   constructor(private http: HttpClient) { }
 
   public getColumns(id: Board['id']): Observable<Column[]> {
@@ -16,7 +15,7 @@ export class ColumnsApiService {
   }
 
   public createColumn(id: Board['id'], body: Pick<Column, 'title' | 'order'>) {
-    return this.http.post<Column>(`/api/boards/${id}/columns`,  body )
+    return this.http.post<Column>(`/api/boards/${id}/columns`, body);
   }
 
   public getColumn(boardId: Board['id'], columnId: Column['id']): Observable<Column> {

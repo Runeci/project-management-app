@@ -5,7 +5,6 @@ export interface Column {
   tasks?: Task[],
 }
 
-
 export interface Task {
   id: string,
   title: string,

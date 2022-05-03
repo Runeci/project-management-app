@@ -8,7 +8,7 @@ describe('AddNewColumnComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddNewColumnComponent ]
+      declarations: [AddNewColumnComponent],
     })
     .compileComponents();
   });

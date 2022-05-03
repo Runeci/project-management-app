@@ -1,16 +1,17 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import {
+ Component, Input, OnInit,
+} from '@angular/core';
 import { ColumnsApiService } from '@boards/services/columns-api.service';
 import { Board } from '@shared/models/boards.interfaces';
 import { ActivatedRoute } from '@angular/router';
-import { Column } from '@shared/models/columns.interfaces';
 
 @Component({
   selector: 'app-add-new-column',
   templateUrl: './add-new-column.component.html',
-  styleUrls: ['./add-new-column.component.scss']
+  styleUrls: ['./add-new-column.component.scss'],
 })
 export class AddNewColumnComponent implements OnInit {
-  @Input('order') columnOrder!: number | undefined;
+  @Input() columnOrder!: number | undefined;
 
   public columnInput: string = '';
 
@@ -26,15 +27,15 @@ export class AddNewColumnComponent implements OnInit {
   }
 
   public addColumn(): void {
-    if(this.columnInput) {
+    if (this.columnInput) {
       this.columnApiService.createColumn(
         this.boardId,
         {
           title: this.columnInput.trim(),
           order: this.columnOrder!,
-        })
+        },
+)
         .subscribe();
     }
-    return;
   }
 }

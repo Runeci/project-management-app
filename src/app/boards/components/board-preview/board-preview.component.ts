@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import {
+ Component, EventEmitter, Input, Output,
+} from '@angular/core';
 import {
  animate, state, style, transition, trigger,
 } from '@angular/animations';
 import { Router } from '@angular/router';
 import { Board } from '../../../shared/models/boards.interfaces';
-import { BoardsApiService } from '../../services/boards-api.service';
 
 @Component({
   selector: 'app-board-preview',
@@ -27,8 +28,9 @@ import { BoardsApiService } from '../../services/boards-api.service';
 export class BoardPreviewComponent {
   @Input() board: Board | undefined;
 
+  @Output() deleteBoardPreview = new EventEmitter<MouseEvent>();
+
   constructor(
-    private boardsService: BoardsApiService,
     private router: Router,
     ) {
   }
@@ -43,8 +45,9 @@ export class BoardPreviewComponent {
     this.animationStatus = 'start';
   }
 
-  public onDelete(id: Board['id']): void {
-    this.boardsService.deleteBoard(id).subscribe();
+  public onDelete(event: MouseEvent): void {
+    event.stopPropagation();
+    this.deleteBoardPreview.emit(event);
   }
 
   public goToBoard(id: string | undefined): void {

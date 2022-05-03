@@ -2,7 +2,11 @@
   <mat-card-title>YOUR WORKSPACES</mat-card-title>
   <mat-divider></mat-divider>
   <div class="boards-container">
-    <app-board-preview *ngFor="let board of boardsArr$ | async" [board]="board"></app-board-preview>
-    <app-add-new-board></app-add-new-board>
+    <app-board-preview
+      *ngFor="let board of boardsArr$ | async"
+      [board]="board"
+      (deleteBoardPreview)="deleteBoardPreview(board!.id)"
+    ></app-board-preview>
+    <app-add-new-board (openD)="openDialog()"></app-add-new-board>
   </div>
 </div>

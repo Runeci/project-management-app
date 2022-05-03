@@ -9,7 +9,7 @@
   <mat-icon
     class="delete-btn"
     [@hoveredBoard]="this.animationStatus"
-    (click)="onDelete(board?.id)"
+    (click)="onDelete($event)"
   >highlight_off</mat-icon>
 </mat-card>
 

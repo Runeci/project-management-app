@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NewBoardDialogComponent } from '../new-board-dialog/new-board-dialog.component';
 
 @Component({
   selector: 'app-add-new-board',
@@ -8,12 +7,11 @@ import { NewBoardDialogComponent } from '../new-board-dialog/new-board-dialog.co
   styleUrls: ['./add-new-board.component.scss'],
 })
 export class AddNewBoardComponent {
+  @Output() openD = new EventEmitter<MouseEvent>();
+
   constructor(public dialog: MatDialog) {}
 
-  public openDialog(): void {
-    const dialogRef = this.dialog.open(NewBoardDialogComponent);
-
-    dialogRef.afterClosed().subscribe(() => {
-    });
+  public openDialog(event: MouseEvent): void {
+    this.openD.emit(event);
   }
 }

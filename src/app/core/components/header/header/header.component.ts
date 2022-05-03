@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { NewBoardDialogComponent } from '@boards/components/new-board-dialog/new-board-dialog.component';
+import { BoardDialogService } from '@boards/services/board-dialog.service';
 
 @Component({
   selector: 'app-header',
@@ -12,8 +12,8 @@ export class HeaderComponent {
   public currentRoute: string = '';
 
   constructor(
-    public dialog: MatDialog,
     private router: Router,
+    private dialogService: BoardDialogService,
   ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
@@ -23,7 +23,7 @@ export class HeaderComponent {
   }
 
   public openDialog(): void {
-    this.dialog.open(NewBoardDialogComponent);
+    this.dialogService.newEvent('open add dialog');
   }
 
   public togglePath(path: string): void {
@@ -31,7 +31,7 @@ export class HeaderComponent {
   }
 
   public checkRoute(route: string | string[]): boolean {
-    return Array.isArray(route) ?
-      route.includes(this.currentRoute) : route === this.currentRoute;
+    return Array.isArray(route)
+      ? route.includes(this.currentRoute) : route === this.currentRoute;
   }
 }

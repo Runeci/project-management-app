@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, Input } from '@angular/core';
+import {
+ animate, state, style, transition, trigger,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-column-task',
@@ -8,24 +10,19 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   animations: [
     trigger('hovered', [
       state('start', style({
-        visibility: 'hidden'
+        visibility: 'hidden',
       })),
       state('end', style({
-        visibility: 'visible'
+        visibility: 'visible',
       })),
       transition('start <=> end', animate('0s ease-out')),
     ]),
   ],
 })
-export class ColumnTaskComponent implements OnInit {
+export class ColumnTaskComponent {
   @Input() task: any;
 
   public animationStatus: string = 'start';
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   public startAnimation(): void {
     this.animationStatus = 'end';
