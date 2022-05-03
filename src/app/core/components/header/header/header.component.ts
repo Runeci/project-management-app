@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
-import { NewBoardDialogComponent } from '@boards/components/new-board-dialog/new-board-dialog.component';
 import { BoardDialogService } from '@boards/services/board-dialog.service';
 
 @Component({

@@ -2,13 +2,17 @@
   <h2>{{ column.title }}</h2>
   <div
     cdkDropList
-    [cdkDropListData]="done"
+    [cdkDropListData]="todo"
     class="tasks-list"
     (cdkDropListDropped)="drop($event)">
     <app-column-task
-         *ngFor="let item of done"
+         *ngFor="let item of todo"
          [task]="item"
          cdkDrag
     ></app-column-task>
+    <div class="new-task" (click)="addTask()">
+      <mat-icon>add</mat-icon>
+      <div>Add task</div>
+    </div>
   </div>
 </div>

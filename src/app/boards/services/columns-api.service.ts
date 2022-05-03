@@ -15,7 +15,7 @@ export class ColumnsApiService {
   }
 
   public createColumn(id: Board['id'], body: Pick<Column, 'title' | 'order'>) {
-    return this.http.post<Column>(`/api/boards/${id}/columns`, body);
+    return this.http.post<Column>(`/api/boards/${id}/columns`, body );
   }
 
   public getColumn(boardId: Board['id'], columnId: Column['id']): Observable<Column> {

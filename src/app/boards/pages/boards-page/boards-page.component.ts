@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Board } from '@shared/models/boards.interfaces';
-import { NewBoardDialogComponent } from '@boards/components/new-board-dialog/new-board-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '@shared/components/dialog/dialog.component';
 import { BoardDialogService } from '@boards/services/board-dialog.service';
 import { BoardsApiService } from '../../services/boards-api.service';
+import { DialogUse } from '../../../app.constants';
 
 @Component({
   selector: 'app-boards-page',
@@ -17,9 +18,9 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
   private dialogSubscription: Subscription | undefined;
 
   constructor(
-private boardsService: BoardsApiService,
-              private dialog: MatDialog,
-              private dialogService: BoardDialogService,
+    private boardsService: BoardsApiService,
+    private dialog: MatDialog,
+    private dialogService: BoardDialogService,
   ) {
   }
 
@@ -36,7 +37,8 @@ private boardsService: BoardsApiService,
   }
 
   public openDialog(): void {
-    const dialogRef = this.dialog.open(NewBoardDialogComponent);
+    const dialogRef = this.dialog
+      .open(DialogComponent, { data: DialogUse.board });
     dialogRef.afterClosed().subscribe(() => {
       this.updateBoards();
     });
@@ -50,7 +52,7 @@ private boardsService: BoardsApiService,
   }
 
   private updateBoards(): void {
-   this.boardsService.getBoards()
+    this.boardsService.getBoards()
       .pipe((r) => this.boardsArr$ = r);
   }
 }

@@ -1,15 +1,15 @@
-<h2 mat-dialog-title>Create board</h2>
+<h2 mat-dialog-title>Create {{ name }}</h2>
 <mat-divider></mat-divider>
 <mat-dialog-content class="mat-typography">
   <form class="dialog-form" (ngSubmit)="onSubmit()">
     <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Board title</mat-label>
-      <input type="email" matInput [formControl]="titleFormControl" placeholder="Board title">
+      <mat-label>{{name | titlecase }} title</mat-label>
+      <input type="text" matInput [formControl]="titleFormControl" placeholder="{{ name| titlecase }} title">
       <mat-error *ngIf="titleFormControl.hasError('maxlength')">
-        Title is too long
+        {{name | titlecase }} title is too long
       </mat-error>
       <mat-error *ngIf="titleFormControl.hasError('required')">
-        Email is <strong>required</strong>
+        {{name | titlecase }} title is <strong>required</strong>
       </mat-error>
     </mat-form-field>
     <button
@@ -18,7 +18,8 @@
       type="submit"
       color="accent"
       [disabled]="titleFormControl.invalid"
-    >Create</button>
+    >Create
+    </button>
   </form>
 </mat-dialog-content>
 

@@ -7,6 +7,8 @@
       [board]="board"
       (deleteBoardPreview)="deleteBoardPreview(board!.id)"
     ></app-board-preview>
-    <app-add-new-board (openD)="openDialog()"></app-add-new-board>
+    <mat-card class="board new-board" (click)="openDialog()">
+      <mat-icon class="icon">add</mat-icon>
+    </mat-card>
   </div>
 </div>
