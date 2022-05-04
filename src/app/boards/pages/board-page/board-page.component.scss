@@ -5,3 +5,13 @@
   overflow-y: hidden;
   background-color: rgba(102, 59, 184, 0.1);
 }
+
+.new-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 4px;
+  height: 60px;
+  width: 100%;
+}

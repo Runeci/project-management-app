@@ -15,7 +15,7 @@ export class ColumnsApiService {
   }
 
   public createColumn(id: Board['id'], body: Pick<Column, 'title' | 'order'>) {
-    return this.http.post<Column>(`/api/boards/${id}/columns`, body );
+    return this.http.post<Column>(`/api/boards/${id}/columns`, body);
   }
 
   public getColumn(boardId: Board['id'], columnId: Column['id']): Observable<Column> {
@@ -31,6 +31,6 @@ export class ColumnsApiService {
     columnId: Column['id'],
     body: Pick<Column, 'title' | 'order'>,
     ): Observable<Column> {
-    return this.http.put<Column>(`/api/boards/${boardId}/columns/${columnId}`,  body);
+    return this.http.put<Column>(`/api/boards/${boardId}/columns/${columnId}`, body);
   }
 }

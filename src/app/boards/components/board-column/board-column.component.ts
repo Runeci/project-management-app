@@ -23,9 +23,11 @@ export class BoardColumnComponent implements OnInit {
 
   private boardId: Board['id'];
 
-  constructor(private tasksApiService: TaskApiService,
+  constructor(
+private tasksApiService: TaskApiService,
               private columnApiService: ColumnsApiService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+) {
   }
 
   public ngOnInit(): void {
@@ -35,8 +37,7 @@ export class BoardColumnComponent implements OnInit {
 
     this.tasksApiService.getTasks(this.boardId, this.column.id)
       .subscribe((res) => {
-        this.tasksArr =
-          res.sort((prev, next) => prev.order - next.order);
+        this.tasksArr = res.sort((prev, next) => prev.order - next.order);
       });
   }
 
@@ -45,7 +46,6 @@ export class BoardColumnComponent implements OnInit {
   }
 
   public updateColumnName() {
-    console.log(this.newColumnTitle, this.column.title);
     if (this.newColumnTitle && this.newColumnTitle !== this.column.title) {
       this.columnApiService.updateColumn(
         this.boardId,
@@ -53,7 +53,8 @@ export class BoardColumnComponent implements OnInit {
         {
           title: this.newColumnTitle.trim(),
           order: this.column.order,
-        })
+        },
+)
         .subscribe();
     }
     this.column.title = this.newColumnTitle;
@@ -66,21 +67,21 @@ export class BoardColumnComponent implements OnInit {
   }
 
   public addTask() {
-    this.tasksApiService.createTask(this.boardId, this.column.id,
-      {
+    this.tasksApiService.createTask(
+this.boardId,
+this.column.id,
+{
         title: Math.random().toString(),
         order: this.tasksArr.length + 1,
         description: 'hi',
         userId: '55e8067c-0333-46a8-973d-b616a97aa905',
-      }
+      },
     ).subscribe();
   }
 
   public drop(event: CdkDragDrop<TaskI[]>) {
-    console.log('go');
     const draggedTask = event.item.data;
-    console.log('prev', event.previousContainer.data);
-    console.log('curr', event.container.data);
+
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
       this.updateTasksOrder(event.container.data, this.column.id);
@@ -92,19 +93,22 @@ export class BoardColumnComponent implements OnInit {
         event.currentIndex,
       );
 
-      this.tasksApiService.updateTask(this.boardId, draggedTask.columnId, draggedTask.id,
-        {
+      this.tasksApiService.updateTask(
+this.boardId,
+draggedTask.columnId,
+draggedTask.id,
+{
           title: draggedTask.title,
           order: event.container.data.indexOf(draggedTask) + 1,
           userId: draggedTask.userId,
           description: draggedTask.description,
           boardId: this.boardId,
           columnId: this.column.id,
-        }).subscribe(
+        },
+).subscribe(
         () => {
           this.updateTasksOrder(event.container.data, this.column.id);
-          console.log(event.previousContainer.data);
-        }
+        },
       );
 
       this.updateTasksOrder(event.previousContainer.data, draggedTask.columnId);
@@ -124,8 +128,8 @@ export class BoardColumnComponent implements OnInit {
           description: task.description,
           userId: task.userId,
           boardId: task.boardId,
-          columnId: columnId,
-        }
+          columnId,
+        },
       ).subscribe();
     });
   }

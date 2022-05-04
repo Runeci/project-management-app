@@ -7,6 +7,8 @@ import { TaskApiService } from '@boards/services/task-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Board } from '@shared/models/boards.interfaces';
 import { Column } from '@shared/models/columns.interfaces';
+import { MatDialog } from '@angular/material/dialog';
+import { TaskEditDialogComponent } from '@boards/components/task-edit-dialog/task-edit-dialog.component';
 
 @Component({
   selector: 'app-column-task',
@@ -31,8 +33,11 @@ export class ColumnTaskComponent implements OnInit {
 
   private boardId: Board['id'];
 
-  constructor(private tasksApiService: TaskApiService,
-              private activatedRoute: ActivatedRoute) {
+  constructor(
+private tasksApiService: TaskApiService,
+              private activatedRoute: ActivatedRoute,
+              private dialog: MatDialog,
+) {
   }
 
   public ngOnInit() {
@@ -52,5 +57,15 @@ export class ColumnTaskComponent implements OnInit {
   public deleteTask(taskId: TaskI['id']) {
     this.tasksApiService
       .deleteTask(this.boardId, this.column.id, taskId).subscribe();
+  }
+
+  public openDialog() {
+    this.dialog.open(
+      TaskEditDialogComponent,
+      {
+        data: this.task,
+        width: '500px',
+      },
+    );
   }
 }

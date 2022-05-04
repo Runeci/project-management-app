@@ -1,0 +1,38 @@
+.mat-dialog-title {
+  color: #663bb8;
+}
+.description-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  text-align: center;
+  margin-bottom: 10px;
+
+  .mat-icon {
+    margin: 0;
+  }
+
+  .description {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+  }
+}
+
+.edit-form {
+  width: 100%;
+}
+
+.task-description {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.edit-description-btns {
+  display: flex;
+  justify-content: flex-end;
+}

@@ -4,11 +4,11 @@ import { Column } from '@shared/models/columns.interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@shared/components/dialog/dialog.component';
-import { DialogUse } from '../../../app.constants';
 import { BoardDialogService } from '@boards/services/board-dialog.service';
 import { Board } from '@shared/models/boards.interfaces';
-import { Observable, Subscription, tap } from 'rxjs';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Subscription } from 'rxjs';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { DialogUse } from '../../../app.constants';
 
 @Component({
   selector: 'app-board-page',
@@ -38,7 +38,8 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     this.getColumns();
 
     this.dialogSubscription = this.dialogService.events$.subscribe(
-      (res) => this.columnName = res);
+      (res) => this.columnName = res,
+    );
   }
 
   public ngOnDestroy() {
@@ -56,9 +57,9 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     }
     this.columnApiService.createColumn(
       this.boardId,
-      { title: this.columnName.trim(), order: this.columnsArr.length + 1 }
+      { title: this.columnName.trim(), order: this.columnsArr.length + 1 },
     ).subscribe(
-      () => this.getColumns()
+      () => this.getColumns(),
     );
     this.columnName = '';
   }
@@ -66,7 +67,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   public openDialog() {
     const ref = this.dialog.open(DialogComponent, { data: DialogUse.column });
     ref.afterClosed().subscribe(
-      () => this.createColumn()
+      () => this.createColumn(),
     );
   }
 

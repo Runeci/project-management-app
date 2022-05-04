@@ -3,17 +3,17 @@ import { FormControl, Validators } from '@angular/forms';
 import { BoardsApiService } from '@boards/services/boards-api.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ColumnsApiService } from '@boards/services/columns-api.service';
-import { DialogUse } from '../../../app.constants';
 import { Board } from '@shared/models/boards.interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { BoardDialogService } from '@boards/services/board-dialog.service';
+import { DialogUse } from '../../../app.constants';
 
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss'],
 })
-export class DialogComponent implements OnInit{
+export class DialogComponent implements OnInit {
   public titleFormControl = new FormControl(
     '',
     [Validators.required, Validators.maxLength(25),
