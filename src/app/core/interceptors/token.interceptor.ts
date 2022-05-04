@@ -21,7 +21,7 @@ export class TokenInterceptor implements HttpInterceptor {
     return next.handle(
       request.clone({
         setHeaders: {
-          Authorization: `Bearer ${authService.isLoggedIn()}`,
+          Authorization: `Bearer ${authService.token}`,
         },
       }),
     );

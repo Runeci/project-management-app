@@ -35,7 +35,7 @@ export class SignupComponent implements OnInit {
         this.toast.error({
           detail: 'Error Message',
           summary: error,
-          duration: 10000,
+          duration: 100000,
         });
       },
     );

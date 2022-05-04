@@ -2,23 +2,37 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
- catchError, Observable, of, tap, throwError,
+  BehaviorSubject,
+  catchError,
+  Observable,
+  of,
+  tap,
+  throwError,
 } from 'rxjs';
 
-import { LocalstorageService } from '@core/services/localstorage.service';
+import { LocalStorageService } from '@core/services/localstorage.service';
 import { Path, STORAGE_NAME } from 'src/app/app.constants';
-import { UserAuth, UserInfo, UserResponse } from '@shared/models/user';
+import { UserAuth, UserInfo, UserResponse } from '@shared/models/user.interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private isLoggedIn$ = new BehaviorSubject<boolean>(false);
+
+  isLoggedIn$$ = this.isLoggedIn$.pipe();
+
+  get token(): string | undefined {
+    return this.storageService.getStorageData();
+  }
+
   constructor(
     private http: HttpClient,
     private storageService: LocalstorageService,
     private router: Router,
   ) {
     this.storageService.loadFromLocalStorage(STORAGE_NAME);
+    this.isLoggedIn$.next(!!this.token);
   }
 
   signUp(user: UserAuth): Observable<UserInfo> {
@@ -33,8 +47,9 @@ export class AuthService {
       .post<{ token: string }>('/api/signin', { login, password })
       .pipe(
         tap(({ token }) => {
+          this.isLoggedIn$.next(true);
           this.setStorage(token);
-          this.router.navigate([Path.homePage]);
+          this.router.navigate([Path.boardsPage]);
           return token;
         }),
         catchError(AuthService.handleAuthError),
@@ -60,7 +75,8 @@ export class AuthService {
     return throwError(errorMessage);
   }
 
-  isLoggedIn() {
-    return this.storageService.getStorageData();
+  logout(): void {
+    this.storageService.removeStorage(STORAGE_NAME);
+    this.isLoggedIn$.next(false);
   }
 }
