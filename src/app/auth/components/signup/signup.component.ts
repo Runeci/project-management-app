@@ -1,8 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 
 import { AuthService } from '@auth/services/auth.service';
+import { ValidationService } from '@core/services/validation/validation.service';
+import { Subject, takeUntil } from 'rxjs';
+import { ValidationMessage } from '@shared/models/forms.interfaces';
+import DataJson from 'src/assets/data-error-message.json';
 
 @Component({
   selector: 'app-signup',
@@ -10,20 +14,48 @@ import { AuthService } from '@auth/services/auth.service';
   styleUrls: ['./signup.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
   formGroup!: FormGroup;
+  errorMessages!: ValidationMessage;
+  private ngUnsubscribe = new Subject();
 
   constructor(
     private authService: AuthService,
     private toast: NgToastService,
-  ) {}
+    public validationService: ValidationService
+  ) {
+    [this.errorMessages] = DataJson;
+  }
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
-      name: new FormControl('', []),
-      login: new FormControl('', []),
-      password: new FormControl('', []),
+      name: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      login: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+        this.validationService.checkValidation(/[0-9]/, { hasNumber: true }),
+        this.validationService.checkValidation(/[A-Z]/, {
+          hasCapitalCase: true,
+        }),
+        this.validationService.checkValidation(/[a-z]/, { hasSmallCase: true }),
+        /* eslint-disable no-useless-escape */
+        this.validationService.checkValidation(
+          /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/,
+          {
+            hasSpecialCharacters: true,
+          }
+        ),
+      ]),
     });
+    this.formGroup.valueChanges
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(() => {
+        this.validationService.setValidationErrors(
+          this.formGroup,
+          this.errorMessages
+        );
+      });
   }
 
   onSubmit(): void {
@@ -37,7 +69,12 @@ export class SignupComponent implements OnInit {
           summary: error,
           duration: 100000,
         });
-      },
+      }
     );
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next('');
+    this.ngUnsubscribe.complete();
   }
 }

@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 
 import { AuthService } from '@auth/services/auth.service';
+import { ValidationService } from '@core/services/validation/validation.service';
 
 @Component({
   selector: 'app-login',
@@ -16,12 +17,13 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private toast: NgToastService,
+    public validationService: ValidationService
   ) {}
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
-      login: new FormControl('', []),
-      password: new FormControl('', []),
+      login: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required]),
     });
   }
 

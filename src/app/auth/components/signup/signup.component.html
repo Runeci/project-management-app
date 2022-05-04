@@ -10,21 +10,24 @@
                     <mat-label>Имя</mat-label>
                     <input matInput class="form__input" type="text" placeholder="Enter your name" formControlName="name"
                         autocomplete="off">
-                    <mat-error></mat-error>
+                    <mat-error *ngIf="validationService.formErrors.name">{{validationService.formErrors.name}}
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Электронная почта</mat-label>
                     <input matInput class="form__input" type="email" placeholder="Enter your email"
                         formControlName="login" autocomplete="off">
-                    <mat-error></mat-error>
+                    <mat-error *ngIf="validationService.formErrors.login">{{validationService.formErrors.login}}
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Пароль</mat-label>
                     <input matInput class="form__input" type="password" placeholder="Enter password"
                         formControlName="password" autocomplete="off">
-                    <mat-error></mat-error>
+                    <mat-error *ngIf="validationService.formErrors.password">{{validationService.formErrors.password}}
+                    </mat-error>
                 </mat-form-field>
             </div>
             <button mat-flat-button class="form__button" [disabled]="formGroup.invalid">Продолжить</button>
