@@ -10,9 +10,9 @@ import {
   throwError,
 } from 'rxjs';
 
-import { LocalStorageService } from '@core/services/localstorage.service';
 import { Path, STORAGE_NAME } from 'src/app/app.constants';
-import { UserAuth, UserInfo, UserResponse } from '@shared/models/user.interfaces';
+import { UserAuth, UserInfo, UserResponse } from '@shared/models/user';
+import { LocalStorageService } from '@core/services/localstorage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -67,8 +67,8 @@ export class AuthService {
     return this.http.get<UserInfo>('/api/users');
   }
 
-  static handleAuthError(error: HttpErrorResponse) {
-    let errorMessage = '';
+  static handleAuthError(error: HttpErrorResponse): Observable<never> {
+    let errorMessage;
     if (error.status) {
       errorMessage = error.error.message;
     } else errorMessage = error.error.message;

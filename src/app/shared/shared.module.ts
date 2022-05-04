@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from './modules/material/material.module';
 import { HeaderAnimateDirective } from './directives/header-animate.directive';
 
@@ -14,12 +15,14 @@ import { HeaderAnimateDirective } from './directives/header-animate.directive';
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
+    TranslateModule,
   ],
   exports: [
     MaterialModule,
     HeaderAnimateDirective,
     ReactiveFormsModule,
     FormsModule,
+    TranslateModule,
   ],
 })
 export class SharedModule { }

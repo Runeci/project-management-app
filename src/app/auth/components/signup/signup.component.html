@@ -4,41 +4,33 @@
             <div class="close-icon" [routerLink]="['/home']"></div>
         </div>
         <form class="example-form form" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-            <h2>Регистрация</h2>
+            <h2>{{'HEADER.SIGNUP' | translate}}</h2>
             <div class="form__container">
                 <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Имя</mat-label>
+                    <mat-label>{{'AUTH.NAME' | translate}}</mat-label>
                     <input matInput class="form__input" type="text" placeholder="Enter your name" formControlName="name"
                         autocomplete="off">
                     <mat-error></mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Электронная почта</mat-label>
+                    <mat-label>{{'AUTH.EMAIL' | translate}}</mat-label>
                     <input matInput class="form__input" type="email" placeholder="Enter your email"
                         formControlName="login" autocomplete="off">
                     <mat-error></mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Пароль</mat-label>
+                    <mat-label>{{'AUTH.PASSWORD' | translate}}</mat-label>
                     <input matInput class="form__input" type="password" placeholder="Enter password"
                         formControlName="password" autocomplete="off">
                     <mat-error></mat-error>
                 </mat-form-field>
             </div>
-            <button mat-flat-button class="form__button" [disabled]="formGroup.invalid">Продолжить</button>
-            <button mat-flat-button routerLink='/login' class="form__button login-btn">Уже есть аккаунт?
-                Войти</button>
+            <button mat-flat-button class="form__button" [disabled]="formGroup.invalid">{{'BUTTON.CONTINUE' |
+                translate}}</button>
+            <button mat-flat-button routerLink='/login' class="form__button login-btn">{{'AUTH.ROUT_LOGIN' |
+                translate}}</button>
         </form>
-
-        <ng-template>
-            <div class="response">
-                <h5>Вы зарегистрированы</h5>
-            </div>
-            <div class="button-container">
-                <button class="login-button">Войти</button>
-            </div>
-        </ng-template>
     </div>
 </div>
