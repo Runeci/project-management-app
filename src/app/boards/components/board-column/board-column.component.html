@@ -1,14 +1,17 @@
 <div class="column-container">
   <h2>{{ column.title }}</h2>
+  <p>{{column.id}}</p>
   <div
     cdkDropList
-    [cdkDropListData]="todo"
+    [cdkDropListData]="tasksArr"
     class="tasks-list"
     (cdkDropListDropped)="drop($event)">
     <app-column-task
-         *ngFor="let item of todo"
+         *ngFor="let item of tasksArr"
          [task]="item"
+         [column]="column"
          cdkDrag
+         [cdkDragData]="item"
     ></app-column-task>
     <div class="new-task" (click)="addTask()">
       <mat-icon>add</mat-icon>

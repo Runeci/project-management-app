@@ -3,6 +3,6 @@
   (mouseenter)="startAnimation()"
   (mouseleave)="stopAnimation()"
 >
-  <div>{{task}}</div>
-  <mat-icon [@hovered]="animationStatus">close</mat-icon>
+  <div>{{ task.title }}</div>
+  <mat-icon [@hovered]="animationStatus" (click)="deleteTask(task.id)">close</mat-icon>
 </div>

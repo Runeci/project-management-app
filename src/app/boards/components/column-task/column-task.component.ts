@@ -1,7 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
- animate, state, style, transition, trigger,
+  animate, state, style, transition, trigger,
 } from '@angular/animations';
+import { TaskI } from '@shared/models/tasks.interfaces';
+import { TaskApiService } from '@boards/services/task-api.service';
+import { ActivatedRoute } from '@angular/router';
+import { Board } from '@shared/models/boards.interfaces';
+import { Column } from '@shared/models/columns.interfaces';
 
 @Component({
   selector: 'app-column-task',
@@ -19,8 +24,20 @@ import {
     ]),
   ],
 })
-export class ColumnTaskComponent {
-  @Input() task: any;
+export class ColumnTaskComponent implements OnInit {
+  @Input() task!: TaskI;
+
+  @Input() column!: Column;
+
+  private boardId: Board['id'];
+
+  constructor(private tasksApiService: TaskApiService,
+              private activatedRoute: ActivatedRoute) {
+  }
+
+  public ngOnInit() {
+    this.boardId = this.activatedRoute.snapshot.params['id'];
+  }
 
   public animationStatus: string = 'start';
 
@@ -30,5 +47,10 @@ export class ColumnTaskComponent {
 
   public stopAnimation(): void {
     this.animationStatus = 'start';
+  }
+
+  public deleteTask(taskId: TaskI['id']) {
+    this.tasksApiService
+      .deleteTask(this.boardId, this.column.id, taskId).subscribe();
   }
 }
