@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgToastService } from 'ng-angular-popup';
 
+import { NotificationService } from '@core/services/notification.service';
 import { AuthService } from '@auth/services/auth.service';
-import { ValidationService } from '@core/services/validation/validation.service';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +15,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private toast: NgToastService,
-    public validationService: ValidationService
+    private notificationService: NotificationService,
   ) {}
 
   ngOnInit(): void {
@@ -34,11 +32,7 @@ export class LoginComponent implements OnInit {
           this.formGroup.reset();
         },
         (error) => {
-          this.toast.error({
-            detail: 'Error Message',
-            summary: error,
-            duration: 10000,
-          });
+          this.notificationService.translateToastError(error);
         },
       );
     }

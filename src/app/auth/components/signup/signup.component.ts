@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 
 import { AuthService } from '@auth/services/auth.service';
-import { ValidationService } from '@core/services/validation/validation.service';
+import { NotificationService } from '@core/services/notification.service';
 import { Subject, takeUntil } from 'rxjs';
 import { ValidationMessage } from '@shared/models/forms.interfaces';
 import DataJson from 'src/assets/data-error-message.json';
@@ -19,10 +19,12 @@ export class SignupComponent implements OnInit, OnDestroy {
   errorMessages!: ValidationMessage;
   private ngUnsubscribe = new Subject();
 
+  message: string | undefined;
+  validationService: any;
+
   constructor(
     private authService: AuthService,
-    private toast: NgToastService,
-    public validationService: ValidationService
+    private notificationService: NotificationService,
   ) {
     [this.errorMessages] = DataJson;
   }
@@ -64,12 +66,8 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.formGroup.reset();
       },
       (error) => {
-        this.toast.error({
-          detail: 'Error Message',
-          summary: error,
-          duration: 100000,
-        });
-      }
+        this.notificationService.translateToastError(error);
+      },
     );
   }
 
