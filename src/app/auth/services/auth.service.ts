@@ -11,8 +11,8 @@ import {
 } from 'rxjs';
 
 import { Path, STORAGE_NAME } from 'src/app/app.constants';
-import { UserAuth, UserInfo, UserResponse } from '@shared/models/user';
 import { LocalStorageService } from '@core/services/localstorage.service';
+import { UserAuth, UserInfo, UserResponse } from '@shared/models/user.interfaces';
 
 @Injectable({
   providedIn: 'root',

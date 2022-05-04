@@ -1,12 +1,15 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgToastService } from 'ng-angular-popup';
+import { Subject, takeUntil } from 'rxjs';
 
 import { AuthService } from '@auth/services/auth.service';
 import { NotificationService } from '@core/services/notification.service';
-import { Subject, takeUntil } from 'rxjs';
-import { ValidationMessage } from '@shared/models/forms.interfaces';
-import DataJson from 'src/assets/data-error-message.json';
+import { ValidationService } from '@core/services/validation.service';
 
 @Component({
   selector: 'app-signup',
@@ -16,18 +19,14 @@ import DataJson from 'src/assets/data-error-message.json';
 })
 export class SignupComponent implements OnInit, OnDestroy {
   formGroup!: FormGroup;
-  errorMessages!: ValidationMessage;
-  private ngUnsubscribe = new Subject();
 
-  message: string | undefined;
-  validationService: any;
+  private ngUnsubscribe = new Subject();
 
   constructor(
     private authService: AuthService,
     private notificationService: NotificationService,
-  ) {
-    [this.errorMessages] = DataJson;
-  }
+    public validationService: ValidationService,
+  ) {}
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
@@ -46,17 +45,14 @@ export class SignupComponent implements OnInit, OnDestroy {
           /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/,
           {
             hasSpecialCharacters: true,
-          }
+          },
         ),
       ]),
     });
     this.formGroup.valueChanges
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(() => {
-        this.validationService.setValidationErrors(
-          this.formGroup,
-          this.errorMessages
-        );
+        this.validationService.setValidationErrors(this.formGroup);
       });
   }
 

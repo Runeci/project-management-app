@@ -3,11 +3,11 @@ interface IObjectKeys {
       [key: string]: string;
     };
   }
-  
+
   interface IObjectKey {
     [key: string]: string;
   }
-  
+
   export interface ValidationMessage extends IObjectKeys {
     name: {
       required: string;
@@ -38,7 +38,7 @@ interface IObjectKeys {
       checkUrl: string;
     };
   }
-  
+
   export interface FormError extends IObjectKey {
     name: string
     login: string;
