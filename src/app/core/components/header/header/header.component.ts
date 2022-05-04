@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 
 import { NewBoardDialogComponent } from '@boards/components/new-board-dialog/new-board-dialog.component';
+import { AuthService } from '@auth/services/auth.service';
+import { Path } from 'src/app/app.constants';
 
 @Component({
   selector: 'app-header',
@@ -21,6 +23,7 @@ export class HeaderComponent {
     public dialog: MatDialog,
     private router: Router,
     private translateService: TranslateService,
+    public authService: AuthService,
   ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
@@ -33,7 +36,7 @@ export class HeaderComponent {
     this.dialog.open(NewBoardDialogComponent);
   }
 
-  togglePath(path: string) {
+  togglePath(path: string): void {
     this.router.navigate([path]);
   }
 
@@ -42,5 +45,9 @@ export class HeaderComponent {
       this.lang = 'en';
     } else this.lang = 'ru';
     this.translateService.use(this.lang);
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate([Path.homePage]);
   }
 }
