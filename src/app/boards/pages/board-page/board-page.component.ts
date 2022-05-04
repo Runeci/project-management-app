@@ -8,6 +8,7 @@ import { DialogUse } from '../../../app.constants';
 import { BoardDialogService } from '@boards/services/board-dialog.service';
 import { Board } from '@shared/models/boards.interfaces';
 import { Observable, Subscription, tap } from 'rxjs';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-board-page',
@@ -67,5 +68,9 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     ref.afterClosed().subscribe(
       () => this.createColumn()
     );
+  }
+
+  drop(event: CdkDragDrop<Column[]>) {
+    moveItemInArray(this.columnsArr, event.previousIndex, event.currentIndex);
   }
 }

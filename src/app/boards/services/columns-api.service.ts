@@ -31,6 +31,6 @@ export class ColumnsApiService {
     columnId: Column['id'],
     body: Pick<Column, 'title' | 'order'>,
     ): Observable<Column> {
-    return this.http.put<Column>(`/api/boards/${boardId}/columns/${columnId}`, { body });
+    return this.http.put<Column>(`/api/boards/${boardId}/columns/${columnId}`,  body);
   }
 }

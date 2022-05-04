@@ -5,6 +5,7 @@ import { TaskI } from '@shared/models/tasks.interfaces';
 import { TaskApiService } from '@boards/services/task-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Board } from '@shared/models/boards.interfaces';
+import { ColumnsApiService } from '@boards/services/columns-api.service';
 
 @Component({
   selector: 'app-board-column',
@@ -14,16 +15,23 @@ import { Board } from '@shared/models/boards.interfaces';
 export class BoardColumnComponent implements OnInit {
   @Input() column!: Column;
 
+  public editColumnInput: boolean = false;
+
+  public newColumnTitle!: Column['title'];
+
   public tasksArr: TaskI[] = [];
 
   private boardId: Board['id'];
 
   constructor(private tasksApiService: TaskApiService,
+              private columnApiService: ColumnsApiService,
               private activatedRoute: ActivatedRoute) {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.boardId = this.activatedRoute.snapshot.params['id'];
+
+    this.newColumnTitle = this.column.title;
 
     this.tasksApiService.getTasks(this.boardId, this.column.id)
       .subscribe((res) => {
@@ -32,22 +40,24 @@ export class BoardColumnComponent implements OnInit {
       });
   }
 
-  private updateTasksOrder(tasksArr: TaskI[], columnId: Column['id']) {
-    tasksArr.forEach((task, index) => {
-      this.tasksApiService.updateTask(
+  public toggleColumnInput(): void {
+    this.editColumnInput = !this.editColumnInput;
+  }
+
+  public updateColumnName() {
+    console.log(this.newColumnTitle, this.column.title);
+    if (this.newColumnTitle && this.newColumnTitle !== this.column.title) {
+      this.columnApiService.updateColumn(
         this.boardId,
-        columnId,
-        task.id,
+        this.column.id,
         {
-          title: task.title,
-          order: index + 1,
-          description: task.description,
-          userId: task.userId,
-          boardId: task.boardId,
-          columnId: columnId,
-        }
-      ).subscribe();
-    });
+          title: this.newColumnTitle.trim(),
+          order: this.column.order,
+        })
+        .subscribe();
+    }
+    this.column.title = this.newColumnTitle;
+    this.toggleColumnInput();
   }
 
   public deleteTask(columnId: Column['id'], taskId: TaskI['id']) {
@@ -67,7 +77,10 @@ export class BoardColumnComponent implements OnInit {
   }
 
   public drop(event: CdkDragDrop<TaskI[]>) {
+    console.log('go');
     const draggedTask = event.item.data;
+    console.log('prev', event.previousContainer.data);
+    console.log('curr', event.container.data);
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
       this.updateTasksOrder(event.container.data, this.column.id);
@@ -97,5 +110,23 @@ export class BoardColumnComponent implements OnInit {
       this.updateTasksOrder(event.previousContainer.data, draggedTask.columnId);
       draggedTask.columnId = this.column.id;
     }
+  }
+
+  private updateTasksOrder(tasksArr: TaskI[], columnId: Column['id']) {
+    tasksArr.forEach((task, index) => {
+      this.tasksApiService.updateTask(
+        this.boardId,
+        columnId,
+        task.id,
+        {
+          title: task.title,
+          order: index + 1,
+          description: task.description,
+          userId: task.userId,
+          boardId: task.boardId,
+          columnId: columnId,
+        }
+      ).subscribe();
+    });
   }
 }

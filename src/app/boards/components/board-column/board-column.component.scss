@@ -12,6 +12,7 @@ h2 {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  height: 60px;
 }
 
 .tasks-list {
@@ -68,4 +69,13 @@ h2 {
 
 .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-form-field {
+  width: 100%;
+  .mat-icon {
+    &:hover {
+      color: #663bb8;
+    }
+  }
 }
