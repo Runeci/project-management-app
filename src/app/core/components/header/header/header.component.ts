@@ -45,6 +45,7 @@ export class HeaderComponent {
       this.lang = 'en';
     } else this.lang = 'ru';
     this.translateService.use(this.lang);
+  }
 
   logout(): void {
     this.authService.logout();
