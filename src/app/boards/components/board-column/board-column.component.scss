@@ -8,18 +8,45 @@
   height: calc(100vh - 128px);
 }
 
+.column-title-container {
+  position: relative;
+  .mat-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: all 0.2s ease-in-out;
+    opacity: 0.1;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 1;
+      color: #663bb8;
+      transform: scale(1.2);
+    }
+  }
+}
+
 h2 {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  height: 60px;
-  margin: 0 0 21px 0;
+  height: 45px;
+  margin: 0 0 20px 0;
+  padding-top: 20.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: #663bb8;
+  }
 }
 
 .tasks-list {
   min-height: 60px;
-  max-height: calc(100% - 48px);
-  background: white;
+  max-height: calc(100% - 80px);
   border-radius: 4px;
   display: block;
   overflow: scroll;
@@ -27,17 +54,17 @@ h2 {
 
 .new-task {
   padding: 15px 10px;
-  border-bottom: solid 1px #ccc;
-  color: rgba(0, 0, 0, 0.87);
+  color: white;
+  background-color: rgba(102,59,184, 0.3);
   display: flex;
   gap: 15px;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   cursor: pointer;
-  background: white;
   font-size: 14px;
   text-overflow: ellipsis;
+  transition: font-size 0.2s ease-in-out;
 
   & * {
     margin: 0 10px;
@@ -48,8 +75,8 @@ h2 {
   }
 
   &:hover {
-    background-color: rgb(235, 236, 240);
     color: #663bb8;
+    font-size: 16px;
     .mat-icon {
       transform: scale(1.2);
     }
@@ -82,6 +109,8 @@ h2 {
 
 .example-form-field {
   width: 100%;
+  transition: color 0.2s ease-in-out;
+
   .mat-icon {
     &:hover {
       color: #663bb8;

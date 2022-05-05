@@ -1,32 +1,37 @@
 <div class="column-container">
-  <h2 *ngIf="!editColumnInput" (click)="toggleColumnInput()">{{ column.title }}</h2>
+  <div class="column-title-container" *ngIf="!editColumnInput" (click)="toggleColumnInput()">
+    <h2>{{ column.title }}</h2>
+    <mat-icon>delete</mat-icon>
+  </div>
 
-  <mat-form-field *ngIf="editColumnInput" class="example-form-field" appearance="fill">
+  <mat-form-field *ngIf="editColumnInput" class="example-form-field">
     <input matInput type="text" [(ngModel)]="newColumnTitle">
-    <button matSuffix mat-icon-button (click)="updateColumnName()">
+    <button matPrefix mat-icon-button (click)="updateColumnName()">
       <mat-icon>done</mat-icon>
     </button>
-    <button matSuffix mat-icon-button (click)="toggleColumnInput()">
+    <button matPrefix mat-icon-button (click)="toggleColumnInput()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
 
-  <p>{{column.id}}</p>
   <div
+    class="tasks-list"
     cdkDropList
     [cdkDropListData]="tasksArr"
-    class="tasks-list"
     (cdkDropListDropped)="drop($event)">
+
     <app-column-task
+      cdkDrag
       *ngFor="let item of tasksArr"
       [task]="item"
       [column]="column"
-      cdkDrag
       [cdkDragData]="item"
     ></app-column-task>
-    <div class="new-task" (click)="addTask()">
+
+    <div class="new-task" (click)="openDialog()">
       <mat-icon>add</mat-icon>
       <div>Add task</div>
     </div>
+
   </div>
 </div>

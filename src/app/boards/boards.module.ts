@@ -12,7 +12,7 @@ import { BoardPageComponent } from './pages/board-page/board-page.component';
 import { BoardColumnComponent } from './components/board-column/board-column.component';
 import { ColumnTaskComponent } from './components/column-task/column-task.component';
 import { TaskEditDialogComponent } from './components/task-edit-dialog/task-edit-dialog.component';
-import { MatInputModule } from '@angular/material/input';
+import { NewTaskDialogComponent } from './components/new-task-dialog/new-task-dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +23,7 @@ import { MatInputModule } from '@angular/material/input';
     BoardColumnComponent,
     ColumnTaskComponent,
     TaskEditDialogComponent,
+    NewTaskDialogComponent,
   ],
   imports: [
     CommonModule,

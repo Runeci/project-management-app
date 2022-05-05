@@ -27,9 +27,11 @@
   right: 10px;
   cursor: pointer;
   opacity: 0.5;
+  transition: all 0.2s ease-in-out;
 
   &:hover {
     opacity: 1;
-    background: gray;
+    color: #663bb8;
+    transform: scale(1.2);
   }
 }
