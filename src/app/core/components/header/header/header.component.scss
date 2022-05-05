@@ -31,7 +31,7 @@
 }
 
 .scroll {
-  background-color: #8462C6 !important;
+  background-color: #8462c6 !important;
   -webkit-box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
   box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
@@ -58,6 +58,11 @@
 .user-icon,
 .add-btn {
   margin: 0 10px;
+}
+
+.mat-slide-toggle {
+  font-size: 16px;
+  font-weight: 400;
 }
 
 @media (max-width: 1024px) {

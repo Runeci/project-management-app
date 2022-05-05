@@ -11,6 +11,13 @@
       (click)="openDialog()"
       mat-button color="accent" class="add-btn"
     >Add board</button>
+
+<mat-toolbar [class.header-color]="currentRoute !== '/' && currentRoute !== '/home'" appHeaderAnimate>
+  <img class="logo" src="assets/icons/logo-1.svg" alt="logo">
+  <span class="logo-text">RSTrello</span>
+  <ng-template [ngIf]="currentRoute !== '/' && currentRoute !== '/home'">
+    <button (click)="openDialog()" mat-button color="accent" class="add-btn">{{'HEADER.ADD_BOARD' | translate}}</button>
+
   </ng-template>
 
   <span class="example-spacer"></span>
@@ -25,9 +32,15 @@
   <ng-template
     [ngIf]="!checkRoute(['/home', '/'])"
   >
+  <mat-slide-toggle [(ngModel)]="slideValue" (ngModelChange)="changeLang(slideValue)">{{'BUTTON.LANG' | translate}}
+  </mat-slide-toggle>
+  <ng-template [ngIf]="currentRoute === '/home' || currentRoute === '/'">
+    <button mat-flat-button (click)="togglePath('login')">{{ 'HEADER.LOGIN' | translate }}</button>
+    <button mat-flat-button color="primary" class="text-white" (click)="togglePath('signup')">{{ 'HEADER.SIGNUP' | translate }}</button>
+  </ng-template>
+  <ng-template [ngIf]="currentRoute !== '/' && currentRoute !== '/home'">
     <mat-icon class="user-icon">account_circle</mat-icon>
-    <button mat-button color="accent" (click)="logout()">Выход</button>
+    <button mat-button color="accent">{{'HEADER.LOGOUT' | translate}}</button>
   </ng-template>
 </mat-toolbar>
-
-
+  
