@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
+
+import { BoardDialogService } from '@boards/services/board-dialog.service';
+
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 
-import { NewBoardDialogComponent } from '@boards/components/new-board-dialog/new-board-dialog.component';
 import { AuthService } from '@auth/services/auth.service';
 import { Path } from 'src/app/app.constants';
 
@@ -20,9 +22,12 @@ export class HeaderComponent {
   lang!: string;
 
   constructor(
-    public dialog: MatDialog,
     private router: Router,
+
+    private dialogService: BoardDialogService,
+
     private translateService: TranslateService,
+
     public authService: AuthService,
   ) {
     this.router.events.subscribe((event: Event) => {
@@ -33,7 +38,16 @@ export class HeaderComponent {
   }
 
   public openDialog(): void {
-    this.dialog.open(NewBoardDialogComponent);
+    this.dialogService.newEvent('open add dialog');
+  }
+
+  public togglePath(path: string): void {
+    this.router.navigate([path]);
+  }
+
+  public checkRoute(route: string | string[]): boolean {
+    return Array.isArray(route)
+      ? route.includes(this.currentRoute) : route === this.currentRoute;
   }
 
   togglePath(path: string): void {

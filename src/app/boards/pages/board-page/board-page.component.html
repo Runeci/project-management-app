@@ -1,0 +1,14 @@
+<ng-container *ngIf="columnsArr">
+  <div class="container">
+    <ng-container cdkDropListGroup>
+      <app-board-column
+        *ngFor="let item of columnsArr"
+        [column]="item"
+      ></app-board-column>
+    </ng-container>
+    <div class="new-column" (click)="openDialog()">
+      <mat-icon>add</mat-icon>
+      <div>Add column</div>
+    </div>
+  </div>
+</ng-container>

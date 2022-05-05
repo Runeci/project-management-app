@@ -28,7 +28,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private storageService: LocalStorageService,
+    private storageService: LocalstorageService,
     private router: Router,
   ) {
     this.storageService.loadFromLocalStorage(STORAGE_NAME);

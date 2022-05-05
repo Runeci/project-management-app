@@ -1,6 +1,7 @@
 <mat-card class="board-preview"
           (mouseenter)="startAnimation()"
           (mouseleave)="stopAnimation()"
+          (click)="goToBoard(board?.id)"
 >
   <mat-card-header class="text-oneline">
     <mat-card-title>{{ board?.title }}</mat-card-title>
@@ -8,7 +9,7 @@
   <mat-icon
     class="delete-btn"
     [@hoveredBoard]="this.animationStatus"
-    (click)="onDelete(board?.id)"
+    (click)="onDelete($event)"
   >highlight_off</mat-icon>
 </mat-card>
 

@@ -7,3 +7,10 @@ export const enum Path {
 }
 
 export const STORAGE_NAME = 'userData';
+
+export enum DialogUse {
+  board = 'board',
+  column = 'column',
+  task = 'task',
+}
+

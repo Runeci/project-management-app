@@ -1,0 +1,40 @@
+<mat-dialog-content class="container">
+  <form [formGroup]="editTaskForm">
+    <h2 mat-dialog-title>{{ task.title }}</h2>
+
+    <div class="description-container">
+      <mat-icon>description</mat-icon>
+      <h3 class="description">Description</h3>
+      <button
+        mat-button
+        color="primary"
+        class="edit-btn"
+        *ngIf="!editDescription"
+        (click)="editDescription = !editDescription"
+      >
+        Edit
+      </button>
+    </div>
+
+    <div class="task-description" *ngIf="!editDescription">{{ task.description }}</div>
+
+    <ng-container *ngIf="editDescription">
+      <mat-form-field appearance="fill" class="edit-form">
+        <textarea style="resize: none;" matInput type="text" formControlName="description" rows="5"></textarea>
+      </mat-form-field>
+      <div class="edit-description-btns">
+        <button mat-button color="primary" type="submit">
+          Save
+        </button>
+        <button mat-button
+                (click)="editDescription = !editDescription">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </ng-container>
+
+  </form>
+</mat-dialog-content>
+
+
+
