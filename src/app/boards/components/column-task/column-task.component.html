@@ -5,5 +5,5 @@
   (mouseleave)="stopAnimation()"
 >
   <div>{{ task.title }}</div>
-  <mat-icon [@hovered]="animationStatus" (click)="deleteTask(task.id)">close</mat-icon>
+  <mat-icon [@hovered]="animationStatus" (click)="deleteTask(task.id, $event)">close</mat-icon>
 </div>

@@ -12,6 +12,7 @@ import { BoardPageComponent } from './pages/board-page/board-page.component';
 import { BoardColumnComponent } from './components/board-column/board-column.component';
 import { ColumnTaskComponent } from './components/column-task/column-task.component';
 import { TaskEditDialogComponent } from './components/task-edit-dialog/task-edit-dialog.component';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [

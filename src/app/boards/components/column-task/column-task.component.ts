@@ -54,7 +54,8 @@ private tasksApiService: TaskApiService,
     this.animationStatus = 'start';
   }
 
-  public deleteTask(taskId: TaskI['id']) {
+  public deleteTask(taskId: TaskI['id'], event: Event) {
+    event.stopPropagation();
     this.tasksApiService
       .deleteTask(this.boardId, this.column.id, taskId).subscribe();
   }
