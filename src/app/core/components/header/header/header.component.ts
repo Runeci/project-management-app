@@ -3,7 +3,6 @@ import { Event, NavigationEnd, Router } from '@angular/router';
 
 import { BoardDialogService } from '@boards/services/board-dialog.service';
 
-import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AuthService } from '@auth/services/auth.service';
@@ -48,10 +47,6 @@ export class HeaderComponent {
   public checkRoute(route: string | string[]): boolean {
     return Array.isArray(route)
       ? route.includes(this.currentRoute) : route === this.currentRoute;
-  }
-
-  togglePath(path: string): void {
-    this.router.navigate([path]);
   }
 
   changeLang(value: boolean): void {
