@@ -5,11 +5,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/header/header/header.component';
 import { WelcomePageComponent } from './pages/welcome/welcome-page.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     WelcomePageComponent,
+    UserProfileComponent,
   ],
     imports: [
         CommonModule,
@@ -18,7 +20,7 @@ import { WelcomePageComponent } from './pages/welcome/welcome-page.component';
     ],
   exports: [
     HeaderComponent,
-    WelcomePageComponent,
+    WelcomePageComponent
   ],
 })
 export class CoreModule { }
