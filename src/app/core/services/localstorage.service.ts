@@ -29,7 +29,9 @@ export class LocalStorageService {
     return null;
   }
 
-  loadFromLocalStorage<T extends string>(storageName: string): void {
+  loadFromLocalStorage<T extends string | UserInfo>(
+    storageName: string
+  ): string | UserInfo {
     const storageData = this.getStorageItem(storageName);
     const checkStorageData = (data: string | null | undefined) => data;
     if (!checkStorageData(storageData)) {
@@ -38,20 +40,27 @@ export class LocalStorageService {
       const data: T = JSON.parse(storageData!);
       this.currentData = data;
     }
+    return this.currentData;
   }
 
   getStorageData(): string | UserInfo | undefined {
     return this.currentData;
   }
 
-  setStorageData<T extends string | UserInfo>(data: T, storageName: string): void {
+  setStorageData<T extends string | UserInfo>(
+    data: T,
+    storageName: string
+  ): void {
     this.currentData = data;
     this.saveToStorage(storageName);
   }
 
   saveToStorage(storageName: string): void {
     if (this.usedLocalStorage) {
-      this.usedLocalStorage.setItem(storageName, JSON.stringify(this.currentData));
+      this.usedLocalStorage.setItem(
+        storageName,
+        JSON.stringify(this.currentData)
+      );
     }
   }
 

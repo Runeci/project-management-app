@@ -1,33 +1,33 @@
 <h2 mat-dialog-title>{{user.name}}</h2>
 <mat-divider></mat-divider>
 <mat-dialog-content class="mat-typography">
-    <form class="dialog-form" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <form class="dialog-form" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Name</mat-label>
             <input type="text" matInput formControlName="name" placeholder="Name" [value]="user.name">
-            <mat-error *ngIf="formGroup.hasError('maxlength')">
+            <mat-error *ngIf="profileForm.hasError('maxlength')">
                 Title is too long
             </mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Email</mat-label>
             <input type="email" matInput formControlName="login" placeholder="Email">
-            <mat-error *ngIf="formGroup.hasError('maxlength')">
+            <mat-error *ngIf="profileForm.hasError('maxlength')">
                 Title is too long
             </mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Password</mat-label>
-            <input type="password" matInput formControlName="name" placeholder="Password">
-            <mat-error *ngIf="formGroup.hasError('maxlength')">
+            <input type="text" matInput formControlName="password" placeholder="Password">
+            <mat-error *ngIf="profileForm.hasError('maxlength')">
                 Title is too long
             </mat-error>
         </mat-form-field>
         <div mat-dialog-actions>
             <button mat-button (click)="onNoClick()">CANCEL</button>
-            <button mat-flat-button [mat-dialog-close]="user" cdkFocusInitial type="submit" color="accent"
-                [disabled]="formGroup.invalid">UPDATE</button>
+            <button mat-flat-button type="submit" color="accent" [disabled]="profileForm.invalid"
+                (click)="updateUser()">UPDATE</button>
         </div>
-        <button [mat-dialog-close]="true" mat-flat-button>Delete profile</button>
+        <button mat-flat-button style="color: red">Delete profile</button>
     </form>
 </mat-dialog-content>

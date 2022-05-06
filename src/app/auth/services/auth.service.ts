@@ -6,7 +6,6 @@ import {
   catchError,
   Observable,
   of,
-  Subject,
   switchMap,
   tap,
   throwError,
@@ -14,7 +13,7 @@ import {
 
 import { Path, StorageKeys } from 'src/app/app.constants';
 import { LocalStorageService } from '@core/services/localstorage.service';
-import { UserAuth, UserInfo } from '@shared/models/user.interfaces';
+import { UserAuth, UserInfo, UserResponse } from '@shared/models/user.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +26,7 @@ export class AuthService {
   currentUser!: UserInfo;
 
   get token(): string | undefined {
-    return this.storageService.getStorageData() as string;
+    return this.storageService.loadFromLocalStorage(StorageKeys.authToken) as string;
   }
 
   constructor(
@@ -35,7 +34,6 @@ export class AuthService {
     private storageService: LocalStorageService,
     private router: Router
   ) {
-    this.storageService.loadFromLocalStorage(StorageKeys.authToken);
     this.isLoggedIn$.next(!!this.token);
   }
 
@@ -58,13 +56,13 @@ export class AuthService {
           this.router.navigate([Path.boardsPage]);
           return this.getUsers(token);
         }),
-        tap((users) => {
+        tap((users: UserInfo[] | undefined) => {
           if (users) {
             this.currentUser = users.find(
               (user: { login: string }) => user.login === login
             )!;
             this.storageService.setStorageData(
-              this.currentUser,
+              Object.assign(this.currentUser, {password: password}),
               StorageKeys.user
             );
           }

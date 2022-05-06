@@ -2,13 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
 
 import { AuthService } from '@auth/services/auth.service';
 import { Path } from 'src/app/app.constants';
 import { UserProfileComponent } from '@core/components/user-profile/user-profile.component';
 import { NewBoardDialogComponent } from '@boards/components/new-board-dialog/new-board-dialog.component';
-import { UserInfo } from '@shared/models/user.interfaces';
 import { UserApiService } from '@core/services/user/user-api.service';
 
 @Component({
@@ -43,12 +41,11 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(NewBoardDialogComponent);
   }
 
-  public openDialogProfile(): void {
+  public editProfile(): void {
     this.dialog.open(UserProfileComponent, {
-      data: {
-        name: this.userService.currentUser!.name,
-        login: this.userService.currentUser!.login,
-      },
+      width: '30%',
+      height: '70%',
+      data: this.userService.currentUser,
     });
   }
 
@@ -65,6 +62,7 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+    this.userService.logout();
     this.router.navigate([Path.homePage]);
   }
 }

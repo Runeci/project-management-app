@@ -1,4 +1,12 @@
 .dialog-form {
-    display: flex;
-    flex-direction: column;
-  }
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-dialog-actions {
+  margin: 0 auto;
+}

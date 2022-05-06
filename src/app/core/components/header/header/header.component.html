@@ -13,7 +13,7 @@
       translate }}</button>
   </ng-template>
   <ng-template [ngIf]="currentRoute !== '/' && currentRoute !== '/home'">
-    <mat-icon class="user-icon" (click)="openDialogProfile()">account_circle</mat-icon>
+    <mat-icon class="user-icon" (click)="editProfile()">account_circle</mat-icon>
     <button mat-button color="accent" (click)="logout()">{{'HEADER.LOGOUT' | translate}}</button>
   </ng-template>
 </mat-toolbar>
