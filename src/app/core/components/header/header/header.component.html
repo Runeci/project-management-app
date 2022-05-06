@@ -1,8 +1,9 @@
 <mat-toolbar [class.header-color]="currentRoute !== '/' && currentRoute !== '/home'" appHeaderAnimate>
   <img class="logo" src="assets/icons/logo-1.svg" alt="logo">
   <span class="logo-text">RSTrello</span>
-  <ng-template [ngIf]="checkRoute(['/boards'])">
+  <ng-template [ngIf]="currentRoute !== '/' && currentRoute !== '/home'">
     <button (click)="openDialog()" mat-button color="accent" class="add-btn">{{'HEADER.ADD_BOARD' | translate}}</button>
+
   </ng-template>
 
   <span class="example-spacer"></span>
@@ -24,7 +25,7 @@
       <button mat-flat-button color="primary" class="text-white"
               (click)="togglePath('signup')">{{ 'HEADER.SIGNUP' | translate }}</button>
     </ng-template>
-    <ng-template [ngIf]="checkRoute(['/boards'])">
+    <ng-template [ngIf]="currentRoute !== '/' && currentRoute !== '/home'">
       <mat-icon class="user-icon">account_circle</mat-icon>
       <button mat-button color="accent">{{'HEADER.LOGOUT' | translate}}</button>
     </ng-template>
