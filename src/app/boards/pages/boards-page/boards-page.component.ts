@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Board } from '@shared/models/boards.interfaces';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '@shared/components/dialog/dialog.component';
+/* import { DialogComponent } from '@shared/components/dialog/dialog.component';
 import { BoardDialogService } from '@boards/services/board-dialog.service';
 import { BoardsApiService } from '../../services/boards-api.service';
-import { DialogUse } from '../../../app.constants';
+import { DialogUse } from '../../../app.constants'; */
 
 @Component({
   selector: 'app-boards-page',
@@ -18,18 +18,18 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
   private dialogSubscription: Subscription | undefined;
 
   constructor(
-    private boardsService: BoardsApiService,
+   // private boardsService: BoardsApiService,
     private dialog: MatDialog,
-    private dialogService: BoardDialogService,
+    //private dialogService: BoardDialogService,
   ) {
   }
 
   public ngOnInit(): void {
-    this.updateBoards();
+   /*  this.updateBoards();
 
     this.dialogSubscription = this.dialogService.events$.subscribe(
       () => this.openDialog(),
-    );
+    ); */
   }
 
   public ngOnDestroy() {
@@ -37,22 +37,22 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
   }
 
   public openDialog(): void {
-    const dialogRef = this.dialog
+   /*  const dialogRef = this.dialog
       .open(DialogComponent, { data: DialogUse.board });
     dialogRef.afterClosed().subscribe(() => {
       this.updateBoards();
-    });
+    }); */
   }
 
   public deleteBoardPreview(id: string | undefined): void {
-    this.boardsService.deleteBoard(id)
+    /* this.boardsService.deleteBoard(id)
       .subscribe(
         () => this.updateBoards(),
-      );
+      ); */
   }
 
   private updateBoards(): void {
-    this.boardsService.getBoards()
-      .pipe((r) => this.boardsArr$ = r);
+   /*  this.boardsService.getBoards()
+      .pipe((r) => this.boardsArr$ = r); */
   }
 }

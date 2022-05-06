@@ -17,7 +17,7 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private notificationService: NotificationService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -32,10 +32,13 @@ export class SignupComponent implements OnInit {
     this.authService.signUp(this.formGroup.value).subscribe(
       () => {
         this.formGroup.reset();
+        this.notificationService.translateToast(
+          'Success'
+        );
       },
       (error) => {
-        this.notificationService.translateToastError(error);
-      },
+        this.notificationService.translateToast(error, 'error');
+      }
     );
   }
 }

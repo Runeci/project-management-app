@@ -13,7 +13,7 @@ import {
 
 import { Path, StorageKeys } from 'src/app/app.constants';
 import { LocalStorageService } from '@core/services/localstorage.service';
-import { UserAuth, UserInfo, UserResponse } from '@shared/models/user.interfaces';
+import { UserAuth, UserInfo } from '@shared/models/user.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +26,9 @@ export class AuthService {
   currentUser!: UserInfo;
 
   get token(): string | undefined {
-    return this.storageService.loadFromLocalStorage(StorageKeys.authToken) as string;
+    return this.storageService.loadFromLocalStorage(
+      StorageKeys.authToken
+    ) as string;
   }
 
   constructor(
@@ -62,7 +64,7 @@ export class AuthService {
               (user: { login: string }) => user.login === login
             )!;
             this.storageService.setStorageData(
-              Object.assign(this.currentUser, {password: password}),
+              this.currentUser,
               StorageKeys.user
             );
           }

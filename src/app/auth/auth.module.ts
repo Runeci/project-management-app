@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NgToastModule } from 'ng-angular-popup';
 
 import { SharedModule } from '@shared/shared.module';
 import { AuthRoutingModule } from './auth-routing.module';
@@ -10,7 +9,7 @@ import { AuthPageComponent } from './pages/auth-page.component';
 
 @NgModule({
   declarations: [LoginComponent, SignupComponent, AuthPageComponent],
-  imports: [CommonModule, AuthRoutingModule, SharedModule, NgToastModule],
+  imports: [CommonModule, AuthRoutingModule, SharedModule],
   exports: [LoginComponent, SignupComponent, AuthPageComponent],
 })
 export class AuthModule {}

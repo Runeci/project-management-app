@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
           this.formGroup.reset();
         },
         (error: string) => {
-          this.notificationService.translateToastError(error);
+          this.notificationService.translateToast(error, 'error');
         },
       );
     }

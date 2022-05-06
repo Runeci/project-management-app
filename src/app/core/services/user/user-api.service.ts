@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 import { UserAuth, UserInfo } from '@shared/models/user.interfaces';
-import { StorageKeys } from 'src/app/app.constants';
+import { Path, StorageKeys } from 'src/app/app.constants';
 import { LocalStorageService } from '../localstorage.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -18,23 +19,29 @@ export class UserApiService {
 
   constructor(
     private http: HttpClient,
-    private storageService: LocalStorageService
+    private storageService: LocalStorageService,
+    private router: Router
   ) {}
 
-  /* getAllUsers(): Observable<UserInfo[]> {
+   getAllUsers(): Observable<UserInfo[]> {
     return this.http.get<UserInfo[]>('/api/users');
-  } */
+  } 
 
   getUserById(id: string): Observable<UserInfo> {
     return this.http.get<UserInfo>(`/api/users/${id}`);
   }
 
   updateUser(id: string, user: UserAuth): Observable<UserInfo> {
-    return this.http.put<UserInfo>(`/api/users/${id}`, user);
+    return this.http.put<UserInfo>(`/api/users/${id}`, user)
   }
 
   deleteUser(id: string) {
-    return this.http.delete(`/api/users/${id}`);
+    return this.http.delete(`/api/users/${id}`).pipe(
+      tap(() => {
+        this.router.navigate([Path.homePage]);
+      }),
+     // catchError(AuthService.handleAuthError)
+    );
   }
 
   logout(): void {

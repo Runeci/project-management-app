@@ -10,23 +10,40 @@ export class NotificationService {
 
   constructor(
     private toast: NgToastService,
-    private translateService: TranslateService,
+    private translateService: TranslateService
   ) {}
 
-  translateToastError(message: string): void {
+  translateToast(message: string, action?: string): void {
+    this.checkTypeOfMessage(message);
+    if (action === 'error') {
+      this.createToastError(this.message);
+    } else this.createToastSuccess(this.message);
+  }
+
+  checkTypeOfMessage(message: string | string[]) {
     if (Array.isArray(message)) {
       this.message = Object.values(
-        this.translateService.instant(message),
+        this.translateService.instant(message)
       ).toString();
-    } else this.message = this.translateService.instant(message);
-    this.createToastError(this.message);
+    } else {
+      this.message = this.translateService.instant(message);
+    }
+    return this.message;
   }
 
   createToastError(message: string | undefined): void {
     this.toast.error({
       detail: 'Error Message',
       summary: message,
-      duration: 10000,
+      duration: 100000,
+    });
+  }
+
+  createToastSuccess(message: string | undefined): void {
+    this.toast.warning({
+      detail: 'Success',
+      summary: message,
+      duration: 100000,
     });
   }
 }

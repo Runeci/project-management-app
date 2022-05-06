@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
 import { CommonModule } from '@angular/common';
-
 import { RouterModule } from '@angular/router';
+
 import { HeaderComponent } from './components/header/header/header.component';
 import { WelcomePageComponent } from './pages/welcome/welcome-page.component';
+import { ConfirmComponent } from './components/confirm/confirm.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
@@ -12,15 +13,14 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     HeaderComponent,
     WelcomePageComponent,
     UserProfileComponent,
+    ConfirmComponent,
   ],
-    imports: [
-        CommonModule,
-        SharedModule,
-        RouterModule,
-    ],
+  imports: [CommonModule, SharedModule, RouterModule],
   exports: [
     HeaderComponent,
-    WelcomePageComponent
+    WelcomePageComponent,
+    UserProfileComponent,
+    ConfirmComponent,
   ],
 })
-export class CoreModule { }
+export class CoreModule {}
