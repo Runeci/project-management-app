@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Column } from '@shared/models/columns.interfaces';
 import { TaskI } from '@shared/models/tasks.interfaces';
@@ -16,6 +16,8 @@ import { NewTaskDialogComponent } from '@boards/components/new-task-dialog/new-t
 })
 export class BoardColumnComponent implements OnInit {
   @Input() column!: Column;
+
+  @Output() deletedColumn = new EventEmitter<Column['order']>();
 
   public editColumnInput: boolean = false;
 
@@ -39,6 +41,12 @@ export class BoardColumnComponent implements OnInit {
     this.newColumnTitle = this.column.title;
 
     this.getTasks();
+  }
+
+  public deleteColumn(event: Event) {
+    this.columnApiService.deleteColumn(this.boardId, this.column.id).subscribe();
+    event.stopPropagation();
+    this.deletedColumn.emit(this.column.order);
   }
 
   public toggleColumnInput(): void {
@@ -80,7 +88,7 @@ export class BoardColumnComponent implements OnInit {
 
     ref.afterClosed().subscribe(
       () => this.getTasks()
-    )
+    );
   }
 
   public drop(event: CdkDragDrop<TaskI[]>) {

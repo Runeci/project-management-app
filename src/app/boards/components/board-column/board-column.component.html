@@ -1,11 +1,11 @@
 <div class="column-container">
   <div class="column-title-container" *ngIf="!editColumnInput" (click)="toggleColumnInput()">
     <h2>{{ column.title }}</h2>
-    <mat-icon>delete</mat-icon>
+    <mat-icon (click)="deleteColumn($event)">delete</mat-icon>
   </div>
 
   <mat-form-field *ngIf="editColumnInput" class="example-form-field">
-    <input matInput type="text" [(ngModel)]="newColumnTitle">
+    <input matInput type="text" [(ngModel)]="newColumnTitle" (keyup.enter)="updateColumnName()">
     <button matPrefix mat-icon-button (click)="updateColumnName()">
       <mat-icon>done</mat-icon>
     </button>
@@ -32,6 +32,5 @@
       <mat-icon>add</mat-icon>
       <div>Add task</div>
     </div>
-
   </div>
 </div>

@@ -4,10 +4,16 @@
   display: flex;
   overflow-y: hidden;
   background-color: rgba(102, 59, 184, 0.1);
+  justify-content: flex-start;
+}
+
+.column {
+  margin: 0;
 }
 
 .new-column {
   display: flex;
+  margin: 0;
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.04);

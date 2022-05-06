@@ -7,7 +7,7 @@
     </div>
 
     <ng-container *ngIf="editTitle">
-      <mat-form-field appearance="fill" class="edit-form edit-title">
+      <mat-form-field class="edit-form edit-title">
         <input type="text" matInput formControlName="title">
         <mat-icon matSuffix class="close-btn" (click)="editTitle = false">close</mat-icon>
       </mat-form-field>
