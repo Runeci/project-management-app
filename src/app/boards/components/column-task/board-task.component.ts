@@ -12,8 +12,8 @@ import { TaskEditDialogComponent } from '@boards/components/task-edit-dialog/tas
 
 @Component({
   selector: 'app-column-task',
-  templateUrl: './column-task.component.html',
-  styleUrls: ['./column-task.component.scss'],
+  templateUrl: './board-task.component.html',
+  styleUrls: ['./board-task.component.scss'],
   animations: [
     trigger('hovered', [
       state('start', style({
@@ -26,7 +26,7 @@ import { TaskEditDialogComponent } from '@boards/components/task-edit-dialog/tas
     ]),
   ],
 })
-export class ColumnTaskComponent implements OnInit {
+export class BoardTaskComponent implements OnInit {
   @Input() task!: TaskI;
 
   @Input() column!: Column;

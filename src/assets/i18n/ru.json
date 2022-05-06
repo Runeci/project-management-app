@@ -20,10 +20,22 @@
     "BOARD_TITLE": "Заголовок доски",
     "COLUMN_TITLE": "Заголовок списка"
   },
+  "BOARD": {
+    "EDIT_DIALOG": {
+      "DESCR": "Описание"
+    },
+    "NEW_TASK_DIALOG": {
+      "TITLE": "Заголовок задания",
+      "DESCRIPTION": "Описание задания"
+    }
+  },
   "BUTTON": {
     "LANG": "Русский",
     "CONTINUE": "Продолжить",
-    "CREATE": "Создать"
+    "CREATE": "Создать",
+    "ADD_COLUMN": "Создать список",
+    "ADD_TASK": "Создать задание",
+    "SAVE": "Сохранить"
   },
   "name should not be empty": "имя не должно быть пустым",
   "login should not be empty": "логин не должен быть пустым",
@@ -33,5 +45,6 @@
   "Task was not founded!": "Задача не найдена",
   "Column was not founded!": "Список не найден",
   "Title is too long": "Заголовок слишком длинный",
-  "Title is required": "Заголовок не должен быть пустым"
+  "Title is required": "Необходимо ввести заголовок",
+  "Description is required": "Необходимо ввести описание"
 }

@@ -20,10 +20,22 @@
     "BOARD_TITLE": "Board title",
     "COLUMN_TITLE": "Column title"
   },
+  "BOARD": {
+    "EDIT_DIALOG": {
+      "DESCR": "Description"
+    },
+    "NEW_TASK_DIALOG": {
+      "TITLE": "Task title",
+      "DESCRIPTION": "Task description"
+    }
+  },
   "BUTTON": {
     "LANG": "English",
     "CONTINUE": "Continue",
-    "CREATE": "Create"
+    "CREATE": "Create",
+    "ADD_COLUMN": "Add column",
+    "ADD_TASK": "Add task",
+    "SAVE": "Save"
   },
   "name should not be empty": "name should not be empty",
   "login should not be empty": "login should not be empty",
@@ -33,5 +45,6 @@
   "Task was not founded!": "Task was not founded!",
   "Column was not founded!": "Column was not founded!",
   "Title is too long": "Title is too long",
-  "Title is required": "Title is required"
+  "Title is required": "Title is required",
+  "Description is required": "Необходимо ввести описание"
 }

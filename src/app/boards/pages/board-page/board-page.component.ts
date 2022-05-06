@@ -3,12 +3,12 @@ import { ColumnsApiService } from '@boards/services/columns-api.service';
 import { Column } from '@shared/models/columns.interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { BoardsDialogComponent } from '@shared/../../components/dialog/boards-dialog.component';
 import { BoardDialogService } from '@boards/services/board-dialog.service';
 import { Board } from '@shared/models/boards.interfaces';
 import { Subscription, take } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DialogUse } from '../../../app.constants';
+import { BoardsDialogComponent } from '@boards/components/dialog/boards-dialog.component';
 
 @Component({
   selector: 'app-board-page',

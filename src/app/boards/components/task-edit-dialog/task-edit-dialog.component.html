@@ -15,11 +15,9 @@
 
     <div class="description-container">
       <mat-icon>subject</mat-icon>
-      <h3 class="description">Description</h3>
+      <h3 class="description"> {{ 'BOARD.EDIT_DIALOG.DESCR' | translate }}</h3>
       <div class="spacer"></div>
-      <mat-icon *ngIf="!editDescription"
-                (click)="editDescription = true">mode_edit
-      </mat-icon>
+      <mat-icon *ngIf="!editDescription" (click)="editDescription = true">mode_edit</mat-icon>
     </div>
 
     <p class="task-description" *ngIf="!editDescription">{{ task.description }}</p>
@@ -35,7 +33,7 @@
       <button mat-button color="primary" type="submit" mat-dialog-close="true"
               (click)="updateTask()"
       >
-        Save
+        {{ 'BUTTON.SAVE' | translate }}
       </button>
     </div>
 
