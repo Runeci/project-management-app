@@ -17,6 +17,7 @@
     "ROUT_LOGIN": "Already have an account? Login"
   },
   "MAIN": {
+    "WORKSPACES": "Your workspaces",
     "BOARD_TITLE": "Board title",
     "COLUMN_TITLE": "Column title"
   },
