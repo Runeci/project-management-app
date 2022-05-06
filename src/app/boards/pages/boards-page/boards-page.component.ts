@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Board } from '@shared/models/boards.interfaces';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '@shared/components/dialog/dialog.component';
+import { BoardsDialogComponent } from '@shared/../../components/dialog/boards-dialog.component';
 import { BoardDialogService } from '@boards/services/board-dialog.service';
 import { BoardsApiService } from '../../services/boards-api.service';
 import { DialogUse } from '../../../app.constants';
@@ -38,7 +38,7 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
 
   public openDialog(): void {
     const dialogRef = this.dialog
-      .open(DialogComponent, { data: DialogUse.board });
+      .open(BoardsDialogComponent, { data: DialogUse.board });
     dialogRef.afterClosed().subscribe(() => {
       this.updateBoards();
     });

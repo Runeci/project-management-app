@@ -10,10 +10,10 @@ import { DialogUse } from '../../../app.constants';
 
 @Component({
   selector: 'app-dialog',
-  templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.scss'],
+  templateUrl: './boards-dialog.component.html',
+  styleUrls: ['./boards-dialog.component.scss'],
 })
-export class DialogComponent implements OnInit {
+export class BoardsDialogComponent implements OnInit {
   public titleFormControl = new FormControl(
     '',
     [Validators.required, Validators.maxLength(25),

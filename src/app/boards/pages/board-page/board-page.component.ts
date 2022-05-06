@@ -3,7 +3,7 @@ import { ColumnsApiService } from '@boards/services/columns-api.service';
 import { Column } from '@shared/models/columns.interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '@shared/components/dialog/dialog.component';
+import { BoardsDialogComponent } from '@shared/../../components/dialog/boards-dialog.component';
 import { BoardDialogService } from '@boards/services/board-dialog.service';
 import { Board } from '@shared/models/boards.interfaces';
 import { Subscription, take } from 'rxjs';
@@ -66,7 +66,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   }
 
   public openDialog() {
-    const ref = this.dialog.open(DialogComponent, { data: DialogUse.column });
+    const ref = this.dialog.open(BoardsDialogComponent, { data: DialogUse.column });
     ref.afterClosed().subscribe(
       () => this.createColumn(),
     );
