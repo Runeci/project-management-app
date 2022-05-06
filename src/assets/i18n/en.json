@@ -26,5 +26,33 @@
     "User was not founded!": "User was not founded!",
     "User login already exists!": "User login already exists!",
     "Task was not founded!": "Task was not founded!",
-    "Column was not founded!": "Column was not founded!"
+    "Column was not founded!": "Column was not founded!",
+    "name": {
+        "required": "Please enter a name",
+        "minlength": "The name is too short"
+    },
+    "login": {
+        "required": "Please enter a login email",
+        "email": "The login email is invalid"
+    },
+    "password": {
+        "required": "Please enter a password",
+        "minlength": "at least 8 characters",
+        "hasNumber": "a mixture of letters and numbers",
+        "hasCapitalCase": "a mixture of both uppercase and lowercase letters",
+        "hasSmallCase": "a mixture of both uppercase and lowercase letters",
+        "hasSpecialCharacters": "inclusion of at least one special character, e.g., ! @ # ? ]"
+    },
+    "title": {
+        "required": "Please enter a title",
+        "minlength": "The title is too short",
+        "maxlength": "The title is too long"
+    },
+    "description": {
+        "maxlength": "The description is too long"
+    },
+    "img": {
+        "required": "Please enter a link to the image",
+        "checkUrl": "The image link is invalid"
+    }
 }
