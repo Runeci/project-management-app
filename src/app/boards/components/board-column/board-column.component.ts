@@ -8,6 +8,7 @@ import { Board } from '@shared/models/boards.interfaces';
 import { ColumnsApiService } from '@boards/services/columns-api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NewTaskDialogComponent } from '@boards/components/new-task-dialog/new-task-dialog.component';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-board-column',
@@ -130,6 +131,9 @@ export class BoardColumnComponent implements OnInit {
 
   private getTasks() {
     this.tasksApiService.getTasks(this.boardId, this.column.id)
+      .pipe(
+        take(1)
+      )
       .subscribe((res) => {
         this.tasksArr = res.sort((prev, next) => prev.order - next.order);
       });
