@@ -4,7 +4,6 @@ import { TaskI } from '@shared/models/tasks.interfaces';
 import { FormBuilder } from '@angular/forms';
 import { TaskApiService } from '@boards/services/task-api.service';
 
-
 @Component({
   selector: 'app-task-edit-dialog',
   templateUrl: './task-edit-dialog.component.html',
@@ -17,8 +16,8 @@ export class TaskEditDialogComponent {
 
   public editTaskForm = this.fb.group(
     {
-      title: [`${ this.task.title }`],
-      description: [`${ this.task.description }` || ''],
+      title: [`${this.task.title}`],
+      description: [`${this.task.description}` || ''],
     },
   );
 
@@ -30,23 +29,23 @@ export class TaskEditDialogComponent {
   }
 
   public updateTask() {
-    const description = this.editTaskForm.value.description ?
-      this.editTaskForm.value.description : this.task.description;
+    const description = this.editTaskForm.value.description
+      ? this.editTaskForm.value.description : this.task.description;
 
-    const title = this.editTaskForm.value.title ?
-      this.editTaskForm.value.title : this.task.title;
+    const title = this.editTaskForm.value.title
+      ? this.editTaskForm.value.title : this.task.title;
     this.tasksApiService.updateTask(
       this.task.boardId,
       this.task.columnId!,
       this.task.id,
       {
-        title: title,
+        title,
         order: this.task.order,
-        description: description,
+        description,
         userId: this.task.userId,
         boardId: this.task.boardId,
         columnId: this.task.columnId,
-      }
+      },
     ).subscribe();
 
     this.task.title = title;

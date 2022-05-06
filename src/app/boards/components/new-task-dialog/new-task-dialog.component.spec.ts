@@ -8,7 +8,7 @@ describe('NewTaskDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NewTaskDialogComponent ]
+      declarations: [NewTaskDialogComponent],
     })
     .compileComponents();
   });

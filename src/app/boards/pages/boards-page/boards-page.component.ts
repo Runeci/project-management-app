@@ -3,9 +3,9 @@ import { Observable, Subscription } from 'rxjs';
 import { Board } from '@shared/models/boards.interfaces';
 import { MatDialog } from '@angular/material/dialog';
 import { BoardDialogService } from '@boards/services/board-dialog.service';
+import { BoardsDialogComponent } from '@boards/components/dialog/boards-dialog.component';
 import { BoardsApiService } from '../../services/boards-api.service';
 import { DialogUse } from '../../../app.constants';
-import { BoardsDialogComponent } from '@boards/components/dialog/boards-dialog.component';
 
 @Component({
   selector: 'app-boards-page',

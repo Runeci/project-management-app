@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+ Component, EventEmitter, Input, OnInit, Output,
+} from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Column } from '@shared/models/columns.interfaces';
 import { TaskI } from '@shared/models/tasks.interfaces';
@@ -84,11 +86,12 @@ export class BoardColumnComponent implements OnInit {
             taskOrder: this.tasksArr.length + 1,
             columnId: this.column.id,
             boardId: this.boardId,
-          }
-      });
+          },
+      },
+);
 
     ref.afterClosed().subscribe(
-      () => this.getTasks()
+      () => this.getTasks(),
     );
   }
 
@@ -132,7 +135,7 @@ export class BoardColumnComponent implements OnInit {
   private getTasks() {
     this.tasksApiService.getTasks(this.boardId, this.column.id)
       .pipe(
-        take(1)
+        take(1),
       )
       .subscribe((res) => {
         this.tasksArr = res.sort((prev, next) => prev.order - next.order);

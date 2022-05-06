@@ -7,8 +7,8 @@ import { BoardDialogService } from '@boards/services/board-dialog.service';
 import { Board } from '@shared/models/boards.interfaces';
 import { Subscription, take } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { DialogUse } from '../../../app.constants';
 import { BoardsDialogComponent } from '@boards/components/dialog/boards-dialog.component';
+import { DialogUse } from '../../../app.constants';
 
 @Component({
   selector: 'app-board-page',
@@ -84,9 +84,10 @@ export class BoardPageComponent implements OnInit, OnDestroy {
         {
           title: column.title,
           order: index + 1,
-        })
+        },
+)
         .pipe(
-          take(1)
+          take(1),
         )
         .subscribe();
     });
@@ -95,9 +96,8 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   private getColumns(): void {
     this.columnApiService.getColumns(this.boardId)
       .pipe(
-        take(1)
+        take(1),
       )
-      .subscribe((res) =>
-        this.columnsArr = res.sort((prev, next) => prev.order - next.order));
+      .subscribe((res) => this.columnsArr = res.sort((prev, next) => prev.order - next.order));
   }
 }
