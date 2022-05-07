@@ -41,6 +41,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     DragDropModule,
     MatExpansionModule,
     MatSlideToggleModule,
+    MatInputModule,
   ],
 })
 export class MaterialModule { }

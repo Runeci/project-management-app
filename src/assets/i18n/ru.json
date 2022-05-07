@@ -1,9 +1,29 @@
 {
-    "HEADER": {
-        "LOGIN": "Войти",
-        "SIGNUP": "Регистрация",
-        "LOGOUT": "Выход",
-        "ADD_BOARD": "Добавить доску"
+  "HEADER": {
+    "LOGIN": "Войти",
+    "SIGNUP": "Регистрация",
+    "LOGOUT": "Выход",
+    "ADD_BOARD": "Добавить доску"
+  },
+  "HOME": {
+    "TITLE": "RSTrello - твой новый уровень проектирования задач.",
+    "SUBTITLE": "Приложение с интуитивно понятным интерфейсом и мощными функциями, позволяет командам эффективно координировать и управлять своими проектами."
+  },
+  "AUTH": {
+    "NAME": "Имя",
+    "EMAIL": "Электронная почта",
+    "PASSWORD": "Пароль",
+    "ROUT_REGISTR": "Зарегистрировать аккаунт",
+    "ROUT_LOGIN": "Уже есть аккаунт? Войти"
+  },
+  "MAIN": {
+    "WORKSPACES": "Ваши рабочие пространства",
+    "BOARD_TITLE": "Заголовок доски",
+    "COLUMN_TITLE": "Заголовок списка"
+  },
+  "BOARD": {
+    "EDIT_DIALOG": {
+      "DESCR": "Описание"
     },
     "HOME": {
         "TITLE": "RSTrello - твой новый уровень проектирования задач.",
@@ -16,17 +36,30 @@
         "ROUT_REGISTR": "Зарегистрировать аккаунт",
         "ROUT_LOGIN": "Уже есть аккаунт? Войти"
     },
-    "BUTTON": {
-        "LANG": "Русский",
-        "CONTINUE": "Продолжить"
-    },
-    "name should not be empty": "имя не должно быть пустым",
-    "login should not be empty": "логин не должен быть пустым",
-    "password should not be empty": "пароль не должен быть пустым",
-    "User was not founded!": "Пользователь не найден!",
-    "User login already exists!": "Логин пользователя уже существует!",
-    "Task was not founded!": "Задача не найдена",
-    "Column was not founded!": "",
+        "NEW_TASK_DIALOG": {
+      "TITLE": "Заголовок задания",
+      "DESCRIPTION": "Описание задания"
+    }
+  },
+  "BUTTON": {
+    "LANG": "Русский",
+    "CONTINUE": "Продолжить",
+    "CREATE": "Создать",
+    "ADD_COLUMN": "Создать список",
+    "ADD_TASK": "Создать задание",
+    "SAVE": "Сохранить"
+  },
+  "name should not be empty": "имя не должно быть пустым",
+  "login should not be empty": "логин не должен быть пустым",
+  "password should not be empty": "пароль не должен быть пустым",
+  "User was not founded!": "Пользователь не найден!",
+  "User login already exists!": "Логин пользователя уже существует!",
+  "Task was not founded!": "Задача не найдена",
+  "Column was not founded!": "Список не найден",
+  "Title is too long": "Заголовок слишком длинный",
+  "Title is required": "Необходимо ввести заголовок",
+  "Description is required": "Необходимо ввести описание"
+}
     "name": {
         "required": "Пожалуйста, введите имя",
         "minlength": "Имя слишком короткое"

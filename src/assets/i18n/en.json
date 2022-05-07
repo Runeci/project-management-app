@@ -1,9 +1,29 @@
 {
-    "HEADER": {
-        "LOGIN": "Login",
-        "SIGNUP": "Register",
-        "LOGOUT": "Logout",
-        "ADD_BOARD": "Add board"
+  "HEADER": {
+    "LOGIN": "Login",
+    "SIGNUP": "Register",
+    "LOGOUT": "Logout",
+    "ADD_BOARD": "Add board"
+  },
+  "HOME": {
+    "TITLE": "RSTrello - your next level of task design.",
+    "SUBTITLE": "An app with an intuitive interface and powerful features allows teams to effectively coordinate and manage their projects."
+  },
+  "AUTH": {
+    "NAME": "Name",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "ROUT_REGISTR": "Register an account",
+    "ROUT_LOGIN": "Already have an account? Login"
+  },
+  "MAIN": {
+    "WORKSPACES": "Your workspaces",
+    "BOARD_TITLE": "Board title",
+    "COLUMN_TITLE": "Column title"
+  },
+  "BOARD": {
+    "EDIT_DIALOG": {
+      "DESCR": "Description"
     },
     "HOME": {
         "TITLE": "RSTrello - your next level of task design.",
@@ -16,17 +36,30 @@
         "ROUT_REGISTR": "Register an account",
         "ROUT_LOGIN": "Already have an account? Login"
     },
-    "BUTTON": {
-        "LANG": "English",
-        "CONTINUE": "Continue"
-    },
-    "name should not be empty": "name should not be empty",
-    "login should not be empty": "login should not be empty",
-    "password should not be empty": "password should not be empty",
-    "User was not founded!": "User was not founded!",
-    "User login already exists!": "User login already exists!",
-    "Task was not founded!": "Task was not founded!",
-    "Column was not founded!": "Column was not founded!",
+        "NEW_TASK_DIALOG": {
+      "TITLE": "Task title",
+      "DESCRIPTION": "Task description"
+    }
+  },
+  "BUTTON": {
+    "LANG": "English",
+    "CONTINUE": "Continue",
+    "CREATE": "Create",
+    "ADD_COLUMN": "Add column",
+    "ADD_TASK": "Add task",
+    "SAVE": "Save"
+  },
+  "name should not be empty": "name should not be empty",
+  "login should not be empty": "login should not be empty",
+  "password should not be empty": "password should not be empty",
+  "User was not founded!": "User was not founded!",
+  "User login already exists!": "User login already exists!",
+  "Task was not founded!": "Task was not founded!",
+  "Column was not founded!": "Column was not founded!",
+  "Title is too long": "Title is too long",
+  "Title is required": "Title is required",
+  "Description is required": "Необходимо ввести описание"
+}
     "name": {
         "required": "Please enter a name",
         "minlength": "The name is too short"

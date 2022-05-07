@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+ Component, EventEmitter, Input, OnInit, Output,
+} from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Column } from '@shared/models/columns.interfaces';
 import { TaskI } from '@shared/models/tasks.interfaces';
@@ -6,6 +8,9 @@ import { TaskApiService } from '@boards/services/task-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Board } from '@shared/models/boards.interfaces';
 import { ColumnsApiService } from '@boards/services/columns-api.service';
+import { MatDialog } from '@angular/material/dialog';
+import { NewTaskDialogComponent } from '@boards/components/new-task-dialog/new-task-dialog.component';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-board-column',
@@ -14,6 +19,8 @@ import { ColumnsApiService } from '@boards/services/columns-api.service';
 })
 export class BoardColumnComponent implements OnInit {
   @Input() column!: Column;
+
+  @Output() deletedColumn = new EventEmitter<Column['order']>();
 
   public editColumnInput: boolean = false;
 
@@ -24,10 +31,11 @@ export class BoardColumnComponent implements OnInit {
   private boardId: Board['id'];
 
   constructor(
-private tasksApiService: TaskApiService,
-              private columnApiService: ColumnsApiService,
-              private activatedRoute: ActivatedRoute,
-) {
+    private tasksApiService: TaskApiService,
+    private columnApiService: ColumnsApiService,
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog,
+  ) {
   }
 
   public ngOnInit(): void {
@@ -35,10 +43,13 @@ private tasksApiService: TaskApiService,
 
     this.newColumnTitle = this.column.title;
 
-    this.tasksApiService.getTasks(this.boardId, this.column.id)
-      .subscribe((res) => {
-        this.tasksArr = res.sort((prev, next) => prev.order - next.order);
-      });
+    this.getTasks();
+  }
+
+  public deleteColumn(event: Event) {
+    this.columnApiService.deleteColumn(this.boardId, this.column.id).subscribe();
+    event.stopPropagation();
+    this.deletedColumn.emit(this.column.order);
   }
 
   public toggleColumnInput(): void {
@@ -54,7 +65,7 @@ private tasksApiService: TaskApiService,
           title: this.newColumnTitle.trim(),
           order: this.column.order,
         },
-)
+      )
         .subscribe();
     }
     this.column.title = this.newColumnTitle;
@@ -66,17 +77,22 @@ private tasksApiService: TaskApiService,
       .deleteTask(this.boardId, columnId, taskId).subscribe();
   }
 
-  public addTask() {
-    this.tasksApiService.createTask(
-this.boardId,
-this.column.id,
-{
-        title: Math.random().toString(),
-        order: this.tasksArr.length + 1,
-        description: 'hi',
-        userId: '55e8067c-0333-46a8-973d-b616a97aa905',
+  public openDialog() {
+    const ref = this.dialog.open(
+      NewTaskDialogComponent,
+      {
+        data:
+          {
+            taskOrder: this.tasksArr.length + 1,
+            columnId: this.column.id,
+            boardId: this.boardId,
+          },
       },
-    ).subscribe();
+);
+
+    ref.afterClosed().subscribe(
+      () => this.getTasks(),
+    );
   }
 
   public drop(event: CdkDragDrop<TaskI[]>) {
@@ -94,10 +110,10 @@ this.column.id,
       );
 
       this.tasksApiService.updateTask(
-this.boardId,
-draggedTask.columnId,
-draggedTask.id,
-{
+        this.boardId,
+        draggedTask.columnId,
+        draggedTask.id,
+        {
           title: draggedTask.title,
           order: event.container.data.indexOf(draggedTask) + 1,
           userId: draggedTask.userId,
@@ -105,7 +121,7 @@ draggedTask.id,
           boardId: this.boardId,
           columnId: this.column.id,
         },
-).subscribe(
+      ).subscribe(
         () => {
           this.updateTasksOrder(event.container.data, this.column.id);
         },
@@ -114,6 +130,16 @@ draggedTask.id,
       this.updateTasksOrder(event.previousContainer.data, draggedTask.columnId);
       draggedTask.columnId = this.column.id;
     }
+  }
+
+  private getTasks() {
+    this.tasksApiService.getTasks(this.boardId, this.column.id)
+      .pipe(
+        take(1),
+      )
+      .subscribe((res) => {
+        this.tasksArr = res.sort((prev, next) => prev.order - next.order);
+      });
   }
 
   private updateTasksOrder(tasksArr: TaskI[], columnId: Column['id']) {

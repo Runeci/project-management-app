@@ -1,37 +1,41 @@
 <mat-dialog-content class="container">
   <form [formGroup]="editTaskForm">
-    <h2 mat-dialog-title>{{ task.title }}</h2>
 
-    <div class="description-container">
-      <mat-icon>description</mat-icon>
-      <h3 class="description">Description</h3>
-      <button
-        mat-button
-        color="primary"
-        class="edit-btn"
-        *ngIf="!editDescription"
-        (click)="editDescription = !editDescription"
-      >
-        Edit
-      </button>
+    <div class="title-container" *ngIf="!editTitle" (click)="editTitle = true">
+      <mat-icon>newspaper</mat-icon>
+      <h2 mat-dialog-title>{{ task.title }}</h2>
     </div>
 
-    <div class="task-description" *ngIf="!editDescription">{{ task.description }}</div>
+    <ng-container *ngIf="editTitle">
+      <mat-form-field class="edit-form edit-title">
+        <input type="text" matInput formControlName="title">
+        <mat-icon matSuffix class="close-btn" (click)="editTitle = false">close</mat-icon>
+      </mat-form-field>
+    </ng-container>
+
+    <div class="description-container">
+      <mat-icon>subject</mat-icon>
+      <h3 class="description"> {{ 'BOARD.EDIT_DIALOG.DESCR' | translate }}</h3>
+      <div class="spacer"></div>
+      <mat-icon *ngIf="!editDescription" (click)="editDescription = true">mode_edit</mat-icon>
+    </div>
+
+    <p class="task-description" *ngIf="!editDescription">{{ task.description }}</p>
 
     <ng-container *ngIf="editDescription">
       <mat-form-field appearance="fill" class="edit-form">
-        <textarea style="resize: none;" matInput type="text" formControlName="description" rows="5"></textarea>
+        <textarea matInput formControlName="description" rows="5"></textarea>
+        <mat-icon matSuffix class="close-btn" (click)="editDescription = false">close</mat-icon>
       </mat-form-field>
-      <div class="edit-description-btns">
-        <button mat-button color="primary" type="submit">
-          Save
-        </button>
-        <button mat-button
-                (click)="editDescription = !editDescription">
-          <mat-icon>close</mat-icon>
-        </button>
-      </div>
     </ng-container>
+
+    <div class="edit-btns" *ngIf="editDescription || editTitle">
+      <button mat-button color="primary" type="submit" mat-dialog-close="true"
+              (click)="updateTask()"
+      >
+        {{ 'BUTTON.SAVE' | translate }}
+      </button>
+    </div>
 
   </form>
 </mat-dialog-content>

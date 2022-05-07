@@ -22,11 +22,8 @@ export class HeaderComponent {
 
   constructor(
     private router: Router,
-
     private dialogService: BoardDialogService,
-
     private translateService: TranslateService,
-
     public authService: AuthService,
   ) {
     this.router.events.subscribe((event: Event) => {
@@ -44,15 +41,16 @@ export class HeaderComponent {
     this.router.navigate([path]);
   }
 
-  public checkRoute(route: string | string[]): boolean {
-    return Array.isArray(route)
-      ? route.includes(this.currentRoute) : route === this.currentRoute;
+  public checkRoute(route: string): boolean {
+    return this.currentRoute.includes(route);
   }
 
   changeLang(value: boolean): void {
     if (value) {
       this.lang = 'en';
-    } else this.lang = 'ru';
+    } else {
+      this.lang = 'ru';
+    }
     this.translateService.use(this.lang);
   }
 
