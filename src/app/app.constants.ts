@@ -10,3 +10,9 @@ export enum StorageKeys {
   authToken = 'auth-token-rstrello',
   user = 'user-rstrello',
 }
+
+export enum DialogUse {
+  board = 'board',
+  column = 'column',
+  task = 'task',
+}

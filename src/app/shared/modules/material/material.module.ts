@@ -8,6 +8,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatExpansionModule } from '@angular/material/expansion';
+
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
@@ -22,6 +26,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    DragDropModule,
+    MatExpansionModule,
     MatSlideToggleModule,
   ],
   exports: [
@@ -32,8 +38,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatDividerModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatInputModule,
+    DragDropModule,
+    MatExpansionModule,
     MatSlideToggleModule,
+    MatInputModule,
   ],
 })
 export class MaterialModule { }
