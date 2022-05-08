@@ -26,7 +26,7 @@ export class HeaderComponent {
     private router: Router,
     private translateService: TranslateService,
     public authService: AuthService,
-    public userService: UserApiService
+    public userService: UserApiService,
   ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {

@@ -8,5 +8,5 @@ export enum Path {
 
 export enum StorageKeys {
   authToken = 'auth-token-rstrello',
-  user = 'user-rstrello'
+  user = 'user-rstrello',
 }

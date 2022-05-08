@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { AuthService } from '@auth/services/auth.service';
-import { NotificationService } from '@core/services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +12,7 @@ import { NotificationService } from '@core/services/notification.service';
 export class LoginComponent implements OnInit {
   formGroup!: FormGroup;
 
-  constructor(
-    private authService: AuthService,
-    private notificationService: NotificationService,
-  ) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
@@ -27,14 +23,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.formGroup.valid) {
-      this.authService.login(this.formGroup.value).subscribe(
-        () => {
-          this.formGroup.reset();
-        },
-        (error: string) => {
-          this.notificationService.translateToast(error, 'error');
-        },
-      );
+      this.authService.login(this.formGroup.value).subscribe();
     }
   }
 }

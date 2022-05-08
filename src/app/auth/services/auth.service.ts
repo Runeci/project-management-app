@@ -1,14 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  BehaviorSubject,
-  catchError,
-  Observable,
-  of,
-  switchMap,
-  tap,
-  throwError,
+ BehaviorSubject, Observable, of, switchMap, tap,
 } from 'rxjs';
 
 import { Path, StorageKeys } from 'src/app/app.constants';
@@ -27,14 +21,14 @@ export class AuthService {
 
   get token(): string | undefined {
     return this.storageService.loadFromLocalStorage(
-      StorageKeys.authToken
+      StorageKeys.authToken,
     ) as string;
   }
 
   constructor(
     private http: HttpClient,
     private storageService: LocalStorageService,
-    private router: Router
+    private router: Router,
   ) {
     this.isLoggedIn$.next(!!this.token);
   }
@@ -44,7 +38,6 @@ export class AuthService {
       tap(() => {
         this.router.navigate([Path.loginPage]);
       }),
-      catchError(AuthService.handleAuthError)
     );
   }
 
@@ -61,15 +54,14 @@ export class AuthService {
         tap((users: UserInfo[] | undefined) => {
           if (users) {
             this.currentUser = users.find(
-              (user: { login: string }) => user.login === login
+              (user: { login: string }) => user.login === login,
             )!;
             this.storageService.setStorageData(
               this.currentUser,
-              StorageKeys.user
+              StorageKeys.user,
             );
           }
         }),
-        catchError(AuthService.handleAuthError)
       );
   }
 
@@ -82,14 +74,6 @@ export class AuthService {
       return of(undefined);
     }
     return this.http.get<UserInfo[]>('/api/users');
-  }
-
-  static handleAuthError(error: HttpErrorResponse): Observable<never> {
-    let errorMessage;
-    if (error.status) {
-      errorMessage = error.error.message;
-    } else errorMessage = error.error.message;
-    return throwError(errorMessage);
   }
 
   logout(): void {

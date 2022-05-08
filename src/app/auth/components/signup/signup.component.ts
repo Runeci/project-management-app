@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { AuthService } from '@auth/services/auth.service';
-import { NotificationService } from '@core/services/notification.service';
 
 @Component({
   selector: 'app-signup',
@@ -15,10 +14,7 @@ export class SignupComponent implements OnInit {
 
   message: string | undefined;
 
-  constructor(
-    private authService: AuthService,
-    private notificationService: NotificationService
-  ) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
@@ -29,16 +25,8 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.authService.signUp(this.formGroup.value).subscribe(
-      () => {
-        this.formGroup.reset();
-        this.notificationService.translateToast(
-          'Success'
-        );
-      },
-      (error) => {
-        this.notificationService.translateToast(error, 'error');
-      }
-    );
+    this.authService.signUp(this.formGroup.value).subscribe(() => {
+      this.formGroup.reset();
+    });
   }
 }

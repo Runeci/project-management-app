@@ -10,7 +10,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService } from '@auth/services/auth.service';
 import { DialogService } from '@core/services/dialog/dialog.service';
 import { LocalStorageService } from '@core/services/localstorage.service';
-import { NotificationService } from '@core/services/notification.service';
 import { UserApiService } from '@core/services/user/user-api.service';
 import { UserInfo } from '@shared/models/user.interfaces';
 import { StorageKeys } from 'src/app/app.constants';
@@ -28,10 +27,9 @@ export class UserProfileComponent implements OnInit {
     private userService: UserApiService,
     private authService: AuthService,
     private dialog: DialogService,
-    private notificationService: NotificationService,
     private storageService: LocalStorageService,
     private dialogRef: MatDialogRef<UserProfileComponent>,
-    @Inject(MAT_DIALOG_DATA) public user: UserInfo
+    @Inject(MAT_DIALOG_DATA) public user: UserInfo,
   ) {}
 
   ngOnInit(): void {
@@ -51,19 +49,15 @@ export class UserProfileComponent implements OnInit {
   }
 
   updateUser() {
-    this.userService.updateUser(this.user.id, this.profileForm.value).subscribe(
-      (user: UserInfo) => {
+    this.userService
+      .updateUser(this.user.id, this.profileForm.value)
+      .subscribe((user: UserInfo) => {
         this.storageService.setStorageData(user, StorageKeys.user);
-        this.notificationService.createToastSuccess('Profile updated');
-      },
-      (error) => {
-        this.notificationService.translateToast(error, 'error');
-      }
-    );
+      });
   }
 
   cancelUpdate() {
-    this.setUserFormData()
+    this.setUserFormData();
   }
 
   openConfirmDialog() {
@@ -76,14 +70,9 @@ export class UserProfileComponent implements OnInit {
       })
       .subscribe((confirmed) => {
         if (confirmed) {
-          this.userService.deleteUser(this.user.id).subscribe(
-            () => {
-              this.notificationService.createToastSuccess('Profile deleted');
-            },
-            (error) => {
-              this.notificationService.translateToast(error, 'error');
-            }
-          );
+          this.userService
+            .deleteUser(this.user.id)
+            .subscribe();
           this.authService.logout();
           this.userService.logout();
           this.dialogRef.close();

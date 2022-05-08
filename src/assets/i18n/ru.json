@@ -26,5 +26,9 @@
     "User was not founded!": "Пользователь не найден!",
     "User login already exists!": "Логин пользователя уже существует!",
     "Task was not founded!": "Задача не найдена",
-    "Column was not founded!": ""
+    "Column was not founded!": "",
+    "Internal server error": "Данный логин или пароль уже существует",
+    "Created": "Регистрация прошла успешно",
+    "No Content": "Профиль удален",
+    "OK": "Пользователь успешно обновлен"
 }

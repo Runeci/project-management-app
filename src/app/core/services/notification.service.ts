@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { NgToastService } from 'ng-angular-popup';
 
@@ -6,44 +6,42 @@ import { NgToastService } from 'ng-angular-popup';
   providedIn: 'root',
 })
 export class NotificationService {
-  message: string | undefined;
+  message: string = '';
 
-  constructor(
-    private toast: NgToastService,
-    private translateService: TranslateService
-  ) {}
+  constructor(private inject: Injector, private toast: NgToastService) {}
 
   translateToast(message: string, action?: string): void {
-    this.checkTypeOfMessage(message);
+    this.translateMessage(message as string);
     if (action === 'error') {
       this.createToastError(this.message);
     } else this.createToastSuccess(this.message);
   }
 
-  checkTypeOfMessage(message: string | string[]) {
+  translateMessage(message: string | string[]) {
+    const translateService = this.inject.get(TranslateService);
     if (Array.isArray(message)) {
       this.message = Object.values(
-        this.translateService.instant(message)
+        translateService.instant(message),
       ).toString();
     } else {
-      this.message = this.translateService.instant(message);
+      this.message = translateService.instant(message);
     }
     return this.message;
   }
 
-  createToastError(message: string | undefined): void {
+  createToastError(message: string): void {
     this.toast.error({
       detail: 'Error Message',
       summary: message,
-      duration: 100000,
+      duration: 7000,
     });
   }
 
   createToastSuccess(message: string | undefined): void {
     this.toast.warning({
-      detail: 'Success',
+      detail: 'Success Message',
       summary: message,
-      duration: 100000,
+      duration: 7000,
     });
   }
 }

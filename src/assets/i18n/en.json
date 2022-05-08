@@ -26,5 +26,9 @@
     "User was not founded!": "User was not founded!",
     "User login already exists!": "User login already exists!",
     "Task was not founded!": "Task was not founded!",
-    "Column was not founded!": "Column was not founded!"
+    "Column was not founded!": "Column was not founded!",
+    "Internal server error": "This username or password already exists",
+    "Created": "Registration completed successfully",
+    "No Content": "Profile deleted",
+    "OK": "User updated successfully"
 }

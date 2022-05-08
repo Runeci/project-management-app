@@ -30,7 +30,7 @@ export class LocalStorageService {
   }
 
   loadFromLocalStorage<T extends string | UserInfo>(
-    storageName: string
+    storageName: string,
   ): string | UserInfo {
     const storageData = this.getStorageItem(storageName);
     const checkStorageData = (data: string | null | undefined) => data;
@@ -49,7 +49,7 @@ export class LocalStorageService {
 
   setStorageData<T extends string | UserInfo>(
     data: T,
-    storageName: string
+    storageName: string,
   ): void {
     this.currentData = data;
     this.saveToStorage(storageName);
@@ -59,7 +59,7 @@ export class LocalStorageService {
     if (this.usedLocalStorage) {
       this.usedLocalStorage.setItem(
         storageName,
-        JSON.stringify(this.currentData)
+        JSON.stringify(this.currentData),
       );
     }
   }
