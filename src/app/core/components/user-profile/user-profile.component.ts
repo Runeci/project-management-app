@@ -4,13 +4,14 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { AuthService } from '@auth/services/auth.service';
 import { DialogService } from '@core/services/dialog/dialog.service';
 import { LocalStorageService } from '@core/services/localstorage.service';
 import { UserApiService } from '@core/services/user/user-api.service';
+import { ValidationService } from '@core/services/validation.service';
 import { UserInfo } from '@shared/models/user.interfaces';
 import { StorageKeys } from 'src/app/app.constants';
 
@@ -27,18 +28,36 @@ export class UserProfileComponent implements OnInit {
     private userService: UserApiService,
     private authService: AuthService,
     private dialog: DialogService,
+    public validationService: ValidationService,
     private storageService: LocalStorageService,
     private dialogRef: MatDialogRef<UserProfileComponent>,
-    @Inject(MAT_DIALOG_DATA) public user: UserInfo,
+    @Inject(MAT_DIALOG_DATA) public user: UserInfo
   ) {}
 
   ngOnInit(): void {
     this.profileForm = new FormGroup({
-      name: new FormControl('', []),
-      login: new FormControl('', []),
-      password: new FormControl('', []),
+      name: new FormControl('', [Validators.minLength(2)]),
+      login: new FormControl('', [Validators.email]),
+      password: new FormControl('', [
+        Validators.minLength(8),
+        this.validationService.checkValidation(/[0-9]/, { hasNumber: true }),
+        this.validationService.checkValidation(/[A-Z]/, {
+          hasCapitalCase: true,
+        }),
+        this.validationService.checkValidation(/[a-z]/, { hasSmallCase: true }),
+        /* eslint-disable no-useless-escape */
+        this.validationService.checkValidation(
+          /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/,
+          {
+            hasSpecialCharacters: true,
+          }
+        ),
+      ]),
     });
     this.setUserFormData();
+    this.profileForm.valueChanges.subscribe(() => {
+      this.validationService.setValidationErrors(this.profileForm);
+    });
   }
 
   setUserFormData() {
@@ -70,9 +89,7 @@ export class UserProfileComponent implements OnInit {
       })
       .subscribe((confirmed) => {
         if (confirmed) {
-          this.userService
-            .deleteUser(this.user.id)
-            .subscribe();
+          this.userService.deleteUser(this.user.id).subscribe();
           this.authService.logout();
           this.userService.logout();
           this.dialogRef.close();

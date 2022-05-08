@@ -12,22 +12,19 @@
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Name</mat-label>
             <input type="text" matInput formControlName="name" placeholder="Name" [value]="user.name">
-            <mat-error *ngIf="profileForm.hasError('maxlength')">
-                Title is too long
+            <mat-error *ngIf="validationService.formErrors.name">{{validationService.formErrors.name}}
             </mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Email</mat-label>
             <input type="text" matInput formControlName="login" placeholder="Email">
-            <mat-error *ngIf="profileForm.hasError('maxlength')">
-                Title is too long
+            <mat-error *ngIf="validationService.formErrors.login">{{validationService.formErrors.login}}
             </mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Password</mat-label>
             <input type="text" matInput formControlName="password" placeholder="Password">
-            <mat-error *ngIf="profileForm.hasError('maxlength')">
-                Title is too long
+            <mat-error *ngIf="validationService.formErrors.password">{{validationService.formErrors.password}}
             </mat-error>
         </mat-form-field>
         <div mat-dialog-actions>

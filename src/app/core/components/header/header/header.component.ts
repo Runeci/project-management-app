@@ -44,7 +44,7 @@ export class HeaderComponent {
     this.dialog
       .open(UserProfileComponent, {
         width: '30%',
-        height: '60%',
+        height: '65%',
         data: this.userService.currentUser,
       })
       .afterClosed();
