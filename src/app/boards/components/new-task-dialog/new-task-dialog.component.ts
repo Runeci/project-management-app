@@ -18,10 +18,10 @@ export class NewTaskDialogComponent {
   });
 
   constructor(
-private fb: FormBuilder,
-              private tasksApiService: TaskApiService,
-              private dialogService: BoardDialogService,
-              @Inject(MAT_DIALOG_DATA) private data: { taskOrder: number, columnId: Column['id'], boardId: Board['id'] },
+    private fb: FormBuilder,
+    private tasksApiService: TaskApiService,
+    private dialogService: BoardDialogService,
+    @Inject(MAT_DIALOG_DATA) private data: { taskOrder: number, columnId: Column['id'], boardId: Board['id'] },
   ) {
   }
 

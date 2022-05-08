@@ -34,10 +34,10 @@ export class BoardTaskComponent implements OnInit {
   private boardId: Board['id'];
 
   constructor(
-private tasksApiService: TaskApiService,
-              private activatedRoute: ActivatedRoute,
-              private dialog: MatDialog,
-) {
+    private tasksApiService: TaskApiService,
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog,
+  ) {
   }
 
   public ngOnInit() {

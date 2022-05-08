@@ -1,5 +1,5 @@
 import {
- Component, EventEmitter, Input, OnInit, Output,
+  Component, EventEmitter, Input, OnInit, Output,
 } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Column } from '@shared/models/columns.interfaces';
@@ -20,13 +20,15 @@ import { take } from 'rxjs';
 export class BoardColumnComponent implements OnInit {
   @Input() column!: Column;
 
+  @Input() columnsArr!: Column[];
+
   @Output() deletedColumn = new EventEmitter<Column['order']>();
 
   public editColumnInput: boolean = false;
 
   public newColumnTitle!: Column['title'];
 
-  public tasksArr: TaskI[] = [];
+  // public tasksArr: TaskI[] = [];
 
   private boardId: Board['id'];
 
@@ -42,18 +44,23 @@ export class BoardColumnComponent implements OnInit {
     this.boardId = this.activatedRoute.snapshot.params['id'];
 
     this.newColumnTitle = this.column.title;
+  }
 
-    this.getTasks();
+  private getTasks() {
+    this.tasksApiService.getTasks(this.boardId, this.column.id)
+      .pipe(
+        take(1),
+      )
+      .subscribe((res) => {
+        // @ts-ignore
+        this.column.tasks = res.sort((prev, next) => prev.order - next.order);
+      });
   }
 
   public deleteColumn(event: Event) {
     this.columnApiService.deleteColumn(this.boardId, this.column.id).subscribe();
     event.stopPropagation();
     this.deletedColumn.emit(this.column.order);
-  }
-
-  public toggleColumnInput(): void {
-    this.editColumnInput = !this.editColumnInput;
   }
 
   public updateColumnName() {
@@ -77,26 +84,36 @@ export class BoardColumnComponent implements OnInit {
       .deleteTask(this.boardId, columnId, taskId).subscribe();
   }
 
-  public openDialog() {
+  public toggleColumnInput(): void {
+    this.editColumnInput = !this.editColumnInput;
+  }
+
+  public openNewTaskDialog() {
     const ref = this.dialog.open(
       NewTaskDialogComponent,
       {
         data:
           {
-            taskOrder: this.tasksArr.length + 1,
+            taskOrder: this.column.tasks.length + 1,
             columnId: this.column.id,
             boardId: this.boardId,
           },
       },
-);
+    );
 
     ref.afterClosed().subscribe(
       () => this.getTasks(),
     );
   }
 
-  public drop(event: CdkDragDrop<TaskI[]>) {
+  public getConnectedList(): string[] {
+    return this.columnsArr.map((x: { order: any; }) => `${ x.order }`);
+  }
+
+  public dropItem(event: CdkDragDrop<any>) {
     const draggedTask = event.item.data;
+    const startColumn = this.columnsArr.filter((i) => i.tasks.includes(draggedTask));
+    let startColumnId = startColumn[0].id;
 
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -106,12 +123,10 @@ export class BoardColumnComponent implements OnInit {
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex,
-      );
-
+        event.currentIndex);
       this.tasksApiService.updateTask(
         this.boardId,
-        draggedTask.columnId,
+        startColumnId,
         draggedTask.id,
         {
           title: draggedTask.title,
@@ -120,26 +135,13 @@ export class BoardColumnComponent implements OnInit {
           description: draggedTask.description,
           boardId: this.boardId,
           columnId: this.column.id,
-        },
+        }
       ).subscribe(
         () => {
           this.updateTasksOrder(event.container.data, this.column.id);
         },
       );
-
-      this.updateTasksOrder(event.previousContainer.data, draggedTask.columnId);
-      draggedTask.columnId = this.column.id;
     }
-  }
-
-  private getTasks() {
-    this.tasksApiService.getTasks(this.boardId, this.column.id)
-      .pipe(
-        take(1),
-      )
-      .subscribe((res) => {
-        this.tasksArr = res.sort((prev, next) => prev.order - next.order);
-      });
   }
 
   private updateTasksOrder(tasksArr: TaskI[], columnId: Column['id']) {
@@ -153,7 +155,7 @@ export class BoardColumnComponent implements OnInit {
           order: index + 1,
           description: task.description,
           userId: task.userId,
-          boardId: task.boardId,
+          boardId: this.boardId,
           columnId,
         },
       ).subscribe();
