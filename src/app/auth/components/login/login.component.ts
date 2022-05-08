@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.formGroup = new FormGroup({
       login: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     });
     this.formGroup.valueChanges
       .pipe(takeUntil(this.ngUnsubscribe))

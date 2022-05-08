@@ -31,7 +31,7 @@ export class UserProfileComponent implements OnInit {
     public validationService: ValidationService,
     private storageService: LocalStorageService,
     private dialogRef: MatDialogRef<UserProfileComponent>,
-    @Inject(MAT_DIALOG_DATA) public user: UserInfo
+    @Inject(MAT_DIALOG_DATA) public user: UserInfo,
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +50,7 @@ export class UserProfileComponent implements OnInit {
           /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/,
           {
             hasSpecialCharacters: true,
-          }
+          },
         ),
       ]),
     });
@@ -82,10 +82,11 @@ export class UserProfileComponent implements OnInit {
   openConfirmDialog() {
     this.dialog
       .confirmDialog({
-        title: 'Are you sure?',
-        message: 'Do you want to delete profile?',
-        confirmCaption: 'Delete',
-        cancelCaption: 'Cancel',
+        title: 'CONFIRM.title',
+        message: 'CONFIRM.message',
+        param: 'CONFIRM.param',
+        confirmCaption: 'CONFIRM.DELETE',
+        cancelCaption: 'CONFIRM.CANCEL',
       })
       .subscribe((confirmed) => {
         if (confirmed) {

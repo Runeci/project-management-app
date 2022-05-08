@@ -26,7 +26,6 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
   ) {
   }
 
-
   public ngOnInit(): void {
     this.updateBoards();
 
@@ -40,7 +39,6 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
   }
 
   public openDialog(): void {
-
     const dialogRef = this.dialog
       .open(BoardsDialogComponent, { data: DialogUse.board });
     dialogRef.afterClosed().subscribe(() => {

@@ -36,7 +36,17 @@
     "CREATE": "Create",
     "ADD_COLUMN": "Add column",
     "ADD_TASK": "Add task",
-    "SAVE": "Save"
+    "SAVE": "Save",
+    "CANCEL": "CANCEL",
+    "UPDATE": "UPDATE",
+    "DELETE": "Delete profile"
+  },
+  "CONFIRM": {
+    "title": "Data will be deleted permanently",
+    "message": "Do you want to delete {{param}}?",
+    "param": "profile", 
+    "CANCEL": "CANCEL",
+    "DELETE": "DELETE"
   },
   "name should not be empty": "name should not be empty",
   "login should not be empty": "login should not be empty",
