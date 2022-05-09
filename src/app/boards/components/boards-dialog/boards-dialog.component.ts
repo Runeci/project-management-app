@@ -1,12 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { BoardsApiService } from '@boards/services/boards-api.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ColumnsApiService } from '@boards/services/columns-api.service';
 import { Board } from '@shared/models/boards.interfaces';
 import { ActivatedRoute } from '@angular/router';
-import { BoardDialogService } from '@boards/services/board-dialog.service';
-import { DialogUse } from '../../../app.constants';
 
 @Component({
   selector: 'app-boards-dialog',
@@ -16,7 +12,7 @@ import { DialogUse } from '../../../app.constants';
 export class BoardsDialogComponent implements OnInit {
   public form = this.fb.group({
     title: ['', [Validators.required]],
-    description: ['', [Validators.required]]
+    description: ['', [Validators.required]],
   });
 
   private boardId: Board['id'] = '';

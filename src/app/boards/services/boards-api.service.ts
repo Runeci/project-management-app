@@ -15,11 +15,11 @@ export class BoardsApiService {
   }
 
   public createBoard(title: Board['title'], description: Board['description']) {
-    let body = {
-      title: title,
-      description: description,
-    }
-    return this.http.post<Board>('/api/boards',  body );
+    const body = {
+      title,
+      description,
+    };
+    return this.http.post<Board>('/api/boards', body);
   }
 
   public updateBoard(id: Board['id'], title: Board['title']) {

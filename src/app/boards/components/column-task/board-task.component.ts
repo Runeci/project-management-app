@@ -54,7 +54,7 @@ export class BoardTaskComponent implements OnInit {
     this.animationStatus = 'start';
   }
 
-  public deleteTask( event: Event) {
+  public deleteTask(event: Event) {
     event.stopPropagation();
     // console.log('fk', this.task, this.column);
     // console.log(this.column.id, 'wfk');

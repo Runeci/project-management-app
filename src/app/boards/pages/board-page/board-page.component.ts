@@ -5,10 +5,10 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { BoardDialogService } from '@boards/services/board-dialog.service';
 import { Board } from '@shared/models/boards.interfaces';
-import { forkJoin, Subscription, switchMap, take } from 'rxjs';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { BoardsDialogComponent } from '@boards/components/boards-dialog/boards-dialog.component';
-import { DialogUse } from '../../../app.constants';
+import {
+  forkJoin, Subscription, switchMap, take,
+} from 'rxjs';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NewColumnDialogComponent } from '@boards/components/new-column-dialog/new-column-dialog.component';
 
 @Component({
@@ -16,8 +16,7 @@ import { NewColumnDialogComponent } from '@boards/components/new-column-dialog/n
   templateUrl: './board-page.component.html',
   styleUrls: ['./board-page.component.scss'],
 })
-export class BoardPageComponent implements OnInit {
-
+export class BoardPageComponent implements OnInit, OnDestroy {
   private boardId: Board['id'];
 
   private newColumnTitle: string = '';
@@ -75,15 +74,20 @@ export class BoardPageComponent implements OnInit {
     const ref = this.dialog.open(NewColumnDialogComponent);
 
     ref.afterClosed().subscribe(() => {
-      this.columnApiService.createColumn(this.boardId, {
-        title: this.newColumnTitle,
-        order: this.columnsArray.length + 1,
-      }).subscribe(
-        (column) => this.columnsArray.push(column)
-      );
+      if (this.newColumnTitle) {
+        this.columnApiService.createColumn(this.boardId, {
+          title: this.newColumnTitle,
+          order: this.columnsArray.length + 1,
+        }).subscribe(
+          (column) => {
+            column.tasks = [];
+            this.columnsArray.push(column);
+          },
+        );
+      }
     });
-  }
 
+  }
 
   public dropGroup(event: CdkDragDrop<Column[], any>) {
     moveItemInArray(this.columnsArray, event.previousIndex, event.currentIndex);
@@ -140,14 +144,11 @@ export class BoardPageComponent implements OnInit {
   private getColumns(): void {
     this.columnApiService.getColumns(this.boardId)
       .pipe(
-        switchMap(columns => {
-
-          return forkJoin(
-            columns.map(col => this.columnApiService.getColumn(this.boardId, col.id))
-          );
-        }),
+        switchMap((columns) => forkJoin(
+          columns.map((col) => this.columnApiService.getColumn(this.boardId, col.id)),
+        )),
       )
-      .subscribe(res => {
+      .subscribe((res) => {
         this.columnsArray = res.sort((prev, next) => prev.order - next.order);
         console.log(this.columnsArray, 'start');
       });

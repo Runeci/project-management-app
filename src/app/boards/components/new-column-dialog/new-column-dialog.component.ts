@@ -6,7 +6,7 @@ import { ColumnsApiService } from '@boards/services/columns-api.service';
 @Component({
   selector: 'app-new-column-dialog',
   templateUrl: './new-column-dialog.component.html',
-  styleUrls: ['./new-column-dialog.component.scss']
+  styleUrls: ['./new-column-dialog.component.scss'],
 })
 export class NewColumnDialogComponent {
   public form = this.fb.group({

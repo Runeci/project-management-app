@@ -8,7 +8,7 @@ describe('NewColumnDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NewColumnDialogComponent ]
+      declarations: [NewColumnDialogComponent],
     })
     .compileComponents();
   });

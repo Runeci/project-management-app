@@ -45,6 +45,7 @@ export class TaskEditDialogComponent {
         userId: this.task.userId,
         boardId: this.task.boardId,
         columnId: this.task.columnId,
+        done: this.task.done,
       },
     ).subscribe();
 

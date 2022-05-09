@@ -89,6 +89,7 @@ export class BoardColumnComponent implements OnInit {
   }
 
   public openNewTaskDialog() {
+    console.log(this.column.tasks);
     const ref = this.dialog.open(
       NewTaskDialogComponent,
       {
@@ -107,13 +108,13 @@ export class BoardColumnComponent implements OnInit {
   }
 
   public getConnectedList(): string[] {
-    return this.columnsArr.map((x: { order: any; }) => `${ x.order }`);
+    return this.columnsArr.map((x: { order: any; }) => `${x.order}`);
   }
 
   public dropItem(event: CdkDragDrop<any>) {
     const draggedTask = event.item.data;
     const startColumn = this.columnsArr.filter((i) => i.tasks.includes(draggedTask));
-    let startColumnId = startColumn[0].id;
+    const startColumnId = startColumn[0].id;
 
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -123,7 +124,8 @@ export class BoardColumnComponent implements OnInit {
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex);
+        event.currentIndex,
+);
       this.tasksApiService.updateTask(
         this.boardId,
         startColumnId,
@@ -135,7 +137,8 @@ export class BoardColumnComponent implements OnInit {
           description: draggedTask.description,
           boardId: this.boardId,
           columnId: this.column.id,
-        }
+          done: draggedTask.done,
+        },
       ).subscribe(
         () => {
           this.updateTasksOrder(event.container.data, this.column.id);
@@ -157,6 +160,7 @@ export class BoardColumnComponent implements OnInit {
           userId: task.userId,
           boardId: this.boardId,
           columnId,
+          done: task.done,
         },
       ).subscribe();
     });
