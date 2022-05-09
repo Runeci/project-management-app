@@ -36,7 +36,7 @@ export class TaskApiService {
     boardId: Board['id'],
     columnId: Column['id'],
     taskId: TaskI['id'],
-    body: Pick<TaskI, 'title' | 'order' | 'done' |'description' | 'userId' | 'boardId' | 'columnId'>,
+    body: Pick<TaskI, 'title' | 'order' | 'done' | 'description' | 'userId' | 'boardId' | 'columnId'>,
   ) {
     return this.http.put<TaskI>(`/api/boards/${boardId}/columns/${columnId}/tasks/${taskId}`, body);
   }

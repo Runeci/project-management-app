@@ -22,13 +22,11 @@ export class BoardColumnComponent implements OnInit {
 
   @Input() columnsArr!: Column[];
 
-  @Output() deletedColumn = new EventEmitter<Column['order']>();
+  @Output() deletedColumn = new EventEmitter<Pick<Column, 'order' | 'id'>>();
 
   public editColumnInput: boolean = false;
 
   public newColumnTitle!: Column['title'];
-
-  // public tasksArr: TaskI[] = [];
 
   private boardId: Board['id'];
 
@@ -58,9 +56,8 @@ export class BoardColumnComponent implements OnInit {
   }
 
   public deleteColumn(event: Event) {
-    this.columnApiService.deleteColumn(this.boardId, this.column.id).subscribe();
     event.stopPropagation();
-    this.deletedColumn.emit(this.column.order);
+    this.deletedColumn.emit({ order: this.column.order, id: this.column.id });
   }
 
   public updateColumnName() {
@@ -82,6 +79,7 @@ export class BoardColumnComponent implements OnInit {
   public deleteTask(columnId: Column['id'], taskId: TaskI['id']) {
     this.tasksApiService
       .deleteTask(this.boardId, columnId, taskId).subscribe();
+    console.log(this.columnsArr);
   }
 
   public toggleColumnInput(): void {

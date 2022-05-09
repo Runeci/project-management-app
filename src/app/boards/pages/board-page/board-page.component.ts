@@ -47,10 +47,23 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     this.dialogSubscription.unsubscribe();
   }
 
-  public updateColumnsAfterDelete(columnOrder: Column['order']) {
-    const start = columnOrder - 1;
-    this.columnsArray.splice(start, 1);
-    this.updateColumnsOrder();
+  public updateColumnsAfterDelete(columnInfo: Pick<Column, 'order' | 'id'>) {
+    const start = columnInfo.order - 1;
+
+    this.columnApiService.deleteColumn(this.boardId, columnInfo.id).subscribe(
+      () => {
+        this.columnsArray.splice(start, 1);
+
+        this.columnsArray = this.columnsArray.map((column, index) => ({
+            id: column.id,
+            title: column.title,
+            order: index + 1,
+            tasks: column.tasks,
+          }));
+
+        this.updateColumnsOrder();
+      },
+    );
   }
 
   private updateColumnsOrder() {
@@ -60,7 +73,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
         column.id,
         {
           title: column.title,
-          order: index + 1,
+          order: column.order,
         },
       )
         .pipe(
@@ -86,7 +99,6 @@ export class BoardPageComponent implements OnInit, OnDestroy {
         );
       }
     });
-
   }
 
   public dropGroup(event: CdkDragDrop<Column[], any>) {
@@ -138,7 +150,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   }
 
   public getConnectedList(): any[] {
-    return this.columnsArray.map((x: { order: any; }) => `${ x.order }`);
+    return this.columnsArray.map((x: { order: any; }) => `${x.order}`);
   }
 
   private getColumns(): void {
@@ -150,7 +162,6 @@ export class BoardPageComponent implements OnInit, OnDestroy {
       )
       .subscribe((res) => {
         this.columnsArray = res.sort((prev, next) => prev.order - next.order);
-        console.log(this.columnsArray, 'start');
       });
   }
 }
