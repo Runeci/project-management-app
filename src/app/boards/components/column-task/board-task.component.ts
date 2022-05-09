@@ -54,13 +54,16 @@ export class BoardTaskComponent implements OnInit {
     this.animationStatus = 'start';
   }
 
-  public deleteTask(taskId: TaskI['id'], event: Event) {
+  public deleteTask( event: Event) {
     event.stopPropagation();
+    // console.log('fk', this.task, this.column);
+    // console.log(this.column.id, 'wfk');
+
     this.tasksApiService
-      .deleteTask(this.boardId, this.column.id, taskId).subscribe();
+      .deleteTask(this.boardId, this.column.id, this.task.id).subscribe();
   }
 
-  public openDialog() {
+  public openTaskEditDialog() {
     this.dialog.open(
       TaskEditDialogComponent,
       {

@@ -26,6 +26,7 @@
                      *ngFor="let task of column.tasks"
                      [cdkDragData]="task"
                      [task]="task"
+                     [column]="column"
     >
     </app-column-task>
     <div class="new-task" (click)="openNewTaskDialog()">
