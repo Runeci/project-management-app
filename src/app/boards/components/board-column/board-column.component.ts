@@ -76,10 +76,25 @@ export class BoardColumnComponent implements OnInit {
     this.toggleColumnInput();
   }
 
-  public deleteTask(columnId: Column['id'], taskId: TaskI['id']) {
+  public deleteTask(task: Pick<TaskI, 'id' | 'order'>) {
     this.tasksApiService
-      .deleteTask(this.boardId, columnId, taskId).subscribe();
-    console.log(this.columnsArr);
+      .deleteTask(this.boardId, this.column.id, task.id).subscribe(
+      () => {
+        this.column.tasks.splice(task.order - 1, 1);
+
+        this.column.tasks = this.column.tasks.map((task, index) => ({
+          id: task.id,
+          title: task.title,
+          done: task.done,
+          userId: task.userId,
+          description: task.description,
+          files: task.files,
+          order: index + 1,
+        }))
+
+        this.updateTasksOrder(this.column.tasks, this.column.id)
+      }
+    );
   }
 
   public toggleColumnInput(): void {
@@ -87,7 +102,6 @@ export class BoardColumnComponent implements OnInit {
   }
 
   public openNewTaskDialog() {
-    console.log(this.column.tasks);
     const ref = this.dialog.open(
       NewTaskDialogComponent,
       {
@@ -106,7 +120,7 @@ export class BoardColumnComponent implements OnInit {
   }
 
   public getConnectedList(): string[] {
-    return this.columnsArr.map((x: { order: any; }) => `${x.order}`);
+    return this.columnsArr.map((x: { order: any; }) => `${ x.order }`);
   }
 
   public dropItem(event: CdkDragDrop<any>) {
@@ -123,7 +137,7 @@ export class BoardColumnComponent implements OnInit {
         event.container.data,
         event.previousIndex,
         event.currentIndex,
-);
+      );
       this.tasksApiService.updateTask(
         this.boardId,
         startColumnId,
@@ -135,7 +149,7 @@ export class BoardColumnComponent implements OnInit {
           description: draggedTask.description,
           boardId: this.boardId,
           columnId: this.column.id,
-          done: draggedTask.done,
+          done: false,
         },
       ).subscribe(
         () => {
@@ -158,7 +172,7 @@ export class BoardColumnComponent implements OnInit {
           userId: task.userId,
           boardId: this.boardId,
           columnId,
-          done: task.done,
+          done: false,
         },
       ).subscribe();
     });

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   animate, state, style, transition, trigger,
 } from '@angular/animations';
@@ -31,6 +31,8 @@ export class BoardTaskComponent implements OnInit {
 
   @Input() column!: Column;
 
+  @Output() deletedTask = new EventEmitter<Pick<TaskI,'id' | 'order'>>();
+
   private boardId: Board['id'];
 
   constructor(
@@ -56,18 +58,17 @@ export class BoardTaskComponent implements OnInit {
 
   public deleteTask(event: Event) {
     event.stopPropagation();
-    // console.log('fk', this.task, this.column);
-    // console.log(this.column.id, 'wfk');
-
-    this.tasksApiService
-      .deleteTask(this.boardId, this.column.id, this.task.id).subscribe();
+    this.deletedTask.emit({
+      id: this.task.id,
+      order: this.task.order,
+    });
   }
 
   public openTaskEditDialog() {
     this.dialog.open(
       TaskEditDialogComponent,
       {
-        data: this.task,
+        data: { task: this.task, columnId: this.column.id, boardId: this.boardId },
         width: '500px',
       },
     );

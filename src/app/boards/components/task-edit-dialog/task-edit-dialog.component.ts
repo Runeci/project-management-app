@@ -3,6 +3,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TaskI } from '@shared/models/tasks.interfaces';
 import { FormBuilder } from '@angular/forms';
 import { TaskApiService } from '@boards/services/task-api.service';
+import { ActivatedRoute } from '@angular/router';
+import { Board } from '@shared/models/boards.interfaces';
+import { Column } from '@shared/models/columns.interfaces';
 
 @Component({
   selector: 'app-task-edit-boards-dialog',
@@ -14,42 +17,45 @@ export class TaskEditDialogComponent {
 
   public editTitle = false;
 
+
   public editTaskForm = this.fb.group(
     {
-      title: [`${this.task.title}`],
-      description: [`${this.task.description}` || ''],
+      title: [`${this.data.task.title}`],
+      description: [`${this.data.task.description}` || ''],
     },
   );
 
   constructor(
     private fb: FormBuilder,
     private tasksApiService: TaskApiService,
-    @Inject(MAT_DIALOG_DATA) public task: TaskI,
+    private activatedRoute: ActivatedRoute,
+    @Inject(MAT_DIALOG_DATA) public data: { task:TaskI, columnId: Column['id'], boardId: Board['id']},
   ) {
   }
 
   public updateTask() {
     const description = this.editTaskForm.value.description
-      ? this.editTaskForm.value.description : this.task.description;
+      ? this.editTaskForm.value.description : this.data.task.description;
+    console.log(this.data.task.boardId);
 
     const title = this.editTaskForm.value.title
-      ? this.editTaskForm.value.title : this.task.title;
+      ? this.editTaskForm.value.title : this.data.task.title;
     this.tasksApiService.updateTask(
-      this.task.boardId,
-      this.task.columnId!,
-      this.task.id,
+      this.data.boardId,
+      this.data.columnId,
+      this.data.task.id,
       {
         title,
-        order: this.task.order,
+        order: this.data.task.order,
         description,
-        userId: this.task.userId,
-        boardId: this.task.boardId,
-        columnId: this.task.columnId,
-        done: this.task.done,
+        userId: this.data.task.userId,
+        boardId: this.data.boardId,
+        columnId: this.data.task.columnId,
+        done: false,
       },
     ).subscribe();
 
-    this.task.title = title;
-    this.task.description = description;
+    this.data.task.title = title;
+    this.data.task.description = description;
   }
 }

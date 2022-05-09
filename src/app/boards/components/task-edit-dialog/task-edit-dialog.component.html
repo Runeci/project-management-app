@@ -3,7 +3,7 @@
 
     <div class="title-container" *ngIf="!editTitle" (click)="editTitle = true">
       <mat-icon>newspaper</mat-icon>
-      <h2 mat-dialog-title>{{ task.title }}</h2>
+      <h2 mat-dialog-title>{{ data.task.title }}</h2>
     </div>
 
     <ng-container *ngIf="editTitle">
@@ -20,7 +20,7 @@
       <mat-icon *ngIf="!editDescription" (click)="editDescription = true">mode_edit</mat-icon>
     </div>
 
-    <p class="task-description" *ngIf="!editDescription">{{ task.description }}</p>
+    <p class="task-description" *ngIf="!editDescription">{{ data.task.description }}</p>
 
     <ng-container *ngIf="editDescription">
       <mat-form-field appearance="fill" class="edit-form">

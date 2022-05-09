@@ -27,6 +27,7 @@
                      [cdkDragData]="task"
                      [task]="task"
                      [column]="column"
+                     (deletedTask)="deleteTask($event)"
     >
     </app-column-task>
     <div class="new-task" (click)="openNewTaskDialog()">

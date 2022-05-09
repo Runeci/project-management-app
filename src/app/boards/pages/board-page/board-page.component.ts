@@ -6,7 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { BoardDialogService } from '@boards/services/board-dialog.service';
 import { Board } from '@shared/models/boards.interfaces';
 import {
-  forkJoin, Subscription, switchMap, take,
+  delay,
+  forkJoin, Subscription, switchMap, take, timer,
 } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NewColumnDialogComponent } from '@boards/components/new-column-dialog/new-column-dialog.component';
@@ -47,7 +48,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     this.dialogSubscription.unsubscribe();
   }
 
-  public updateColumnsAfterDelete(columnInfo: Pick<Column, 'order' | 'id'>) {
+  public deleteColumn(columnInfo: Pick<Column, 'order' | 'id'>) {
     const start = columnInfo.order - 1;
 
     this.columnApiService.deleteColumn(this.boardId, columnInfo.id).subscribe(
@@ -55,11 +56,11 @@ export class BoardPageComponent implements OnInit, OnDestroy {
         this.columnsArray.splice(start, 1);
 
         this.columnsArray = this.columnsArray.map((column, index) => ({
-            id: column.id,
-            title: column.title,
-            order: index + 1,
-            tasks: column.tasks,
-          }));
+          id: column.id,
+          title: column.title,
+          order: index + 1,
+          tasks: column.tasks,
+        }));
 
         this.updateColumnsOrder();
       },
@@ -95,6 +96,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
           (column) => {
             column.tasks = [];
             this.columnsArray.push(column);
+            this.newColumnTitle = '';
           },
         );
       }
@@ -103,54 +105,26 @@ export class BoardPageComponent implements OnInit, OnDestroy {
 
   public dropGroup(event: CdkDragDrop<Column[], any>) {
     moveItemInArray(this.columnsArray, event.previousIndex, event.currentIndex);
+    console.log(this.columnsArray);
 
+    this.columnsArray = this.columnsArray.map((column, index) => ({
+      id: column.id,
+      order: index + 1,
+      tasks: column.tasks,
+      title: column.title,
+    }));
     //
-    // this.columnApiService.updateColumn(this.boardId, z[1].id, {
-    //   title: '2',
-    //   order: 2,
-    // }).subscribe()
-    //
-    // this.columnApiService.updateColumn(this.boardId, z[2].id, {
-    //   title: '3',
-    //   order: 3,
-    // }).subscribe()
-    //
-    //
-    // this.columnApiService.updateColumn(this.boardId, z[0].id, {
-    //   title: '1',
-    //   order: 1,
-    // }).subscribe()
-
-    // z.forEach((item) => {
-    //   this.columnApiService.updateColumn(this.boardId, item.id, {
-    //     title: item.title,
-    //     order: item.order,
-    //   }).subscribe()
+    // this.columnsArray.forEach((column) => {
+    //   this.columnApiService.updateColumn(this.boardId, column.id,
+    //     { title: column.title, order: column.order }
+    //   ).pipe(
+    //     delay(10)
+    //   ).subscribe();
     // });
-    // console.log(this.columnsArray, 'b');
-    // this.z = this.columnsArray.map((column, index): Column => {
-    //   return {
-    //     id: column.id,
-    //     title: column.title,
-    //     order: index + 1,
-    //     tasks: column.tasks,
-    //   }
-    // });
-    //
-    // this.z.forEach((i, idx) => {
-    //   this.columnApiService.updateColumn(
-    //     this.boardId,
-    //     i.id,
-    //     {
-    //       title: i.title,
-    //       order: idx + 1,
-    //     }
-    //   ).subscribe()
-    // })
   }
 
   public getConnectedList(): any[] {
-    return this.columnsArray.map((x: { order: any; }) => `${x.order}`);
+    return this.columnsArray.map((x: { order: any; }) => `${ x.order }`);
   }
 
   private getColumns(): void {
