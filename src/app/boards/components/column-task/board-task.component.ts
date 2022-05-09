@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+ Component, EventEmitter, Input, OnInit, Output,
+} from '@angular/core';
 import {
   animate, state, style, transition, trigger,
 } from '@angular/animations';
@@ -31,7 +33,7 @@ export class BoardTaskComponent implements OnInit {
 
   @Input() column!: Column;
 
-  @Output() deletedTask = new EventEmitter<Pick<TaskI,'id' | 'order'>>();
+  @Output() deletedTask = new EventEmitter<Pick<TaskI, 'id' | 'order'>>();
 
   private boardId: Board['id'];
 

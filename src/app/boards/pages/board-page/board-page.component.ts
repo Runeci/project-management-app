@@ -6,8 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BoardDialogService } from '@boards/services/board-dialog.service';
 import { Board } from '@shared/models/boards.interfaces';
 import {
-  delay,
-  forkJoin, Subscription, switchMap, take, timer,
+  forkJoin, Subscription, switchMap, take,
 } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NewColumnDialogComponent } from '@boards/components/new-column-dialog/new-column-dialog.component';
@@ -68,7 +67,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   }
 
   private updateColumnsOrder() {
-    this.columnsArray.forEach((column, index) => {
+    this.columnsArray.forEach((column) => {
       this.columnApiService.updateColumn(
         this.boardId,
         column.id,
@@ -105,7 +104,6 @@ export class BoardPageComponent implements OnInit, OnDestroy {
 
   public dropGroup(event: CdkDragDrop<Column[], any>) {
     moveItemInArray(this.columnsArray, event.previousIndex, event.currentIndex);
-    console.log(this.columnsArray);
 
     this.columnsArray = this.columnsArray.map((column, index) => ({
       id: column.id,
@@ -124,7 +122,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   }
 
   public getConnectedList(): any[] {
-    return this.columnsArray.map((x: { order: any; }) => `${ x.order }`);
+    return this.columnsArray.map((x: { order: any; }) => `${x.order}`);
   }
 
   private getColumns(): void {

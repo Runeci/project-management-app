@@ -76,11 +76,11 @@ export class BoardColumnComponent implements OnInit {
     this.toggleColumnInput();
   }
 
-  public deleteTask(task: Pick<TaskI, 'id' | 'order'>) {
+  public deleteTask(currentTask: Pick<TaskI, 'id' | 'order'>) {
     this.tasksApiService
-      .deleteTask(this.boardId, this.column.id, task.id).subscribe(
+      .deleteTask(this.boardId, this.column.id, currentTask.id).subscribe(
       () => {
-        this.column.tasks.splice(task.order - 1, 1);
+        this.column.tasks.splice(currentTask.order - 1, 1);
 
         this.column.tasks = this.column.tasks.map((task, index) => ({
           id: task.id,
@@ -90,10 +90,10 @@ export class BoardColumnComponent implements OnInit {
           description: task.description,
           files: task.files,
           order: index + 1,
-        }))
+        }));
 
-        this.updateTasksOrder(this.column.tasks, this.column.id)
-      }
+        this.updateTasksOrder(this.column.tasks, this.column.id);
+      },
     );
   }
 
@@ -120,7 +120,7 @@ export class BoardColumnComponent implements OnInit {
   }
 
   public getConnectedList(): string[] {
-    return this.columnsArr.map((x: { order: any; }) => `${ x.order }`);
+    return this.columnsArr.map((x: { order: any; }) => `${x.order}`);
   }
 
   public dropItem(event: CdkDragDrop<any>) {

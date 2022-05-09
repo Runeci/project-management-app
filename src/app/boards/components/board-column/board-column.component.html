@@ -1,11 +1,10 @@
 <div class="column-container">
   <div class="column-title-container" *ngIf="!editColumnInput" (click)="toggleColumnInput()">
     <h2>{{column.title}}</h2>
-    <div>{{column.id}}</div>
     <mat-icon (click)="deleteColumn($event)">delete</mat-icon>
   </div>
 
-  <mat-form-field class="example-form-field" *ngIf="editColumnInput">
+  <mat-form-field class="form-field" *ngIf="editColumnInput">
     <input matInput type="text" [(ngModel)]="newColumnTitle" (keyup.enter)="updateColumnName()">
     <button matPrefix mat-icon-button (click)="updateColumnName()">
       <mat-icon>done</mat-icon>
@@ -30,7 +29,9 @@
                      (deletedTask)="deleteTask($event)"
     >
     </app-column-task>
-    <div class="new-task" (click)="openNewTaskDialog()">
+    <div class="new-task" cdkDropList cdkDropListDisabled
+         (click)="openNewTaskDialog()"
+    >
       <mat-icon>add</mat-icon>
       <div>{{ 'BUTTON.ADD_TASK' | translate }}</div>
     </div>
