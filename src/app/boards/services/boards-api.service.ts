@@ -14,8 +14,12 @@ export class BoardsApiService {
     return this.http.get<Board[]>('/api/boards');
   }
 
-  public createBoard(title: Board['title']) {
-    return this.http.post<Board>('/api/boards', { title });
+  public createBoard(title: Board['title'], description: Board['description']) {
+    let body = {
+      title: title,
+      description: description,
+    }
+    return this.http.post<Board>('/api/boards',  body );
   }
 
   public updateBoard(id: Board['id'], title: Board['title']) {

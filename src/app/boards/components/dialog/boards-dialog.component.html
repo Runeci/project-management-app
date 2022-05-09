@@ -5,20 +5,31 @@
 <mat-divider></mat-divider>
 
 <mat-dialog-content class="mat-typography">
-  <form class="dialog-form" (ngSubmit)="onSubmit()">
+  <form class="dialog-form" (ngSubmit)="onSubmit()" [formGroup]="form">
     <mat-form-field appearance="fill">
       <mat-label>{{ (name === 'board' ? 'MAIN.BOARD_TITLE' : 'MAIN.COLUMN_TITLE') | translate }}</mat-label>
       <input
         type="text"
         matInput
-        [formControl]="titleFormControl"
+        formControlName="title"
         placeholder="{{ (name === 'board' ? 'MAIN.BOARD_TITLE' : 'MAIN.COLUMN_TITLE') | translate }}"
       >
 
-      <mat-error *ngIf="titleFormControl.hasError('maxlength')">
-        {{ 'Title is too long'| translate }}
+      <mat-error *ngIf="form.get('title')?.hasError('required')">
+        {{ 'Title is required' | translate }}
       </mat-error>
-      <mat-error *ngIf="titleFormControl.hasError('required')">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'BOARD.NEW_TASK_DIALOG.DESCRIPTION' | translate }}</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="description"
+        placeholder="{{ 'BOARD.NEW_TASK_DIALOG.DESCRIPTION' | translate }}"
+      >
+
+      <mat-error *ngIf="form.get('description')?.hasError('required')">
         {{ 'Title is required' | translate }}
       </mat-error>
     </mat-form-field>
@@ -28,7 +39,7 @@
       mat-flat-button
       type="submit"
       color="accent"
-      [disabled]="titleFormControl.invalid"
+      [disabled]="form.invalid"
     >
       {{ 'BUTTON.CREATE' | translate }}
     </button>
