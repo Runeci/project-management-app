@@ -25,6 +25,17 @@
     "EDIT_DIALOG": {
       "DESCR": "Description"
     },
+    "HOME": {
+      "TITLE": "RSTrello - your next level of task design.",
+      "SUBTITLE": "An app with an intuitive interface and powerful features allows teams to effectively coordinate and manage their projects."
+    },
+    "AUTH": {
+      "NAME": "Name",
+      "EMAIL": "Email",
+      "PASSWORD": "Password",
+      "ROUT_REGISTR": "Register an account",
+      "ROUT_LOGIN": "Already have an account? Login"
+    },
     "NEW_TASK_DIALOG": {
       "TITLE": "Task title",
       "DESCRIPTION": "Task description"
@@ -52,7 +63,7 @@
   "Column was not founded!": "Column was not founded!",
   "Title is too long": "Title is too long",
   "Title is required": "Title is required",
-  "Description is required": "Необходимо ввести описание",
+  "Description is required": "Description is required",
   "name": {
     "required": "Please enter a name",
     "minlength": "The name is too short"
@@ -82,4 +93,3 @@
     "checkUrl": "The image link is invalid"
   }
 }
-
