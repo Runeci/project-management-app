@@ -5,7 +5,7 @@ import { FormBuilder } from '@angular/forms';
 import { TaskApiService } from '@boards/services/task-api.service';
 
 @Component({
-  selector: 'app-task-edit-dialog',
+  selector: 'app-task-edit-boards-dialog',
   templateUrl: './task-edit-dialog.component.html',
   styleUrls: ['./task-edit-dialog.component.scss'],
 })

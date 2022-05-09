@@ -1,18 +1,18 @@
 <h2 mat-dialog-title>
     {{ 'BUTTON.CREATE' | translate }}
-    {{ (name === 'board' ? 'MAIN.BOARD_TITLE' : 'MAIN.COLUMN_TITLE') | translate | lowercase }}
+    {{ 'MAIN.BOARD_TITLE' | translate | lowercase }}
 </h2>
 <mat-divider></mat-divider>
 
 <mat-dialog-content class="mat-typography">
   <form class="dialog-form" (ngSubmit)="onSubmit()" [formGroup]="form">
     <mat-form-field appearance="fill">
-      <mat-label>{{ (name === 'board' ? 'MAIN.BOARD_TITLE' : 'MAIN.COLUMN_TITLE') | translate }}</mat-label>
+      <mat-label>{{'MAIN.BOARD_TITLE' | translate }}</mat-label>
       <input
         type="text"
         matInput
         formControlName="title"
-        placeholder="{{ (name === 'board' ? 'MAIN.BOARD_TITLE' : 'MAIN.COLUMN_TITLE') | translate }}"
+        placeholder="{{ 'MAIN.BOARD_TITLE' | translate }}"
       >
 
       <mat-error *ngIf="form.get('title')?.hasError('required')">
@@ -39,7 +39,6 @@
       mat-flat-button
       type="submit"
       color="accent"
-      [disabled]="form.invalid"
     >
       {{ 'BUTTON.CREATE' | translate }}
     </button>

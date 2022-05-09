@@ -7,19 +7,20 @@ import { BoardDialogService } from '@boards/services/board-dialog.service';
 import { Board } from '@shared/models/boards.interfaces';
 import { forkJoin, Subscription, switchMap, take } from 'rxjs';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { BoardsDialogComponent } from '@boards/components/dialog/boards-dialog.component';
+import { BoardsDialogComponent } from '@boards/components/boards-dialog/boards-dialog.component';
 import { DialogUse } from '../../../app.constants';
+import { NewColumnDialogComponent } from '@boards/components/new-column-dialog/new-column-dialog.component';
 
 @Component({
   selector: 'app-board-page',
   templateUrl: './board-page.component.html',
   styleUrls: ['./board-page.component.scss'],
 })
-export class BoardPageComponent implements OnInit{
+export class BoardPageComponent implements OnInit {
 
   private boardId: Board['id'];
 
-  private columnName: string = '';
+  private newColumnTitle: string = '';
 
   private dialogSubscription!: Subscription;
 
@@ -39,7 +40,7 @@ export class BoardPageComponent implements OnInit{
     this.getColumns();
 
     this.dialogSubscription = this.dialogService.events$.subscribe(
-      (res) => this.columnName = res,
+      (res) => this.newColumnTitle = res,
     );
   }
 
@@ -70,24 +71,17 @@ export class BoardPageComponent implements OnInit{
     });
   }
 
-  public createColumn(): void {
-    if (!this.columnName) {
-      return;
-    }
-    this.columnApiService.createColumn(
-      this.boardId,
-      { title: this.columnName.trim(), order: this.columnsArray.length + 1 },
-    ).subscribe(
-      () => this.getColumns(),
-    );
-    this.columnName = '';
-  }
+  public openNewColumnDialog() {
+    const ref = this.dialog.open(NewColumnDialogComponent);
 
-  public openDialog() {
-    const ref = this.dialog.open(BoardsDialogComponent, { data: DialogUse.column });
-    ref.afterClosed().subscribe(
-      () => this.createColumn(),
-    );
+    ref.afterClosed().subscribe(() => {
+      this.columnApiService.createColumn(this.boardId, {
+        title: this.newColumnTitle,
+        order: this.columnsArray.length + 1,
+      }).subscribe(
+        (column) => this.columnsArray.push(column)
+      );
+    });
   }
 
 
@@ -112,11 +106,11 @@ export class BoardPageComponent implements OnInit{
     // }).subscribe()
 
     // z.forEach((item) => {
-      //   this.columnApiService.updateColumn(this.boardId, item.id, {
-      //     title: item.title,
-      //     order: item.order,
-      //   }).subscribe()
-      // });
+    //   this.columnApiService.updateColumn(this.boardId, item.id, {
+    //     title: item.title,
+    //     order: item.order,
+    //   }).subscribe()
+    // });
     // console.log(this.columnsArray, 'b');
     // this.z = this.columnsArray.map((column, index): Column => {
     //   return {

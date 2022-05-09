@@ -9,7 +9,7 @@ import { BoardDialogService } from '@boards/services/board-dialog.service';
 import { DialogUse } from '../../../app.constants';
 
 @Component({
-  selector: 'app-dialog',
+  selector: 'app-boards-dialog',
   templateUrl: './boards-dialog.component.html',
   styleUrls: ['./boards-dialog.component.scss'],
 })
@@ -25,9 +25,6 @@ export class BoardsDialogComponent implements OnInit {
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private boardsApiService: BoardsApiService,
-    private columnsApiService: ColumnsApiService,
-    private dialogService: BoardDialogService,
-    @Inject(MAT_DIALOG_DATA) public name: DialogUse,
   ) {
   }
 
@@ -36,13 +33,8 @@ export class BoardsDialogComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    if (this.name === DialogUse.board) {
-      this.boardsApiService.createBoard(this.form.value.title, this.form.value.description)
-        .subscribe();
-    }
-
-    if (this.name === DialogUse.column) {
-      // this.dialogService.newEvent(this.titleFormControl.value);
-    }
+    this.boardsApiService
+      .createBoard(this.form.value.title, this.form.value.description)
+      .subscribe();
   }
 }

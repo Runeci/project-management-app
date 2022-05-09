@@ -34,7 +34,7 @@ export class HeaderComponent {
   }
 
   public openDialog(): void {
-    this.dialogService.newEvent('open add dialog');
+    this.dialogService.newEvent('open add boards-dialog');
   }
 
   public togglePath(path: string): void {

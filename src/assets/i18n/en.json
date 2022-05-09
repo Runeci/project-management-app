@@ -28,6 +28,11 @@
     "NEW_TASK_DIALOG": {
       "TITLE": "Task title",
       "DESCRIPTION": "Task description"
+    },
+    "NEW_COLUMN_DIALOG": {
+      "COLUMN": "Create new column",
+      "TITLE": "Column title",
+      "DESCRIPTION": "Column description"
     }
   },
   "BUTTON": {

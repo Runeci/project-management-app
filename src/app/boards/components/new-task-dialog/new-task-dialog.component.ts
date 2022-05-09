@@ -7,7 +7,7 @@ import { Column } from '@shared/models/columns.interfaces';
 import { Board } from '@shared/models/boards.interfaces';
 
 @Component({
-  selector: 'app-new-task-dialog',
+  selector: 'app-new-task-boards-dialog',
   templateUrl: './new-task-dialog.component.html',
   styleUrls: ['./new-task-dialog.component.scss'],
 })
