@@ -4,7 +4,6 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 
-import { NotificationService } from '@core/services/notification.service';
 import { AuthService } from '@auth/services/auth.service';
 import { ValidationService } from '@core/services/validation.service';
 
@@ -21,14 +20,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private notificationService: NotificationService,
     public validationService: ValidationService,
   ) {}
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
       login: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     });
     this.formGroup.valueChanges
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -39,14 +37,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.formGroup.valid) {
-      this.authService.login(this.formGroup.value).subscribe(
-        () => {
-          this.formGroup.reset();
-        },
-        (error) => {
-          this.notificationService.translateToastError(error);
-        },
-      );
+      this.authService.login(this.formGroup.value).subscribe();
     }
   }
 

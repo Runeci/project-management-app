@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Board } from '@shared/models/boards.interfaces';
 import { MatDialog } from '@angular/material/dialog';
+
 import { BoardDialogService } from '@boards/services/board-dialog.service';
 import { BoardsDialogComponent } from '@boards/components/dialog/boards-dialog.component';
 import { BoardsApiService } from '../../services/boards-api.service';
@@ -20,6 +21,7 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
   constructor(
     private boardsService: BoardsApiService,
     private dialog: MatDialog,
+
     private dialogService: BoardDialogService,
   ) {
   }

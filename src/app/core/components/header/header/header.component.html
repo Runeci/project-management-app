@@ -21,13 +21,14 @@
 
   <ng-template [ngIf]="checkRoute('/home')">
     <button mat-flat-button (click)="togglePath('login')">{{ 'HEADER.LOGIN' | translate }}</button>
+
     <button mat-flat-button color="primary" class="text-white"
             (click)="togglePath('signup')">{{ 'HEADER.SIGNUP' | translate }}</button>
   </ng-template>
 
-  <ng-template [ngIf]="!checkRoute('/home')">
-    <mat-icon class="user-icon">account_circle</mat-icon>
-    <button mat-button color="accent" class="logout-btn">{{'HEADER.LOGOUT' | translate}}</button>
+  <ng-template [ngIf]="currentRoute !== '/' && currentRoute !== '/home'">
+    <mat-icon class="user-icon" (click)="editProfile()">account_circle</mat-icon>
+    <button mat-button color="accent" (click)="logout()">{{'HEADER.LOGOUT' | translate}}</button>
   </ng-template>
 
 </mat-toolbar>
