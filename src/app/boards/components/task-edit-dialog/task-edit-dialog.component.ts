@@ -31,31 +31,6 @@ export class TaskEditDialogComponent {
   ) {
   }
 
-  // public updateTask() {
-  //   const description = this.editTaskForm.value.description
-  //     ? this.editTaskForm.value.description : this.data.task.description;
-  //
-  //   const title = this.editTaskForm.value.title
-  //     ? this.editTaskForm.value.title : this.data.task.title;
-  //   this.tasksApiService.updateTask(
-  //     this.data.boardId,
-  //     this.data.columnId,
-  //     this.data.task.id,
-  //     {
-  //       title,
-  //       order: this.data.task.order,
-  //       description,
-  //       userId: this.data.task.userId,
-  //       boardId: this.data.boardId,
-  //       columnId: this.data.task.columnId,
-  //       done: false,
-  //     },
-  //   ).subscribe();
-  //
-  //   this.data.task.title = title;
-  //   this.data.task.description = description;
-  // }
-
   public onSubmit() {
     this.dialogRef.close({
       title: this.editTaskForm.value.title,
