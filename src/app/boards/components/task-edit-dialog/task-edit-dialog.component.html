@@ -1,5 +1,5 @@
 <mat-dialog-content class="container">
-  <form [formGroup]="editTaskForm">
+  <form [formGroup]="editTaskForm" (ngSubmit)="onSubmit()">
 
     <div class="title-container" *ngIf="!editTitle" (click)="editTitle = true">
       <mat-icon>newspaper</mat-icon>
@@ -30,9 +30,7 @@
     </ng-container>
 
     <div class="edit-btns" *ngIf="editDescription || editTitle">
-      <button mat-button color="primary" type="submit" mat-dialog-close="true"
-              (click)="updateTask()"
-      >
+      <button mat-button color="primary" type="submit" mat-dialog-close="true">
         {{ 'BUTTON.SAVE' | translate }}
       </button>
     </div>

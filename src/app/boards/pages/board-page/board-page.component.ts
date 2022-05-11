@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ColumnsApiService } from '@boards/services/columns-api.service';
 import { Column } from '@shared/models/columns.interfaces';
 import { ActivatedRoute } from '@angular/router';
@@ -16,12 +16,8 @@ import { NewColumnDialogComponent } from '@boards/components/new-column-dialog/n
   templateUrl: './board-page.component.html',
   styleUrls: ['./board-page.component.scss'],
 })
-export class BoardPageComponent implements OnInit, OnDestroy {
+export class BoardPageComponent implements OnInit {
   private boardId: Board['id'];
-
-  private newColumnTitle: string = '';
-
-  private dialogSubscription!: Subscription;
 
   public columnsArray: Column[] = [];
 
@@ -37,14 +33,6 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     this.boardId = this.activatedRoute.snapshot.params['id'];
 
     this.getColumns();
-
-    this.dialogSubscription = this.dialogService.events$.subscribe(
-      (res) => this.newColumnTitle = res,
-    );
-  }
-
-  public ngOnDestroy() {
-    this.dialogSubscription.unsubscribe();
   }
 
   public deleteColumn(columnInfo: Pick<Column, 'order' | 'id'>) {
@@ -86,19 +74,17 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   public openNewColumnDialog() {
     const ref = this.dialog.open(NewColumnDialogComponent);
 
-    ref.afterClosed().subscribe(() => {
-      if (this.newColumnTitle) {
-        this.columnApiService.createColumn(this.boardId, {
-          title: this.newColumnTitle,
-          order: this.columnsArray.length + 1,
-        }).subscribe(
-          (column) => {
-            column.tasks = [];
-            this.columnsArray.push(column);
-            this.newColumnTitle = '';
-          },
-        );
-      }
+    ref.afterClosed().subscribe((result) => {
+      this.columnApiService.createColumn(this.boardId, {
+        title: result.columnTitle,
+        order: this.columnsArray.length + 1,
+      }).subscribe(
+        (column) => {
+          column.tasks = [];
+          this.columnsArray.push(column);
+        },
+      );
+
     });
   }
 
@@ -122,7 +108,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   }
 
   public getConnectedList(): any[] {
-    return this.columnsArray.map((x: { order: any; }) => `${x.order}`);
+    return this.columnsArray.map((x: { order: any; }) => `${ x.order }`);
   }
 
   private getColumns(): void {

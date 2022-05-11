@@ -115,12 +115,26 @@ export class BoardColumnComponent implements OnInit {
     );
 
     ref.afterClosed().subscribe(
-      () => this.getTasks(),
+      (res) => {
+        this.tasksApiService.createTask(
+          this.boardId,
+          this.column.id,
+          {
+            title: res.title,
+            description: res.description,
+            userId: JSON.parse(localStorage.getItem('user-rstrello')!).id,
+            order: this.column.tasks.length + 1,
+            done: false,
+          },
+        ).subscribe(
+          () => this.getTasks()
+        );
+      },
     );
   }
 
   public getConnectedList(): string[] {
-    return this.columnsArr.map((x: { order: any; }) => `${x.order}`);
+    return this.columnsArr.map((x: { order: any; }) => `${ x.order }`);
   }
 
   public dropItem(event: CdkDragDrop<any>) {

@@ -67,12 +67,33 @@ export class BoardTaskComponent implements OnInit {
   }
 
   public openTaskEditDialog() {
-    this.dialog.open(
+    const ref = this.dialog.open(
       TaskEditDialogComponent,
       {
         data: { task: this.task, columnId: this.column.id, boardId: this.boardId },
         width: '500px',
       },
     );
+
+    ref.afterClosed().subscribe(
+      (res) => {
+        this.tasksApiService.updateTask(
+            this.boardId,
+            this.column.id,
+            this.task.id,
+            {
+              title: res.title,
+              order: this.task.order,
+              description: res.description,
+              userId: this.task.userId,
+              boardId: this.boardId,
+              columnId: this.task.columnId,
+              done: false,
+            },
+          ).subscribe();
+        this.task.title = res.title;
+        this.task.description = res.description;
+      }
+    )
   }
 }
