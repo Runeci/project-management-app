@@ -1,5 +1,20 @@
+.header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .example-spacer {
   flex: 1 1 auto;
+}
+
+.add-btn-container,
+.logo-container,
+.toggle-btn,
+.registr-btns,
+.logout-btn {
+  display: flex;
+  align-items: center;
 }
 
 .example-icon {
@@ -74,17 +89,69 @@
   min-width: 100px;
 }
 
-@media (max-width: 1024px) {
-  .example-icon {
-    display: block;
+@media (max-width: 600px) {
+  .add-btn-container {
+    display: none;
+  }
+
+  .registr-btns {
+    .mat-button {
+      color: #ffd740;
+      min-width: 40px;
+      max-width: 40px;
+      height: 40px;
+      margin-left: 10px;
+      transition: color 0.2s ease-in-out;
+    }
+  }
+
+  .centered ::ng-deep .mat-button-wrapper {
+    display: flex;
+    justify-content: center;
   }
 }
 
-@media (max-width: 420px) {
-  .mat-toolbar {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: end;
-    height: 17%;
+@media (max-width: 530px) {
+  .logo-text {
+    display: none;
   }
 }
+
+//@media (max-width: 600px) {
+//  .header {
+//    display: grid;
+//    height: 100px;
+//    grid-template-areas: "a c"
+//                         "b d";
+//  }
+//
+//  .logo-container {
+//    grid-area: a;
+//  }
+//
+//  .add-btn-container {
+//    grid-area: b;
+//  }
+//
+//  .toggle-btn {
+//    grid-area: c;
+//  }
+//
+//  .registr-btns {
+//    grid-area: d;
+//  }
+//
+//  .example-spacer {
+//    display: none;
+//  }
+//
+//  .logout-btn {
+//    grid-area: d;
+//    display: flex;
+//    align-items: center;
+//  }
+//
+//  .logout-btn {
+//    margin-left: auto;
+//  }
+//}

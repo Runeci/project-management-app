@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,7 +14,21 @@ import { UserProfileComponent } from '@core/components/user-profile/user-profile
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
+  public isSmall: boolean | undefined;
+
+  @HostListener('window:resize', ['$event']) onResize(event: Event) {
+    this.innerWidth = window.innerWidth;
+    if (this.innerWidth < 600) {
+      this.isSmall = true;
+    } else {
+      this.isSmall = false;
+    }
+    console.log(this.innerWidth);
+  }
+
+  public innerWidth: any;
+
   public currentRoute: string = '';
 
   slideValue: boolean = false;
@@ -35,6 +49,15 @@ export class HeaderComponent {
       }
     });
   }
+
+  public ngOnInit() {
+
+    this.innerWidth = window.innerWidth;
+
+    this.innerWidth < 600 ? this.isSmall = true : this.isSmall = false;
+    console.log(this.innerWidth);
+  }
+
 
   public openDialog(): void {
     this.dialogService.newEvent('open add boards-dialog');
