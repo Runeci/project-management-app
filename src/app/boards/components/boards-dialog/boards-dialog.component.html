@@ -1,14 +1,19 @@
-<h2 mat-dialog-title>Create task</h2>
+<h2 mat-dialog-title>
+    {{ 'BUTTON.CREATE' | translate }}
+    {{ 'MAIN.BOARD_TITLE' | translate | lowercase }}
+</h2>
 <mat-divider></mat-divider>
-<mat-dialog-content>
+
+<mat-dialog-content class="mat-typography">
   <form class="dialog-form" (ngSubmit)="onSubmit()" [formGroup]="form">
     <mat-form-field appearance="fill">
-      <mat-label>{{ 'BOARD.NEW_TASK_DIALOG.TITLE' | translate }}</mat-label>
+      <mat-label>{{'MAIN.BOARD_TITLE' | translate }}</mat-label>
       <input
         type="text"
         matInput
         formControlName="title"
-        placeholder="{{ 'BOARD.NEW_TASK_DIALOG.TITLE' | translate }}">
+        placeholder="{{ 'MAIN.BOARD_TITLE' | translate }}"
+      >
 
       <mat-error *ngIf="form.get('title')?.hasError('required')">
         {{ 'Title is required' | translate }}
@@ -21,10 +26,11 @@
         type="text"
         matInput
         formControlName="description"
-        placeholder="{{ 'BOARD.NEW_TASK_DIALOG.DESCRIPTION' | translate }}">
+        placeholder="{{ 'BOARD.NEW_TASK_DIALOG.DESCRIPTION' | translate }}"
+      >
 
       <mat-error *ngIf="form.get('description')?.hasError('required')">
-        {{ 'Description is required' | translate }}
+        {{ 'Title is required' | translate }}
       </mat-error>
     </mat-form-field>
 
@@ -33,7 +39,6 @@
       mat-flat-button
       type="submit"
       color="accent"
-      [disabled]="form.invalid"
     >
       {{ 'BUTTON.CREATE' | translate }}
     </button>

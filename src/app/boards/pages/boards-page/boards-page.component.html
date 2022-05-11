@@ -1,7 +1,7 @@
 <div class="container">
   <mat-card-title>{{ 'MAIN.WORKSPACES' | translate }}</mat-card-title>
   <mat-divider></mat-divider>
-    <ul class="boards-container" *ngIf="boardsArr$ | async">
+    <ul class="boards-container">
       <li *ngFor="let board of boardsArr$ | async">
         <app-board-preview
           [board]="board"

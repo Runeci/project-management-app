@@ -28,6 +28,11 @@
     "NEW_TASK_DIALOG": {
       "TITLE": "Заголовок задания",
       "DESCRIPTION": "Описание задания"
+    },
+    "NEW_COLUMN_DIALOG": {
+      "COLUMN": "Создайте новый список",
+      "TITLE": "Заголовок списка",
+      "DESCRIPTION": "Описание списка"
     }
   },
   "BUTTON": {

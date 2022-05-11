@@ -2,10 +2,10 @@ export interface Column {
   id: string,
   title: string,
   order: number,
-  tasks?: Task[],
+  tasks: TaskI[],
 }
 
-export interface Task {
+export interface TaskI {
   id: string,
   title: string,
   order: number,

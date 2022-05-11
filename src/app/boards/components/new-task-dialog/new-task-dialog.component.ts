@@ -7,7 +7,7 @@ import { Column } from '@shared/models/columns.interfaces';
 import { Board } from '@shared/models/boards.interfaces';
 
 @Component({
-  selector: 'app-new-task-dialog',
+  selector: 'app-new-task-boards-dialog',
   templateUrl: './new-task-dialog.component.html',
   styleUrls: ['./new-task-dialog.component.scss'],
 })
@@ -18,10 +18,10 @@ export class NewTaskDialogComponent {
   });
 
   constructor(
-private fb: FormBuilder,
-              private tasksApiService: TaskApiService,
-              private dialogService: BoardDialogService,
-              @Inject(MAT_DIALOG_DATA) private data: { taskOrder: number, columnId: Column['id'], boardId: Board['id'] },
+    private fb: FormBuilder,
+    private tasksApiService: TaskApiService,
+    private dialogService: BoardDialogService,
+    @Inject(MAT_DIALOG_DATA) private data: { taskOrder: number, columnId: Column['id'], boardId: Board['id'] },
   ) {
   }
 
@@ -32,8 +32,9 @@ private fb: FormBuilder,
       {
         title: this.form.value.title,
         description: this.form.value.description,
-        userId: '55e8067c-0333-46a8-973d-b616a97aa905',
+        userId: '7f191f6d-a5ac-44a2-a68a-e7eecbe2b3ce',
         order: this.data.taskOrder,
+        done: false,
       },
     ).subscribe();
   }

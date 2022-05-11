@@ -1,3 +1,18 @@
+.mat-card-title {
+  color: #ffd740;
+  margin-bottom: 5px;
+}
+
+.mat-card-content {
+  p {
+    display: flex;
+    align-items: flex-start;
+    text-overflow: ellipsis;
+  }
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
 .board-preview {
   position: relative;
   width: 180px;
