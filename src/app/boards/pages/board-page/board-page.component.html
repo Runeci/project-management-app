@@ -11,7 +11,7 @@
                         [cdkDragData]="column"
                         [column]="column"
                         [columnsArr]="columnsArray"
-                        (deletedColumn)="deleteColumn($event)"
+                        (deletedColumn)="openConfirmationModal($event)"
       >
       </app-board-column>
       <div class="new-column" (click)="openNewColumnDialog()">

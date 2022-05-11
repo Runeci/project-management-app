@@ -10,6 +10,7 @@ import {
 } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NewColumnDialogComponent } from '@boards/components/new-column-dialog/new-column-dialog.component';
+import { DialogService } from '@core/services/dialog/dialog.service';
 
 @Component({
   selector: 'app-board-page',
@@ -24,7 +25,7 @@ export class BoardPageComponent implements OnInit {
   constructor(
     private columnApiService: ColumnsApiService,
     private activatedRoute: ActivatedRoute,
-    private dialogService: BoardDialogService,
+    private dialogService: DialogService,
     private dialog: MatDialog,
   ) {
   }
@@ -35,9 +36,23 @@ export class BoardPageComponent implements OnInit {
     this.getColumns();
   }
 
-  public deleteColumn(columnInfo: Pick<Column, 'order' | 'id'>) {
-    const start = columnInfo.order - 1;
+  public openConfirmationModal(columnInfo: Pick<Column, 'order' | 'id'>) {
+    this.dialogService.confirmDialog({
+      title: 'CONFIRM.title',
+      message: 'CONFIRM.message',
+      param: 'CONFIRM.param',
+      confirmCaption: 'CONFIRM.DELETE',
+      cancelCaption: 'CONFIRM.CANCEL',
+    })
+      .subscribe((confirmed) => {
+        if (confirmed) {
+          this.deleteColumn(columnInfo);
+        }
+      });
+  }
 
+  private deleteColumn(columnInfo: Pick<Column, 'order' | 'id'>) {
+    const start = columnInfo.order - 1;
     this.columnApiService.deleteColumn(this.boardId, columnInfo.id).subscribe(
       () => {
         this.columnsArray.splice(start, 1);
@@ -75,6 +90,9 @@ export class BoardPageComponent implements OnInit {
     const ref = this.dialog.open(NewColumnDialogComponent);
 
     ref.afterClosed().subscribe((result) => {
+      if (typeof result === 'undefined') {
+        return
+      }
       this.columnApiService.createColumn(this.boardId, {
         title: result.columnTitle,
         order: this.columnsArray.length + 1,

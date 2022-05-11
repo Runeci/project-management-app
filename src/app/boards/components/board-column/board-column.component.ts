@@ -11,6 +11,7 @@ import { ColumnsApiService } from '@boards/services/columns-api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NewTaskDialogComponent } from '@boards/components/new-task-dialog/new-task-dialog.component';
 import { take } from 'rxjs';
+import { DialogService } from '@core/services/dialog/dialog.service';
 
 @Component({
   selector: 'app-board-column',
@@ -35,6 +36,7 @@ export class BoardColumnComponent implements OnInit {
     private columnApiService: ColumnsApiService,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
+    private dialogService: DialogService,
   ) {
   }
 
@@ -74,6 +76,24 @@ export class BoardColumnComponent implements OnInit {
     }
     this.column.title = this.newColumnTitle;
     this.toggleColumnInput();
+  }
+
+  public openConfirmationModal(currentTask: Pick<TaskI, 'id' | 'order'>) {
+    this.dialogService.confirmDialog(
+      {
+        title: 'CONFIRM.title',
+        message: 'CONFIRM.message',
+        param: 'CONFIRM.param',
+        confirmCaption: 'CONFIRM.DELETE',
+        cancelCaption: 'CONFIRM.CANCEL',
+      }
+    ).subscribe(
+      (confirmed) => {
+        if (confirmed) {
+          this.deleteTask(currentTask)
+        }
+      }
+    )
   }
 
   public deleteTask(currentTask: Pick<TaskI, 'id' | 'order'>) {
@@ -116,6 +136,9 @@ export class BoardColumnComponent implements OnInit {
 
     ref.afterClosed().subscribe(
       (res) => {
+        if (typeof res === 'undefined') {
+          return
+        }
         this.tasksApiService.createTask(
           this.boardId,
           this.column.id,

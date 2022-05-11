@@ -26,7 +26,7 @@
                      [cdkDragData]="task"
                      [task]="task"
                      [column]="column"
-                     (deletedTask)="deleteTask($event)"
+                     (deletedTask)="openConfirmationModal($event)"
     >
     </app-column-task>
     <div class="new-task" cdkDropList cdkDropListDisabled
