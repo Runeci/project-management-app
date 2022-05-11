@@ -1,4 +1,4 @@
-export const enum Path {
+export enum Path {
   homePage = 'home',
   boardsPage = 'boards',
   authPage = 'auth',
@@ -6,7 +6,10 @@ export const enum Path {
   loginPage = 'login',
 }
 
-export const STORAGE_NAME = 'userData';
+export enum StorageKeys {
+  authToken = 'auth-token-rstrello',
+  user = 'user-rstrello',
+}
 
 export enum DialogUse {
   board = 'board',

@@ -6,7 +6,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AuthModule } from '@auth/auth.module';
 import { CoreModule } from '@core/core.module';
-import { INTERCEPTOR_PROVIDERS } from '@core/interceptors/providers';
+import {
+  ERROR_HANDLER_INTERCEPTOR_PROVIDERS,
+  TOKEN_INTERCEPTOR_PROVIDERS,
+} from '@core/interceptors/providers';
 import { SharedModule } from '@shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -17,9 +20,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -30,14 +31,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     AuthModule,
     TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient],
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
       },
       defaultLanguage: 'ru',
-  }),
+    }),
   ],
-  providers: [INTERCEPTOR_PROVIDERS],
+  providers: [TOKEN_INTERCEPTOR_PROVIDERS, ERROR_HANDLER_INTERCEPTOR_PROVIDERS],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

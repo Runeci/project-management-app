@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TranslateModule } from '@ngx-translate/core';
+import { NgToastModule } from 'ng-angular-popup';
 import { MaterialModule } from './modules/material/material.module';
 import { HeaderAnimateDirective } from './directives/header-animate.directive';
 
@@ -16,6 +17,7 @@ import { HeaderAnimateDirective } from './directives/header-animate.directive';
     ReactiveFormsModule,
     FormsModule,
     TranslateModule,
+    NgToastModule,
   ],
   exports: [
     MaterialModule,
@@ -23,6 +25,7 @@ import { HeaderAnimateDirective } from './directives/header-animate.directive';
     ReactiveFormsModule,
     FormsModule,
     TranslateModule,
+    NgToastModule,
   ],
 })
 export class SharedModule { }

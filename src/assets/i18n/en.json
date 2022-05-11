@@ -25,17 +25,6 @@
     "EDIT_DIALOG": {
       "DESCR": "Description"
     },
-    "HOME": {
-      "TITLE": "RSTrello - your next level of task design.",
-      "SUBTITLE": "An app with an intuitive interface and powerful features allows teams to effectively coordinate and manage their projects."
-    },
-    "AUTH": {
-      "NAME": "Name",
-      "EMAIL": "Email",
-      "PASSWORD": "Password",
-      "ROUT_REGISTR": "Register an account",
-      "ROUT_LOGIN": "Already have an account? Login"
-    },
     "NEW_TASK_DIALOG": {
       "TITLE": "Task title",
       "DESCRIPTION": "Task description"
@@ -52,7 +41,17 @@
     "CREATE": "Create",
     "ADD_COLUMN": "Add column",
     "ADD_TASK": "Add task",
-    "SAVE": "Save"
+    "SAVE": "Save",
+    "CANCEL": "CANCEL",
+    "UPDATE": "UPDATE",
+    "DELETE": "Delete profile"
+  },
+  "CONFIRM": {
+    "title": "Data will be deleted permanently",
+    "message": "Do you want to delete {{param}}?",
+    "param": "profile", 
+    "CANCEL": "CANCEL",
+    "DELETE": "DELETE"
   },
   "name should not be empty": "name should not be empty",
   "login should not be empty": "login should not be empty",
@@ -64,6 +63,10 @@
   "Title is too long": "Title is too long",
   "Title is required": "Title is required",
   "Description is required": "Description is required",
+  "Internal server error": "This username or password already exists",
+  "Created": "Registration completed successfully",
+  "No Content": "Profile deleted",
+  "OK": "User updated successfully",
   "name": {
     "required": "Please enter a name",
     "minlength": "The name is too short"

@@ -7,9 +7,8 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 
-import { AuthService } from '@auth/services/auth.service';
-import { NotificationService } from '@core/services/notification.service';
 import { ValidationService } from '@core/services/validation.service';
+import { AuthService } from '@auth/services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -24,7 +23,6 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private notificationService: NotificationService,
     public validationService: ValidationService,
   ) {}
 
@@ -57,14 +55,9 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.authService.signUp(this.formGroup.value).subscribe(
-      () => {
-        this.formGroup.reset();
-      },
-      (error) => {
-        this.notificationService.translateToastError(error);
-      },
-    );
+    this.authService.signUp(this.formGroup.value).subscribe(() => {
+      this.formGroup.reset();
+    });
   }
 
   ngOnDestroy(): void {

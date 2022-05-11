@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
-
-import { BoardDialogService } from '@boards/services/board-dialog.service';
-
 import { TranslateService } from '@ngx-translate/core';
+import { MatDialog } from '@angular/material/dialog';
 
 import { AuthService } from '@auth/services/auth.service';
+import { BoardDialogService } from '@boards/services/board-dialog.service';
 import { Path } from 'src/app/app.constants';
+import { UserApiService } from '@core/services/user/user-api.service';
+import { UserProfileComponent } from '@core/components/user-profile/user-profile.component';
 
 @Component({
   selector: 'app-header',
@@ -25,6 +26,8 @@ export class HeaderComponent {
     private dialogService: BoardDialogService,
     private translateService: TranslateService,
     public authService: AuthService,
+    public userService: UserApiService,
+    public dialog: MatDialog,
   ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
@@ -37,7 +40,17 @@ export class HeaderComponent {
     this.dialogService.newEvent('open add boards-dialog');
   }
 
-  public togglePath(path: string): void {
+  public editProfile(): void {
+    this.dialog
+      .open(UserProfileComponent, {
+        width: '30%',
+        height: '65%',
+        data: this.userService.currentUser,
+      })
+      .afterClosed();
+  }
+
+  togglePath(path: string): void {
     this.router.navigate([path]);
   }
 
@@ -56,6 +69,7 @@ export class HeaderComponent {
 
   logout(): void {
     this.authService.logout();
+    this.userService.logout();
     this.router.navigate([Path.homePage]);
   }
 }
