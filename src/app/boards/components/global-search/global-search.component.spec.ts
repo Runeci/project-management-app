@@ -8,7 +8,7 @@ describe('GlobalSearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GlobalSearchComponent ]
+      declarations: [GlobalSearchComponent],
     })
     .compileComponents();
   });

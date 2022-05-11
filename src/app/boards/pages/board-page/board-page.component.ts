@@ -3,10 +3,9 @@ import { ColumnsApiService } from '@boards/services/columns-api.service';
 import { Column } from '@shared/models/columns.interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { BoardDialogService } from '@boards/services/board-dialog.service';
 import { Board } from '@shared/models/boards.interfaces';
 import {
-  forkJoin, Subscription, switchMap, take,
+  forkJoin, switchMap, take,
 } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NewColumnDialogComponent } from '@boards/components/new-column-dialog/new-column-dialog.component';
@@ -91,7 +90,7 @@ export class BoardPageComponent implements OnInit {
 
     ref.afterClosed().subscribe((result) => {
       if (typeof result === 'undefined') {
-        return
+        return;
       }
       this.columnApiService.createColumn(this.boardId, {
         title: result.columnTitle,
@@ -102,7 +101,6 @@ export class BoardPageComponent implements OnInit {
           this.columnsArray.push(column);
         },
       );
-
     });
   }
 
@@ -126,7 +124,7 @@ export class BoardPageComponent implements OnInit {
   }
 
   public getConnectedList(): any[] {
-    return this.columnsArray.map((x: { order: any; }) => `${ x.order }`);
+    return this.columnsArray.map((x: { order: any; }) => `${x.order}`);
   }
 
   private getColumns(): void {

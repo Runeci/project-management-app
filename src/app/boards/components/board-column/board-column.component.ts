@@ -86,14 +86,14 @@ export class BoardColumnComponent implements OnInit {
         param: 'CONFIRM.param',
         confirmCaption: 'CONFIRM.DELETE',
         cancelCaption: 'CONFIRM.CANCEL',
-      }
+      },
     ).subscribe(
       (confirmed) => {
         if (confirmed) {
-          this.deleteTask(currentTask)
+          this.deleteTask(currentTask);
         }
-      }
-    )
+      },
+    );
   }
 
   public deleteTask(currentTask: Pick<TaskI, 'id' | 'order'>) {
@@ -137,7 +137,7 @@ export class BoardColumnComponent implements OnInit {
     ref.afterClosed().subscribe(
       (res) => {
         if (typeof res === 'undefined') {
-          return
+          return;
         }
         this.tasksApiService.createTask(
           this.boardId,
@@ -150,14 +150,14 @@ export class BoardColumnComponent implements OnInit {
             done: false,
           },
         ).subscribe(
-          () => this.getTasks()
+          () => this.getTasks(),
         );
       },
     );
   }
 
   public getConnectedList(): string[] {
-    return this.columnsArr.map((x: { order: any; }) => `${ x.order }`);
+    return this.columnsArr.map((x: { order: any; }) => `${x.order}`);
   }
 
   public dropItem(event: CdkDragDrop<any>) {

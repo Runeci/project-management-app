@@ -1,4 +1,6 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import {
+ Component, HostListener, OnInit,
+} from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,7 +16,7 @@ import { UserProfileComponent } from '@core/components/user-profile/user-profile
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit {
   @HostListener('window:resize', ['$event']) onResize() {
     this.innerWidth = window.innerWidth;
     this.isSmall = this.innerWidth < 600;
@@ -43,7 +45,7 @@ export class HeaderComponent implements OnInit{
   public ngOnInit() {
     this.innerWidth = window.innerWidth;
 
-    this.innerWidth < 600 ? this.isSmall = true : this.isSmall = false;
+    this.isSmall = this.innerWidth < 600;
 
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
@@ -51,7 +53,6 @@ export class HeaderComponent implements OnInit{
       }
     });
   }
-
 
   public openDialog(): void {
     this.dialogService.newEvent('open add boards-dialog');

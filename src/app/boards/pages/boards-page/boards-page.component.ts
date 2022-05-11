@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Board } from '@shared/models/boards.interfaces';
 import { MatDialog } from '@angular/material/dialog';
 
 import { BoardDialogService } from '@boards/services/board-dialog.service';
 import { BoardsDialogComponent } from '@boards/components/boards-dialog/boards-dialog.component';
+import { DialogService } from '@core/services/dialog/dialog.service';
 import { BoardsApiService } from '../../services/boards-api.service';
 import { DialogUse } from '../../../app.constants';
-import { DialogService } from '@core/services/dialog/dialog.service';
 
 @Component({
   selector: 'app-boards-page',
@@ -58,7 +58,7 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
       .subscribe((confirmed) => {
         if (confirmed) {
           this.boardsService.deleteBoard(id).subscribe(
-            () => this.getBoards()
+            () => this.getBoards(),
           );
         }
       });

@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { BoardDialogService } from '@boards/services/board-dialog.service';
-import { ColumnsApiService } from '@boards/services/columns-api.service';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -23,6 +21,6 @@ export class NewColumnDialogComponent {
   public onSubmit() {
     this.dialogRef.close({
       columnTitle: this.form.value.title,
-    })
+    });
   }
 }

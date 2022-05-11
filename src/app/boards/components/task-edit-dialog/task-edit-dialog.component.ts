@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TaskI } from '@shared/models/tasks.interfaces';
 import { FormBuilder } from '@angular/forms';
 import { TaskApiService } from '@boards/services/task-api.service';
@@ -18,8 +18,8 @@ export class TaskEditDialogComponent {
 
   public editTaskForm = this.fb.group(
     {
-      title: [`${ this.data.task.title }`],
-      description: [`${ this.data.task.description }` || ''],
+      title: [`${this.data.task.title}`],
+      description: [`${this.data.task.description}` || ''],
     },
   );
 
@@ -59,7 +59,7 @@ export class TaskEditDialogComponent {
   public onSubmit() {
     this.dialogRef.close({
       title: this.editTaskForm.value.title,
-      description: this.editTaskForm.value.description
+      description: this.editTaskForm.value.description,
     });
   }
 }

@@ -93,7 +93,7 @@ export class BoardTaskComponent implements OnInit {
           ).subscribe();
         this.task.title = res.title;
         this.task.description = res.description;
-      }
-    )
+      },
+    );
   }
 }
