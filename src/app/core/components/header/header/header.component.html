@@ -1,7 +1,7 @@
 <mat-toolbar class="header" [class.header-color]="currentRoute !== '/' && currentRoute !== '/home'" appHeaderAnimate>
-  <div class="logo-container">
+  <div class="logo-container" routerLink="/boards">
     <img class="logo" src="assets/icons/logo-1.svg" alt="logo">
-    <span class="logo-text" routerLink="/boards">RSTrello</span>
+    <span class="logo-text">RSTrello</span>
   </div>
 
   <div class="add-btn-container" *ngIf="currentRoute === '/boards'">

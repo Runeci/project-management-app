@@ -15,19 +15,14 @@ import { UserProfileComponent } from '@core/components/user-profile/user-profile
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit{
-  public isSmall: boolean | undefined;
-
-  @HostListener('window:resize', ['$event']) onResize(event: Event) {
+  @HostListener('window:resize', ['$event']) onResize() {
     this.innerWidth = window.innerWidth;
-    if (this.innerWidth < 600) {
-      this.isSmall = true;
-    } else {
-      this.isSmall = false;
-    }
-    console.log(this.innerWidth);
+    this.isSmall = this.innerWidth < 600;
   }
 
-  public innerWidth: any;
+  public isSmall: boolean | undefined;
+
+  public innerWidth: number | undefined;
 
   public currentRoute: string = '';
 
@@ -43,19 +38,18 @@ export class HeaderComponent implements OnInit{
     public userService: UserApiService,
     public dialog: MatDialog,
   ) {
+  }
+
+  public ngOnInit() {
+    this.innerWidth = window.innerWidth;
+
+    this.innerWidth < 600 ? this.isSmall = true : this.isSmall = false;
+
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         this.currentRoute = event.url;
       }
     });
-  }
-
-  public ngOnInit() {
-
-    this.innerWidth = window.innerWidth;
-
-    this.innerWidth < 600 ? this.isSmall = true : this.isSmall = false;
-    console.log(this.innerWidth);
   }
 
 

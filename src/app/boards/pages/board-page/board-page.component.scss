@@ -58,3 +58,9 @@
     transform: scale(1.2);
   }
 }
+
+@media (max-width: 530px) {
+  .new-column {
+    min-width: 275px;
+  }
+}

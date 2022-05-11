@@ -8,6 +8,10 @@
   flex: 1 1 auto;
 }
 
+.logo-container {
+  cursor: pointer;
+}
+
 .add-btn-container,
 .logo-container,
 .toggle-btn,
@@ -116,42 +120,3 @@
     display: none;
   }
 }
-
-//@media (max-width: 600px) {
-//  .header {
-//    display: grid;
-//    height: 100px;
-//    grid-template-areas: "a c"
-//                         "b d";
-//  }
-//
-//  .logo-container {
-//    grid-area: a;
-//  }
-//
-//  .add-btn-container {
-//    grid-area: b;
-//  }
-//
-//  .toggle-btn {
-//    grid-area: c;
-//  }
-//
-//  .registr-btns {
-//    grid-area: d;
-//  }
-//
-//  .example-spacer {
-//    display: none;
-//  }
-//
-//  .logout-btn {
-//    grid-area: d;
-//    display: flex;
-//    align-items: center;
-//  }
-//
-//  .logout-btn {
-//    margin-left: auto;
-//  }
-//}

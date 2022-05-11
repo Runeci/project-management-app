@@ -6,14 +6,18 @@
   background-color: white;
   position: absolute;
   top: 110%;
-  width: 300px;
-  right: -20px;
+  width: 200px;
+  right: -53px;
   max-height: 250px;
   overflow: scroll;
   display: flex;
   flex-direction: column;
   gap: 10px;
   z-index: 1000;
+}
+
+.mat-form-field {
+  height: 60px;
 }
 
 .card {
