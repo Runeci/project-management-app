@@ -1,0 +1,33 @@
+.search {
+  position: relative;
+  width: 200px;
+}
+.cards-container {
+  background-color: white;
+  position: absolute;
+  top: 110%;
+  width: 300px;
+  right: -20px;
+  max-height: 250px;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.card {
+  width: 100%;
+  background-color: rgba(102, 59, 184, 0.3);
+  cursor: pointer;
+  &:hover {
+    background-color: #663bb8;
+  }
+}
+
+.mat-card-title {
+  color: white;
+}
+
+
+

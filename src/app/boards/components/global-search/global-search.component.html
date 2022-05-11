@@ -1,0 +1,18 @@
+<mat-form-field class="search">
+  <mat-label>Search</mat-label>
+  <input matInput type="text" [(ngModel)]="searchValue" (click)="getTasks()" (input)="searchTask(searchValue)">
+  <button *ngIf="searchValue" matSuffix mat-icon-button aria-label="search" (click)="searchValue=''; foundTasks = []">
+    <mat-icon>close</mat-icon>
+  </button>
+  <mat-icon matPrefix>search</mat-icon>
+
+  <mat-card class="cards-container" *ngIf="foundTasks.length">
+    <mat-card class="card" *ngFor="let task of foundTasks" (click)="goToTask(task)">
+      <mat-card-header>
+        <mat-card-title>{{ task.title }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>{{ task.description }}</mat-card-content>
+    </mat-card>
+  </mat-card>
+</mat-form-field>
+

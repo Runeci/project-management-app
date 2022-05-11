@@ -14,6 +14,7 @@ import { BoardTaskComponent } from './components/column-task/board-task.componen
 import { TaskEditDialogComponent } from './components/task-edit-dialog/task-edit-dialog.component';
 import { NewTaskDialogComponent } from './components/new-task-dialog/new-task-dialog.component';
 import { NewColumnDialogComponent } from './components/new-column-dialog/new-column-dialog.component';
+import { GlobalSearchComponent } from './components/global-search/global-search.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { NewColumnDialogComponent } from './components/new-column-dialog/new-col
     TaskEditDialogComponent,
     NewTaskDialogComponent,
     NewColumnDialogComponent,
+    GlobalSearchComponent,
   ],
   imports: [
     CommonModule,
