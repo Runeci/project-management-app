@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BoardDialogService } from '@boards/services/board-dialog.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -11,8 +11,7 @@ import { Board } from '@shared/models/boards.interfaces';
   templateUrl: './new-task-dialog.component.html',
   styleUrls: ['./new-task-dialog.component.scss'],
 })
-export class NewTaskDialogComponent implements OnInit {
-  private userId = '';
+export class NewTaskDialogComponent {
 
   public form = this.fb.group({
     title: ['', [Validators.required]],
@@ -26,10 +25,6 @@ export class NewTaskDialogComponent implements OnInit {
     private dialogService: BoardDialogService,
     @Inject(MAT_DIALOG_DATA) private data: { taskOrder: number, columnId: Column['id'], boardId: Board['id'] },
   ) {
-  }
-
-  public ngOnInit() {
-    this.userId = JSON.parse(localStorage.getItem('user-rstrello')!).id;
   }
 
   public onSubmit() {
