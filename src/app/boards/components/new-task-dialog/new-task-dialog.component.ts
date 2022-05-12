@@ -12,7 +12,6 @@ import { Board } from '@shared/models/boards.interfaces';
   styleUrls: ['./new-task-dialog.component.scss'],
 })
 export class NewTaskDialogComponent {
-
   public form = this.fb.group({
     title: ['', [Validators.required]],
     description: ['', [Validators.required]],

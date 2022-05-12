@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NewTaskDialogComponent } from '@boards/components/new-task-dialog/new-task-dialog.component';
 import { take } from 'rxjs';
 import { DialogService } from '@core/services/dialog/dialog.service';
+import { UserApiService } from '@core/services/user/user-api.service';
 
 @Component({
   selector: 'app-board-column',
@@ -37,6 +38,7 @@ export class BoardColumnComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
     private dialogService: DialogService,
+    private userService: UserApiService,
   ) {
   }
 
@@ -145,7 +147,7 @@ export class BoardColumnComponent implements OnInit {
           {
             title: res.title,
             description: res.description,
-            userId: JSON.parse(localStorage.getItem('user-rstrello')!).id,
+            userId: this.userService.currentUser?.id,
             order: this.column.tasks.length + 1,
             done: false,
           },

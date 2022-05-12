@@ -2,7 +2,6 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TaskI } from '@shared/models/tasks.interfaces';
 import { FormBuilder } from '@angular/forms';
-import { TaskApiService } from '@boards/services/task-api.service';
 import { Board } from '@shared/models/boards.interfaces';
 import { Column } from '@shared/models/columns.interfaces';
 
@@ -26,7 +25,6 @@ export class TaskEditDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<TaskEditDialogComponent>,
     private fb: FormBuilder,
-    private tasksApiService: TaskApiService,
     @Inject(MAT_DIALOG_DATA) public data: { task: TaskI, columnId: Column['id'], boardId: Board['id'] },
   ) {
   }

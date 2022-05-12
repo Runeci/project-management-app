@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TaskI } from '@shared/models/tasks.interfaces';
 import { BoardsApiService } from '@boards/services/boards-api.service';
 import { ColumnsApiService } from '@boards/services/columns-api.service';
@@ -12,7 +12,7 @@ import { TaskEditDialogComponent } from '@boards/components/task-edit-dialog/tas
   templateUrl: './global-search.component.html',
   styleUrls: ['./global-search.component.scss'],
 })
-export class GlobalSearchComponent {
+export class GlobalSearchComponent implements OnInit {
   public searchValue: string = '';
 
   public allTasks: TaskI[] = [];
@@ -25,6 +25,10 @@ export class GlobalSearchComponent {
     private router: Router,
     private dialog: MatDialog,
   ) {
+  }
+
+  public ngOnInit() {
+    this.getTasks();
   }
 
   public getTasks() {
