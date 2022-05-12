@@ -27,6 +27,7 @@
 }
 
 .text-white {
+  width: 140px;
   color: #fff;
 }
 
@@ -80,11 +81,26 @@
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 570px) {
+  .mat-flat-button {
+    font-size: 14px;
+    margin-left: 7px;
+  }
+
+  .text-white {
+    width: 120px;
+  }
+
+  .mat-slide-toggle {
+    width: 70px;
+  }
+}
+
+@media (max-width: 470px) {
   .mat-toolbar {
     display: flex;
     flex-wrap: wrap;
     justify-content: end;
-    height: 17%;
+    height: 16%;
   }
 }

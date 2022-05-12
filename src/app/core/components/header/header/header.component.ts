@@ -43,7 +43,7 @@ export class HeaderComponent {
   public editProfile(): void {
     this.dialog
       .open(UserProfileComponent, {
-        width: '30%',
+        width: '300px',
         height: '65%',
         data: this.userService.currentUser,
       })

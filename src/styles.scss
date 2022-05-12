@@ -24,6 +24,10 @@ body {
   margin: 0;
 }
 
+.mat-slide-toggle-persistent-ripple {
+  display: none !important;
+}
+
 .toast-right-top {
   height: auto !important;
 }
