@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { BoardDialogService } from '@boards/services/board-dialog.service';
-import { ColumnsApiService } from '@boards/services/columns-api.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-new-column-dialog',
@@ -14,13 +13,14 @@ export class NewColumnDialogComponent {
   });
 
   constructor(
+    public dialogRef: MatDialogRef<NewColumnDialogComponent>,
     private fb: FormBuilder,
-    private columnApiService: ColumnsApiService,
-    private dialogService: BoardDialogService,
   ) {
   }
 
   public onSubmit() {
-    this.dialogService.newEvent(this.form.value.title);
+    this.dialogRef.close({
+      columnTitle: this.form.value.title,
+    });
   }
 }

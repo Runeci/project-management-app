@@ -1,34 +1,30 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ColumnsApiService } from '@boards/services/columns-api.service';
 import { Column } from '@shared/models/columns.interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { BoardDialogService } from '@boards/services/board-dialog.service';
 import { Board } from '@shared/models/boards.interfaces';
 import {
-  forkJoin, Subscription, switchMap, take,
+  forkJoin, switchMap, take,
 } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NewColumnDialogComponent } from '@boards/components/new-column-dialog/new-column-dialog.component';
+import { DialogService } from '@core/services/dialog/dialog.service';
 
 @Component({
   selector: 'app-board-page',
   templateUrl: './board-page.component.html',
   styleUrls: ['./board-page.component.scss'],
 })
-export class BoardPageComponent implements OnInit, OnDestroy {
+export class BoardPageComponent implements OnInit {
   private boardId: Board['id'];
-
-  private newColumnTitle: string = '';
-
-  private dialogSubscription!: Subscription;
 
   public columnsArray: Column[] = [];
 
   constructor(
     private columnApiService: ColumnsApiService,
     private activatedRoute: ActivatedRoute,
-    private dialogService: BoardDialogService,
+    private dialogService: DialogService,
     private dialog: MatDialog,
   ) {
   }
@@ -37,19 +33,25 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     this.boardId = this.activatedRoute.snapshot.params['id'];
 
     this.getColumns();
-
-    this.dialogSubscription = this.dialogService.events$.subscribe(
-      (res) => this.newColumnTitle = res,
-    );
   }
 
-  public ngOnDestroy() {
-    this.dialogSubscription.unsubscribe();
+  public openConfirmationModal(columnInfo: Pick<Column, 'order' | 'id'>) {
+    this.dialogService.confirmDialog({
+      title: 'CONFIRM.title',
+      message: 'CONFIRM.message',
+      param: 'CONFIRM.param',
+      confirmCaption: 'CONFIRM.DELETE',
+      cancelCaption: 'CONFIRM.CANCEL',
+    })
+      .subscribe((confirmed) => {
+        if (confirmed) {
+          this.deleteColumn(columnInfo);
+        }
+      });
   }
 
-  public deleteColumn(columnInfo: Pick<Column, 'order' | 'id'>) {
+  private deleteColumn(columnInfo: Pick<Column, 'order' | 'id'>) {
     const start = columnInfo.order - 1;
-
     this.columnApiService.deleteColumn(this.boardId, columnInfo.id).subscribe(
       () => {
         this.columnsArray.splice(start, 1);
@@ -86,19 +88,19 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   public openNewColumnDialog() {
     const ref = this.dialog.open(NewColumnDialogComponent);
 
-    ref.afterClosed().subscribe(() => {
-      if (this.newColumnTitle) {
-        this.columnApiService.createColumn(this.boardId, {
-          title: this.newColumnTitle,
-          order: this.columnsArray.length + 1,
-        }).subscribe(
-          (column) => {
-            column.tasks = [];
-            this.columnsArray.push(column);
-            this.newColumnTitle = '';
-          },
-        );
+    ref.afterClosed().subscribe((result) => {
+      if (typeof result === 'undefined') {
+        return;
       }
+      this.columnApiService.createColumn(this.boardId, {
+        title: result.columnTitle,
+        order: this.columnsArray.length + 1,
+      }).subscribe(
+        (column) => {
+          column.tasks = [];
+          this.columnsArray.push(column);
+        },
+      );
     });
   }
 

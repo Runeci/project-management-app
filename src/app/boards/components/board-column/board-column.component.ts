@@ -11,6 +11,8 @@ import { ColumnsApiService } from '@boards/services/columns-api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NewTaskDialogComponent } from '@boards/components/new-task-dialog/new-task-dialog.component';
 import { take } from 'rxjs';
+import { DialogService } from '@core/services/dialog/dialog.service';
+import { UserApiService } from '@core/services/user/user-api.service';
 
 @Component({
   selector: 'app-board-column',
@@ -35,6 +37,8 @@ export class BoardColumnComponent implements OnInit {
     private columnApiService: ColumnsApiService,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
+    private dialogService: DialogService,
+    private userService: UserApiService,
   ) {
   }
 
@@ -76,6 +80,24 @@ export class BoardColumnComponent implements OnInit {
     this.toggleColumnInput();
   }
 
+  public openConfirmationModal(currentTask: Pick<TaskI, 'id' | 'order'>) {
+    this.dialogService.confirmDialog(
+      {
+        title: 'CONFIRM.title',
+        message: 'CONFIRM.message',
+        param: 'CONFIRM.param',
+        confirmCaption: 'CONFIRM.DELETE',
+        cancelCaption: 'CONFIRM.CANCEL',
+      },
+    ).subscribe(
+      (confirmed) => {
+        if (confirmed) {
+          this.deleteTask(currentTask);
+        }
+      },
+    );
+  }
+
   public deleteTask(currentTask: Pick<TaskI, 'id' | 'order'>) {
     this.tasksApiService
       .deleteTask(this.boardId, this.column.id, currentTask.id).subscribe(
@@ -115,7 +137,24 @@ export class BoardColumnComponent implements OnInit {
     );
 
     ref.afterClosed().subscribe(
-      () => this.getTasks(),
+      (res) => {
+        if (typeof res === 'undefined') {
+          return;
+        }
+        this.tasksApiService.createTask(
+          this.boardId,
+          this.column.id,
+          {
+            title: res.title,
+            description: res.description,
+            userId: this.userService.currentUser?.id,
+            order: this.column.tasks.length + 1,
+            done: false,
+          },
+        ).subscribe(
+          () => this.getTasks(),
+        );
+      },
     );
   }
 
