@@ -7,6 +7,7 @@ import { HeaderComponent } from './components/header/header/header.component';
 import { WelcomePageComponent } from './pages/welcome/welcome-page.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     WelcomePageComponent,
     UserProfileComponent,
     ConfirmComponent,
+    FooterComponent,
   ],
   imports: [CommonModule, SharedModule, RouterModule],
   exports: [
@@ -21,6 +23,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     WelcomePageComponent,
     UserProfileComponent,
     ConfirmComponent,
+    FooterComponent,
   ],
 })
 export class CoreModule {}
