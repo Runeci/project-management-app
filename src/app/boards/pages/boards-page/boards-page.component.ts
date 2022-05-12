@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Board } from '@shared/models/boards.interfaces';
 import { MatDialog } from '@angular/material/dialog';
 
 import { BoardDialogService } from '@boards/services/board-dialog.service';
-import { BoardsDialogComponent } from '@boards/components/dialog/boards-dialog.component';
+import { BoardsDialogComponent } from '@boards/components/boards-dialog/boards-dialog.component';
+import { DialogService } from '@core/services/dialog/dialog.service';
 import { BoardsApiService } from '../../services/boards-api.service';
 import { DialogUse } from '../../../app.constants';
 
@@ -14,23 +15,23 @@ import { DialogUse } from '../../../app.constants';
   styleUrls: ['./boards-page.component.scss'],
 })
 export class BoardsPageComponent implements OnInit, OnDestroy {
-  public boardsArr$: Observable<Board[]> | undefined;
+  public boardsArr: Board[] = [];
 
   private dialogSubscription: Subscription | undefined;
 
   constructor(
     private boardsService: BoardsApiService,
     private dialog: MatDialog,
-
-    private dialogService: BoardDialogService,
+    private dialogService: DialogService,
+    private dialogBoardService: BoardDialogService,
   ) {
   }
 
   public ngOnInit(): void {
-    this.updateBoards();
+    this.getBoards();
 
-    this.dialogSubscription = this.dialogService.events$.subscribe(
-      () => this.openDialog(),
+    this.dialogSubscription = this.dialogBoardService.events$.subscribe(
+      () => this.openNewBoardDialog(),
     );
   }
 
@@ -38,23 +39,33 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
     this.dialogSubscription?.unsubscribe();
   }
 
-  public openDialog(): void {
+  public openNewBoardDialog(): void {
     const dialogRef = this.dialog
       .open(BoardsDialogComponent, { data: DialogUse.board });
     dialogRef.afterClosed().subscribe(() => {
-      this.updateBoards();
+      this.getBoards();
     });
   }
 
   public deleteBoardPreview(id: string | undefined): void {
-    this.boardsService.deleteBoard(id)
-      .subscribe(
-        () => this.updateBoards(),
-      );
+    this.dialogService.confirmDialog({
+      title: 'CONFIRM.title',
+      message: 'CONFIRM.message',
+      param: 'CONFIRM.param',
+      confirmCaption: 'CONFIRM.DELETE',
+      cancelCaption: 'CONFIRM.CANCEL',
+    })
+      .subscribe((confirmed) => {
+        if (confirmed) {
+          this.boardsService.deleteBoard(id).subscribe(
+            () => this.getBoards(),
+          );
+        }
+      });
   }
 
-  private updateBoards(): void {
+  private getBoards(): void {
     this.boardsService.getBoards()
-      .pipe((r) => this.boardsArr$ = r);
+      .subscribe((res) => this.boardsArr = res);
   }
 }

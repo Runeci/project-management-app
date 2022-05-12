@@ -1,17 +1,21 @@
-<div class="container">
-  <mat-card-title>{{ 'MAIN.WORKSPACES' | translate }}</mat-card-title>
-  <mat-divider></mat-divider>
-    <ul class="boards-container" *ngIf="boardsArr$ | async">
-      <li *ngFor="let board of boardsArr$ | async">
+<div class="background">
+  <div class="container">
+    <mat-card-title>{{ 'MAIN.WORKSPACES' | translate }}</mat-card-title>
+    <mat-divider></mat-divider>
+    <app-global-search class="search"></app-global-search>
+    <ul class="boards-container">
+      <li *ngFor="let board of boardsArr">
         <app-board-preview
           [board]="board"
           (deleteBoardPreview)="deleteBoardPreview(board!.id)"
         ></app-board-preview>
       </li>
       <li>
-        <mat-card class="board new-board" (click)="openDialog()">
+        <mat-card class="board new-board" (click)="openNewBoardDialog()">
           <mat-icon class="icon">add</mat-icon>
         </mat-card>
       </li>
     </ul>
+  </div>
+
 </div>

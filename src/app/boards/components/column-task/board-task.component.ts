@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+ Component, EventEmitter, Input, OnInit, Output,
+} from '@angular/core';
 import {
   animate, state, style, transition, trigger,
 } from '@angular/animations';
@@ -31,13 +33,15 @@ export class BoardTaskComponent implements OnInit {
 
   @Input() column!: Column;
 
+  @Output() deletedTask = new EventEmitter<Pick<TaskI, 'id' | 'order'>>();
+
   private boardId: Board['id'];
 
   constructor(
-private tasksApiService: TaskApiService,
-              private activatedRoute: ActivatedRoute,
-              private dialog: MatDialog,
-) {
+    private tasksApiService: TaskApiService,
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog,
+  ) {
   }
 
   public ngOnInit() {
@@ -54,18 +58,41 @@ private tasksApiService: TaskApiService,
     this.animationStatus = 'start';
   }
 
-  public deleteTask(taskId: TaskI['id'], event: Event) {
+  public deleteTask(event: Event) {
     event.stopPropagation();
-    this.tasksApiService
-      .deleteTask(this.boardId, this.column.id, taskId).subscribe();
+    this.deletedTask.emit({
+      id: this.task.id,
+      order: this.task.order,
+    });
   }
 
-  public openDialog() {
-    this.dialog.open(
+  public openTaskEditDialog() {
+    const ref = this.dialog.open(
       TaskEditDialogComponent,
       {
-        data: this.task,
+        data: { task: this.task, columnId: this.column.id, boardId: this.boardId },
         width: '500px',
+      },
+    );
+
+    ref.afterClosed().subscribe(
+      (res) => {
+        this.tasksApiService.updateTask(
+            this.boardId,
+            this.column.id,
+            this.task.id,
+            {
+              title: res.title,
+              order: this.task.order,
+              description: res.description,
+              userId: this.task.userId,
+              boardId: this.boardId,
+              columnId: this.task.columnId,
+              done: false,
+            },
+          ).subscribe();
+        this.task.title = res.title;
+        this.task.description = res.description;
       },
     );
   }

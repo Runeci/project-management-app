@@ -1,5 +1,24 @@
+.header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .example-spacer {
   flex: 1 1 auto;
+}
+
+.logo-container {
+  cursor: pointer;
+}
+
+.add-btn-container,
+.logo-container,
+.toggle-btn,
+.registr-btns,
+.logout-btn {
+  display: flex;
+  align-items: center;
 }
 
 .example-icon {
@@ -75,13 +94,27 @@
   min-width: 100px;
 }
 
-@media (max-width: 1024px) {
-  .example-icon {
-    display: block;
+@media (max-width: 600px) {
+  .add-btn-container {
+    display: none;
   }
-}
 
-@media (max-width: 570px) {
+  .registr-btns {
+    .mat-button {
+      color: #ffd740;
+      min-width: 40px;
+      max-width: 40px;
+      height: 40px;
+      margin-left: 10px;
+      transition: color 0.2s ease-in-out;
+    }
+  }
+
+  .centered ::ng-deep .mat-button-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
   .mat-flat-button {
     font-size: 14px;
     margin-left: 7px;
@@ -96,6 +129,12 @@
   }
 }
 
+@media (max-width: 530px) {
+  .logo-text {
+    display: none;
+  }
+}
+
 @media (max-width: 470px) {
   .mat-toolbar {
     display: flex;
@@ -104,3 +143,4 @@
     height: 16%;
   }
 }
+

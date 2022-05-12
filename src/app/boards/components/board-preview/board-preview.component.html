@@ -3,15 +3,17 @@
           (mouseleave)="stopAnimation()"
           (click)="goToBoard(board?.id)"
 >
-  <mat-card-header class="text-oneline">
+  <mat-card-header>
     <mat-card-title>{{ board?.title }}</mat-card-title>
   </mat-card-header>
+  <mat-card-content>
+    <p>{{ board?.description }}</p>
+  </mat-card-content>
   <mat-icon
     class="delete-btn"
     [@hoveredBoard]="this.animationStatus"
     (click)="onDelete($event)"
-  >highlight_off
-  </mat-icon>
+  >highlight_off</mat-icon>
 </mat-card>
 
 

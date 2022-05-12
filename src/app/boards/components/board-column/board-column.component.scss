@@ -107,7 +107,7 @@ h2 {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.example-form-field {
+.form-field {
   width: 100%;
   transition: color 0.2s ease-in-out;
 
@@ -115,5 +115,11 @@ h2 {
     &:hover {
       color: #663bb8;
     }
+  }
+}
+
+@media (max-width: 530px) {
+  .column-container {
+    width: 280px;
   }
 }

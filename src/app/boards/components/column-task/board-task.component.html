@@ -1,9 +1,9 @@
 <div
   class="task-box"
-  (click)="openDialog()"
+  (click)="openTaskEditDialog()"
   (mouseenter)="startAnimation()"
   (mouseleave)="stopAnimation()"
 >
   <div>{{ task.title }}</div>
-  <mat-icon [@hovered]="animationStatus" (click)="deleteTask(task.id, $event)">close</mat-icon>
+  <mat-icon [@hovered]="animationStatus" (click)="deleteTask($event)">close</mat-icon>
 </div>
