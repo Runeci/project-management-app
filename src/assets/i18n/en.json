@@ -48,8 +48,9 @@
   },
   "CONFIRM": {
     "title": "Data will be deleted permanently",
-    "message": "Do you want to delete {{param}}?",
-    "param": "profile", 
+    "message": "Do you really want to delete {{param}}?",
+    "paramProf": "profile",
+    "paramBoard": "board",
     "CANCEL": "CANCEL",
     "DELETE": "DELETE"
   },

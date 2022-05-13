@@ -51,7 +51,7 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
     this.dialogService.confirmDialog({
       title: 'CONFIRM.title',
       message: 'CONFIRM.message',
-      param: 'CONFIRM.param',
+      param: 'CONFIRM.paramBoard',
       confirmCaption: 'CONFIRM.DELETE',
       cancelCaption: 'CONFIRM.CANCEL',
     })

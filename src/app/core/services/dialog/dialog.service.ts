@@ -25,7 +25,7 @@ export class DialogService {
           confirmCaption: this.translateService.instant(data.confirmCaption),
           cancelCaption: this.translateService.instant(data.cancelCaption),
         },
-        width: '30%',
+        width: '60%',
         disableClose: true,
       })
       .afterClosed();

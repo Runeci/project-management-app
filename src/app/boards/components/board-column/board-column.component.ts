@@ -85,7 +85,7 @@ export class BoardColumnComponent implements OnInit {
       {
         title: 'CONFIRM.title',
         message: 'CONFIRM.message',
-        param: 'CONFIRM.param',
+        param: 'CONFIRM.paramBoard',
         confirmCaption: 'CONFIRM.DELETE',
         cancelCaption: 'CONFIRM.CANCEL',
       },

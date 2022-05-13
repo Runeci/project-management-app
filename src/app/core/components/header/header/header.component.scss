@@ -41,6 +41,7 @@
 }
 
 .mat-flat-button {
+  width: 80px;
   font-size: 16px;
   margin-left: 10px;
 }
@@ -135,12 +136,14 @@
   }
 }
 
-@media (max-width: 470px) {
-  .mat-toolbar {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: end;
-    height: 16%;
+@media (max-width: 330px) {
+  .registr-btns {
+    margin: 0;
+  }
+
+  .text-white {
+    width: 100px;
+    padding: 0;
   }
 }
 

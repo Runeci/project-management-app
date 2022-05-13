@@ -1,5 +1,12 @@
 :host {
   display: flex;
+  min-height: 100%;
+}
+
+.container {
+  max-width: 400px;
+  width: 100%;
+  padding: 0 20px;
 }
 
 .close {
@@ -37,7 +44,6 @@
 .form {
   display: flex;
   flex-direction: column;
-  width: 344px;
   padding: 0 20px;
   border-radius: 5px;
 
@@ -47,10 +53,10 @@
     justify-content: center;
     row-gap: 10px;
     height: 100%;
+    margin: 0;
   }
 
   &__input {
-    width: 304px;
     height: 18px;
     border: none;
     outline: none;
@@ -80,24 +86,19 @@
 }
 
 .mat-form-field {
-  width: 304px;
+  margin: 0;
 }
 
 .mat-form-field-infix {
   padding: 0 0;
 }
 
-@media (max-width: 470px) {
-  .register-modal {
-    margin-top: 150px;
-  }
-
+@media (max-width: 330px) {
   .form {
-    width: 250px;
     padding: 0;
   }
 
-  .mat-form-field {
-    width: 240px;
+  .mat-form-field-infix {
+    padding: 0;
   }
 }
