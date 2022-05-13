@@ -31,7 +31,7 @@ export class UserProfileComponent implements OnInit {
     public validationService: ValidationService,
     private storageService: LocalStorageService,
     private dialogRef: MatDialogRef<UserProfileComponent>,
-    @Inject(MAT_DIALOG_DATA) public user: UserInfo
+    @Inject(MAT_DIALOG_DATA) public user: UserInfo,
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +50,7 @@ export class UserProfileComponent implements OnInit {
           /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/,
           {
             hasSpecialCharacters: true,
-          }
+          },
         ),
       ]),
     });
