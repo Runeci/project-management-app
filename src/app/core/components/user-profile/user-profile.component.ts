@@ -82,11 +82,7 @@ export class UserProfileComponent implements OnInit {
   openConfirmDialog() {
     this.dialog
       .confirmDialog({
-        title: 'CONFIRM.title',
-        message: 'CONFIRM.message',
         param: 'CONFIRM.paramProf',
-        confirmCaption: 'CONFIRM.DELETE',
-        cancelCaption: 'CONFIRM.CANCEL',
       })
       .subscribe((confirmed) => {
         if (confirmed) {

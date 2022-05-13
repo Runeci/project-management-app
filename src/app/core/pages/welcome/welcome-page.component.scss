@@ -105,6 +105,8 @@ h2 {
 }
 
 .team {
+  margin-bottom: 100px;
+
   &__wrapper {
     display: flex;
     flex-direction: column;
@@ -141,6 +143,7 @@ h2 {
 
   .item-description {
     margin: 0;
+    padding: 0 10px;
   }
 }
 
@@ -170,18 +173,6 @@ h2 {
   }
 }
 
-@media (max-width: 1024px) {
-  .hero__content {
-    h1 {
-      font-size: 28px;
-    }
-
-    p {
-      font-size: 16px;
-    }
-  }
-}
-
 @media (max-width: 768px) {
   .container {
     max-width: 720px;
@@ -189,46 +180,32 @@ h2 {
   }
 
   .hero {
+    height: 70vh;
     margin-right: -15px;
     margin-left: -15px;
 
     &__content {
       width: 100%;
+      align-items: center;
+      h1 {
+        font-size: 28px;
+        text-align: center;
+      }
+
+      p {
+        font-size: 18px;
+        text-align: center;
+      }
     }
+  }
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 40px;
   }
 
   .hero__image {
     display: none;
-  }
-
-  .services__item {
-    padding-left: 45px;
-  }
-
-  .services__description {
-    font-size: 12px;
-  }
-}
-
-@media (max-width: 576px) {
-  .container {
-    max-width: 540px;
-  }
-  .hero__content {
-    align-items: center;
-
-    h1 {
-      text-align: center;
-    }
-
-    p {
-      text-align: center;
-    }
-  }
-
-  
-  h2 {
-    margin-bottom: 50px;
   }
 
   .services {
@@ -237,11 +214,25 @@ h2 {
     &__wrapper {
       flex-direction: column;
     }
-  
+
     &__item {
       width: 100%;
       padding-left: 70px;
     }
+
+    &__desciption {
+      font-size: 12px;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+
+  .hero {
+    height: 80vh;
   }
 
   .member {

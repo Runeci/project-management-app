@@ -62,7 +62,6 @@ export class HeaderComponent implements OnInit {
     this.dialog
       .open(UserProfileComponent, {
         width: '300px',
-        height: '65%',
         data: this.userService.currentUser,
       })
       .afterClosed();
