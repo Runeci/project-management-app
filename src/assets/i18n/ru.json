@@ -51,6 +51,8 @@
     "message": "Вы действительно хотите удалить {{param}}?",
     "paramProf": "профиль",
     "paramBoard": "доску",
+    "paramColomn": "список",
+    "paramTask": "задачу",
     "CANCEL": "ОТМЕНИТЬ",
     "DELETE": "УДАЛИТЬ"
   },

@@ -83,11 +83,7 @@ export class BoardColumnComponent implements OnInit {
   public openConfirmationModal(currentTask: Pick<TaskI, 'id' | 'order'>) {
     this.dialogService.confirmDialog(
       {
-        title: 'CONFIRM.title',
-        message: 'CONFIRM.message',
-        param: 'CONFIRM.paramBoard',
-        confirmCaption: 'CONFIRM.DELETE',
-        cancelCaption: 'CONFIRM.CANCEL',
+        param: 'CONFIRM.paramTask',
       },
     ).subscribe(
       (confirmed) => {
