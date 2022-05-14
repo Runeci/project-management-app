@@ -37,11 +37,7 @@ export class BoardPageComponent implements OnInit {
 
   public openConfirmationModal(columnInfo: Pick<Column, 'order' | 'id'>) {
     this.dialogService.confirmDialog({
-      title: 'CONFIRM.title',
-      message: 'CONFIRM.message',
-      param: 'CONFIRM.param',
-      confirmCaption: 'CONFIRM.DELETE',
-      cancelCaption: 'CONFIRM.CANCEL',
+      param: 'CONFIRM.paramColomn',
     })
       .subscribe((confirmed) => {
         if (confirmed) {

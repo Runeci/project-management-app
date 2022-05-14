@@ -7,7 +7,23 @@
   },
   "HOME": {
     "TITLE": "RSTrello - your next level of task design.",
-    "SUBTITLE": "An app with an intuitive interface and powerful features allows teams to effectively coordinate and manage their projects."
+    "SUBTITLE": "An app with an intuitive interface and powerful features allows teams to effectively coordinate and manage their projects.",
+    "SECTION_TITLE": {
+      "progect": "ABOUT PROJECT",
+      "team": "ABOUT TEAM"
+    },
+    "SECTION_SUBTITLE": {
+      "ability": "Project opportunities",
+      "design": "App design and interface",
+      "adaptive": "Adaptive layout",
+      "func": "Main functionality"
+    },
+    "SECTION_DESCRIPTION": {
+      "ability": "The application is a prototype of Trello, developed using Angular, RxJS. To store and process the necessary data, interaction with the server is provided.",
+      "design": "All pages of the application are designed in the same style, simple and intuitive design, smooth animations, styles for interactive elements are applied, a pop-up appears with an explanation for network errors, when trying to delete elements, a confirmation modal is implemented with confirmation of the seriousness of intentions.",
+      "adaptive": "Resolutions for desktop (1024px), tablets (768px) and mobile devices (at least 320px) are supported.",
+      "func": "To work on the project, boards are used - a space where you can follow the information. The board consists of progress columns. You can add as many columns as you want to your board, and then arrange and rename them to your liking. In each column, you can create a card with a task or idea. All fields can be edited or deleted. Dragging cards or moving columns is done using drag-n-drop."
+    }
   },
   "AUTH": {
     "NAME": "Name",
@@ -36,7 +52,7 @@
     }
   },
   "BUTTON": {
-    "LANG": "English",
+    "LANG": "EN",
     "CONTINUE": "Continue",
     "CREATE": "Create",
     "ADD_COLUMN": "Add column",
@@ -48,8 +64,11 @@
   },
   "CONFIRM": {
     "title": "Data will be deleted permanently",
-    "message": "Do you want to delete {{param}}?",
-    "param": "profile", 
+    "message": "Do you really want to delete {{param}}?",
+    "paramProf": "profile",
+    "paramBoard": "board",
+    "paramColomn": "colomn",
+    "paramTask": "task",
     "CANCEL": "CANCEL",
     "DELETE": "DELETE"
   },

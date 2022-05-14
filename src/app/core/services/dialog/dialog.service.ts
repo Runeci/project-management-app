@@ -19,13 +19,9 @@ export class DialogService {
     return this.dialog
       .open(ConfirmComponent, {
         data: {
-          title: this.translateService.instant(data.title),
-          message: this.translateService.instant(data.message),
           param: this.translateService.instant(data.param),
-          confirmCaption: this.translateService.instant(data.confirmCaption),
-          cancelCaption: this.translateService.instant(data.cancelCaption),
         },
-        width: '30%',
+        width: '60%',
         disableClose: true,
       })
       .afterClosed();

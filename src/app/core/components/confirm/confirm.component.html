@@ -1,5 +1,5 @@
 <div class="header">
-    <h2 mat-dialog-title>{{data?.title}}</h2>
+    <h2 mat-dialog-title>{{'CONFIRM.title' | translate}}</h2>
     <button mat-icon-button [mat-dialog-close]="false">
         <mat-icon>close</mat-icon>
     </button>
@@ -11,9 +11,9 @@
 
 <div mat-dialog-actions [align]="'end'">
     <button mat-raised-button [mat-dialog-close]="false">
-        {{data?.cancelCaption}}
+        {{'CONFIRM.CANCEL' | translate}}
     </button>
     <button mat-raised-button color="primary" [mat-dialog-close]="true">
-        {{data?.confirmCaption}}
+        {{'CONFIRM.DELETE' | translate}}
     </button>
 </div>

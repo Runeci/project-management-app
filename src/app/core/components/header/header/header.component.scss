@@ -41,11 +41,13 @@
 }
 
 .mat-flat-button {
+  width: 80px;
   font-size: 16px;
   margin-left: 10px;
 }
 
 .text-white {
+  width: 140px;
   color: #fff;
 }
 
@@ -113,6 +115,19 @@
     display: flex;
     justify-content: center;
   }
+
+  .mat-flat-button {
+    font-size: 14px;
+    margin-left: 7px;
+  }
+
+  .text-white {
+    width: 120px;
+  }
+
+  .mat-slide-toggle {
+    width: 70px;
+  }
 }
 
 @media (max-width: 530px) {
@@ -120,3 +135,15 @@
     display: none;
   }
 }
+
+@media (max-width: 330px) {
+  .registr-btns {
+    margin: 0;
+  }
+
+  .text-white {
+    width: 100px;
+    padding: 0;
+  }
+}
+
