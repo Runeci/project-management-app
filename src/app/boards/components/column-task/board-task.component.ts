@@ -77,16 +77,16 @@ export class BoardTaskComponent implements OnInit {
 
     ref.afterClosed().subscribe(
       (res) => {
-        if ( typeof res === 'undefined') {
-          return
+        if (typeof res === 'undefined') {
+          return;
         }
-        const title: string = res.title;
-        const description: string = res.description;
+        const { title } = res;
+        const { description } = res;
 
         this.tasksApiService.updateTask(this.boardId, this.column.id, this.task.id, {
-          title: title,
+          title,
           order: this.task.order,
-          description: description,
+          description,
           userId: this.task.userId,
           boardId: this.boardId,
           columnId: this.task.columnId,

@@ -7,7 +7,6 @@ import { NgToastModule } from 'ng-angular-popup';
 import { MaterialModule } from './modules/material/material.module';
 import { HeaderAnimateDirective } from './directives/header-animate.directive';
 
-
 @NgModule({
   declarations: [
     HeaderAnimateDirective,

@@ -2,11 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { TaskI } from '@shared/models/tasks.interfaces';
 import { BoardsApiService } from '@boards/services/boards-api.service';
 import { ColumnsApiService } from '@boards/services/columns-api.service';
-import { forkJoin, map, switchMap } from 'rxjs';
+import {
+  forkJoin, map, switchMap,
+} from 'rxjs';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskEditDialogComponent } from '@boards/components/task-edit-dialog/task-edit-dialog.component';
 import { TaskApiService } from '@boards/services/task-api.service';
+import { UserInfo } from '@shared/models/user.interfaces';
+import { UserApiService } from '@core/services/user/user-api.service';
 
 @Component({
   selector: 'app-global-search',
@@ -16,14 +20,17 @@ import { TaskApiService } from '@boards/services/task-api.service';
 export class GlobalSearchComponent implements OnInit {
   public searchValue: string = '';
 
-  public allTasks: TaskI[] = [];
+  public allTasks!: TaskI[];
 
   public foundTasks: TaskI[] = [];
+
+  private users: UserInfo[] = [];
 
   constructor(
     private boardsApiService: BoardsApiService,
     private taskApiService: TaskApiService,
     private columnApiService: ColumnsApiService,
+    private userApiService: UserApiService,
     private router: Router,
     private dialog: MatDialog,
   ) {
@@ -31,33 +38,30 @@ export class GlobalSearchComponent implements OnInit {
 
   public ngOnInit() {
     this.getTasks();
+    this.userApiService.getAllUsers().subscribe(
+      (r) => this.users = r,
+    );
   }
 
   public getTasks() {
-    if (this.allTasks.length) {
+    if (this.allTasks?.length) {
       return;
     }
+
     this.boardsApiService.getBoards()
       .pipe(
-        switchMap(
-          (boards) => forkJoin(boards
-            .map((board) => this.columnApiService.getColumns(board.id)
-              .pipe(
-                map((columnArr) => columnArr
-                  .flat()
-                  .map((col) => ({ ...col, boardId: board.id }))),
-              ))),
-        ),
-        map((columnArr) => columnArr.flat()),
-        switchMap((columnArr) => forkJoin(columnArr
-          .map((column) => this.columnApiService.getColumn(column.boardId, column.id)
+        switchMap((boards) => forkJoin(boards
+          .map((board) => this.boardsApiService.getBoard(board.id)
             .pipe(
-              map((column1) => ({ ...column1, boardId: column.boardId })),
+              map((currBoard) => currBoard.columns!
+                .map((column) => (column.tasks))
+                .map((tasks) => tasks
+                  .map((task) => ({ ...task, boardId: board.id })))),
             )))),
-        map((columnsArr) => columnsArr.map((column) => column.tasks
-          .map((task) => ({ ...task, boardId: column.boardId, columnId: column.id })))),
-        map((tasks) => tasks.flat()),
-      ).subscribe((res) => this.allTasks = res);
+        map((tasks) => tasks.flat(2)),
+      ).subscribe(
+      (result) => this.allTasks = result,
+    );
   }
 
   public searchTask(searchValue: string): void {
@@ -65,14 +69,21 @@ export class GlobalSearchComponent implements OnInit {
       this.foundTasks = [];
       return;
     }
+
     searchValue = searchValue.toLowerCase().trim();
+    const userIds = this.users
+      ?.filter((item) => item.name.includes(searchValue)).map((user) => user.id);
+
     this.foundTasks = this.allTasks
-      .filter((item) => item.title.includes(searchValue)
-        || item.description?.includes(searchValue));
+      .filter((item) => item?.title.includes(searchValue)
+        || item?.description?.includes(searchValue)
+        || userIds.some((id) => id === item.userId));
   }
 
   public goToTask(task: TaskI) {
-    this.router.navigate(['/boards', task.boardId]);
+    if (task.boardId) {
+      this.router.navigate(['/boards', task.boardId]);
+    }
     const dialogRef = this.dialog.open(
       TaskEditDialogComponent,
       {
@@ -88,20 +99,18 @@ export class GlobalSearchComponent implements OnInit {
         }
         let columnId: string;
         if (task.columnId) {
-          columnId = task.columnId
+          columnId = task.columnId;
           this.taskApiService.updateTask(task.boardId, columnId, task.id, {
-              title: res.title,
-              order: task.order,
-              description: res.description,
-              userId: task.userId,
-              boardId: task.boardId,
-              columnId: task.columnId,
-              done: false,
-            }
-          ).subscribe();
+            title: res.title,
+            order: task.order,
+            description: res.description,
+            userId: task.userId,
+            boardId: task.boardId,
+            columnId: task.columnId,
+            done: false,
+          }).subscribe();
         }
-      }
+      },
     );
   }
-
 }

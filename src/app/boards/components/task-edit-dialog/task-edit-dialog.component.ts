@@ -9,15 +9,12 @@ import { UserApiService } from '@core/services/user/user-api.service';
 import { Observable } from 'rxjs';
 import { FileSaverService } from 'ngx-filesaver';
 
-
-
-
 @Component({
   selector: 'app-task-edit-boards-dialog',
   templateUrl: './task-edit-dialog.component.html',
   styleUrls: ['./task-edit-dialog.component.scss'],
 })
-export class TaskEditDialogComponent implements OnInit{
+export class TaskEditDialogComponent implements OnInit {
   public editDescription = false;
 
   public editTitle = false;

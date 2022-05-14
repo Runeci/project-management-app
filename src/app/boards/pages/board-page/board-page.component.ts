@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ColumnsApiService } from '@boards/services/columns-api.service';
-import { Column, TaskI } from '@shared/models/columns.interfaces';
+import { Column } from '@shared/models/columns.interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Board } from '@shared/models/boards.interfaces';
@@ -10,7 +10,6 @@ import {
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NewColumnDialogComponent } from '@boards/components/new-column-dialog/new-column-dialog.component';
 import { DialogService } from '@core/services/dialog/dialog.service';
-import { FileSaverService } from 'ngx-filesaver';
 
 @Component({
   selector: 'app-board-page',
@@ -27,7 +26,7 @@ export class BoardPageComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private dialogService: DialogService,
     private dialog: MatDialog,
-    private _FileSaverService: FileSaverService,
+    private FileSaverService: FileSaverService,
   ) {
   }
 
@@ -126,7 +125,7 @@ export class BoardPageComponent implements OnInit {
   }
 
   public getConnectedList(): any[] {
-    return this.columnsArray.map((x: { order: any; }) => `${ x.order }`);
+    return this.columnsArray.map((x: { order: any; }) => `${x.order}`);
   }
 
   private getColumns(): void {
@@ -142,22 +141,26 @@ export class BoardPageComponent implements OnInit {
   }
 
   public downloadFile(): void {
-    const headers = 'columns' + '\n';
-    let data = this.columnsArray.map((column, index) => {
+    const headers = 'columns \n';
+    const data = this.columnsArray.map((column, index) => {
       let result = '';
-      this.columnsArray.length - 1 === index ?
-        result += JSON.stringify(column.title) :
-        result += JSON.stringify(column.title) + ',';
 
-      column.tasks.map((task, index) => {
-        column.tasks.length - 1 === index ?
-          result +=  JSON.stringify('Task: ' + task.title + ' - Description: ' + task.description) :
-          result +=  JSON.stringify('Task: ' + task.title + ' - Description: ' + task.description) + ',';
+      if (this.columnsArray.length - 1 === index) {
+        result += JSON.stringify(column.title);
+      } else {
+        result += `${JSON.stringify(column.title)},`;
+      }
+      column.tasks.forEach((task, i) => {
+        if (column.tasks.length - 1 === i) {
+          result += JSON.stringify(`Task: ${task.title} - Description: ${task.description}`);
+        } else {
+          result += `${JSON.stringify(`Task: ${task.title} - Description: ${task.description}`)},`;
+        }
       });
       return result;
     }).join('\n');
 
-    let res = new Blob([headers + data], { type: 'text/csv' });
-    this._FileSaverService.save(res, 'board.csv');
+    const res = new Blob([headers + data], { type: 'text/csv' });
+    this.FileSaverService.save(res, 'board.csv');
   }
 }
