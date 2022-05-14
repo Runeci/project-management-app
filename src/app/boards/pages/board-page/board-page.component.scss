@@ -35,13 +35,12 @@
   }
 }
 
-.back-btn {
+.bottom-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   position: fixed;
   bottom: 10px;
-  left: 20px;
   z-index: 99;
   border: none;
   background-color: rgba(102, 59, 184, 0.3);
@@ -57,6 +56,14 @@
     color: #663bb8;
     transform: scale(1.2);
   }
+}
+
+.back-btn {
+  left: 20px;
+}
+
+.save-btn {
+  right: 20px;
 }
 
 @media (max-width: 530px) {

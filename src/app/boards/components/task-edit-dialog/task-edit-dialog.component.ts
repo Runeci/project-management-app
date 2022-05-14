@@ -7,6 +7,10 @@ import { Column } from '@shared/models/columns.interfaces';
 import { UserInfo } from '@shared/models/user.interfaces';
 import { UserApiService } from '@core/services/user/user-api.service';
 import { Observable } from 'rxjs';
+import { FileSaverService } from 'ngx-filesaver';
+
+
+
 
 @Component({
   selector: 'app-task-edit-boards-dialog',
@@ -30,6 +34,7 @@ export class TaskEditDialogComponent implements OnInit{
   constructor(
     public dialogRef: MatDialogRef<TaskEditDialogComponent>,
     private fb: FormBuilder,
+    private _FileSaverService: FileSaverService,
     private userApiService: UserApiService,
     @Inject(MAT_DIALOG_DATA) public data: { task: TaskI, columnId: Column['id'], boardId: Board['id'] },
   ) {

@@ -21,6 +21,10 @@
     </div>
 </ng-container>
 
-<button class="back-btn" [routerLink]="'/boards'">
+<button class="back-btn bottom-btn" [routerLink]="'/boards'">
   <mat-icon>arrow_back</mat-icon>
+</button>
+
+<button class="save-btn bottom-btn" (click)="downloadFile()">
+  <mat-icon>save</mat-icon>
 </button>
