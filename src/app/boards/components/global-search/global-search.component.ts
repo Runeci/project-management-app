@@ -6,6 +6,7 @@ import { forkJoin, map, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskEditDialogComponent } from '@boards/components/task-edit-dialog/task-edit-dialog.component';
+import { TaskApiService } from '@boards/services/task-api.service';
 
 @Component({
   selector: 'app-global-search',
@@ -21,6 +22,7 @@ export class GlobalSearchComponent implements OnInit {
 
   constructor(
     private boardsApiService: BoardsApiService,
+    private taskApiService: TaskApiService,
     private columnApiService: ColumnsApiService,
     private router: Router,
     private dialog: MatDialog,
@@ -71,12 +73,35 @@ export class GlobalSearchComponent implements OnInit {
 
   public goToTask(task: TaskI) {
     this.router.navigate(['/boards', task.boardId]);
-    this.dialog.open(
+    const dialogRef = this.dialog.open(
       TaskEditDialogComponent,
       {
         data: { task, columnId: task.columnId, boardId: task.boardId },
         width: '500px',
       },
     );
+
+    dialogRef.afterClosed().subscribe(
+      (res) => {
+        if (typeof res === 'undefined') {
+          return;
+        }
+        let columnId: string;
+        if (task.columnId) {
+          columnId = task.columnId
+          this.taskApiService.updateTask(task.boardId, columnId, task.id, {
+              title: res.title,
+              order: task.order,
+              description: res.description,
+              userId: task.userId,
+              boardId: task.boardId,
+              columnId: task.columnId,
+              done: false,
+            }
+          ).subscribe();
+        }
+      }
+    );
   }
+
 }
