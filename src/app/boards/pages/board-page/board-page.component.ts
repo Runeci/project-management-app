@@ -11,6 +11,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NewColumnDialogComponent } from '@boards/components/new-column-dialog/new-column-dialog.component';
 import { FileSaverService } from 'ngx-filesaver';
 import { DialogService } from '@core/services/dialog/dialog.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-board-page',
@@ -28,6 +29,7 @@ export class BoardPageComponent implements OnInit {
     private dialogService: DialogService,
     private dialog: MatDialog,
     private fileSaver: FileSaverService,
+    private spinner: NgxSpinnerService,
   ) {
   }
 
@@ -126,6 +128,7 @@ export class BoardPageComponent implements OnInit {
   }
 
   private getColumns(): void {
+    this.spinner.show();
     this.columnApiService.getColumns(this.boardId)
       .pipe(
         switchMap((columns) => forkJoin(
@@ -134,6 +137,7 @@ export class BoardPageComponent implements OnInit {
       )
       .subscribe((res) => {
         this.columnsArray = res.sort((prev, next) => prev.order - next.order);
+        this.spinner.hide();
       });
   }
 

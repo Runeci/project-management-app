@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BoardDialogService } from '@boards/services/board-dialog.service';
 import { BoardsDialogComponent } from '@boards/components/boards-dialog/boards-dialog.component';
 import { DialogService } from '@core/services/dialog/dialog.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { BoardsApiService } from '../../services/boards-api.service';
 import { DialogUse } from '../../../app.constants';
 
@@ -24,6 +25,7 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private dialogService: DialogService,
     private dialogBoardService: BoardDialogService,
+    private spinner: NgxSpinnerService,
   ) {
   }
 
@@ -61,7 +63,11 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
   }
 
   private getBoards(): void {
+    this.spinner.show();
     this.boardsService.getBoards()
-      .subscribe((res) => this.boardsArr = res);
+      .subscribe((res) => {
+        this.boardsArr = res;
+        this.spinner.hide();
+      });
   }
 }
