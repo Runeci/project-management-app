@@ -9,6 +9,7 @@ import {
 } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NewColumnDialogComponent } from '@boards/components/new-column-dialog/new-column-dialog.component';
+import { FileSaverService } from 'ngx-filesaver';
 import { DialogService } from '@core/services/dialog/dialog.service';
 
 @Component({
@@ -26,7 +27,7 @@ export class BoardPageComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private dialogService: DialogService,
     private dialog: MatDialog,
-    private FileSaverService: FileSaverService,
+    private fileSaver: FileSaverService,
   ) {
   }
 
@@ -125,7 +126,7 @@ export class BoardPageComponent implements OnInit {
   }
 
   public getConnectedList(): any[] {
-    return this.columnsArray.map((x: { order: any; }) => `${x.order}`);
+    return this.columnsArray.map((x: { order: any; }) => `${ x.order }`);
   }
 
   private getColumns(): void {
@@ -140,27 +141,23 @@ export class BoardPageComponent implements OnInit {
       });
   }
 
+
   public downloadFile(): void {
-    const headers = 'columns \n';
-    const data = this.columnsArray.map((column, index) => {
-      let result = '';
+    const headers = this.columnsArray.map((i) => i.title).join(';') + '\n';
 
-      if (this.columnsArray.length - 1 === index) {
-        result += JSON.stringify(column.title);
-      } else {
-        result += `${JSON.stringify(column.title)},`;
+    const maxTasksLength = Math.max.apply(null, this.columnsArray.map(column => column.tasks.length));
+
+    let result = [];
+    for (let i = 0; i < maxTasksLength; i++) {
+      let row = [];
+      for (let j = 0; j < this.columnsArray.length; j++) {
+        const task = this.columnsArray[j].tasks[i];
+        row.push(task ? `Title: ${ task.title } - Description: ${ task.description }` : '');
       }
-      column.tasks.forEach((task, i) => {
-        if (column.tasks.length - 1 === i) {
-          result += JSON.stringify(`Task: ${task.title} - Description: ${task.description}`);
-        } else {
-          result += `${JSON.stringify(`Task: ${task.title} - Description: ${task.description}`)},`;
-        }
-      });
-      return result;
-    }).join('\n');
+      result.push(row.join(';') + '\n');
+    }
 
-    const res = new Blob([headers + data], { type: 'text/csv' });
-    this.FileSaverService.save(res, 'board.csv');
+    let res = new Blob([headers + result.join('')], { type: 'text/csv' });
+    this.fileSaver.save(res, 'board.csv');
   }
 }
