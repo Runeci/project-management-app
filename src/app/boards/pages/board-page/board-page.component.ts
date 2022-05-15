@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Board } from '@shared/models/boards.interfaces';
 import {
+  finalize,
   forkJoin, switchMap, take,
 } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -134,10 +135,10 @@ export class BoardPageComponent implements OnInit {
         switchMap((columns) => forkJoin(
           columns.map((col) => this.columnApiService.getColumn(this.boardId, col.id)),
         )),
+        finalize(() => this.spinner.hide())
       )
       .subscribe((res) => {
         this.columnsArray = res.sort((prev, next) => prev.order - next.order);
-        this.spinner.hide();
       });
   }
 

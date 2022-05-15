@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { finalize, Subscription } from 'rxjs';
 import { Board } from '@shared/models/boards.interfaces';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -65,6 +65,9 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
   private getBoards(): void {
     this.spinner.show();
     this.boardsService.getBoards()
+      .pipe(
+        finalize(() => this.spinner.hide())
+      )
       .subscribe((res) => {
         this.boardsArr = res;
         this.spinner.hide();
