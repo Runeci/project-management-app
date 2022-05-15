@@ -126,7 +126,7 @@ export class BoardPageComponent implements OnInit {
   }
 
   public getConnectedList(): any[] {
-    return this.columnsArray.map((x: { order: any; }) => `${ x.order }`);
+    return this.columnsArray.map((x: { order: any; }) => `${x.order}`);
   }
 
   private getColumns(): void {
@@ -141,23 +141,23 @@ export class BoardPageComponent implements OnInit {
       });
   }
 
-
   public downloadFile(): void {
-    const headers = this.columnsArray.map((i) => i.title).join(';') + '\n';
+    const headers = `${this.columnsArray.map((i) => i.title).join(';')}\n`;
 
-    const maxTasksLength = Math.max.apply(null, this.columnsArray.map(column => column.tasks.length));
+    const maxTasksLength = Math.max.apply(null, this.columnsArray
+      .map((column) => column.tasks.length));
 
-    let result = [];
-    for (let i = 0; i < maxTasksLength; i++) {
-      let row = [];
-      for (let j = 0; j < this.columnsArray.length; j++) {
+    const result = [];
+    for (let i = 0; i < maxTasksLength; i += 1) {
+      const row = [];
+      for (let j = 0; j < this.columnsArray.length; j += 1) {
         const task = this.columnsArray[j].tasks[i];
-        row.push(task ? `Title: ${ task.title } - Description: ${ task.description }` : '');
+        row.push(task ? `Title: ${task.title} - Description: ${task.description}` : '');
       }
-      result.push(row.join(';') + '\n');
+      result.push(`${row.join(';')}\n`);
     }
 
-    let res = new Blob([headers + result.join('')], { type: 'text/csv' });
+    const res = new Blob([headers + result.join('')], { type: 'text/csv' });
     this.fileSaver.save(res, 'board.csv');
   }
 }
