@@ -49,11 +49,7 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
 
   public deleteBoardPreview(id: string | undefined): void {
     this.dialogService.confirmDialog({
-      title: 'CONFIRM.title',
-      message: 'CONFIRM.message',
-      param: 'CONFIRM.param',
-      confirmCaption: 'CONFIRM.DELETE',
-      cancelCaption: 'CONFIRM.CANCEL',
+      param: 'CONFIRM.paramBoard',
     })
       .subscribe((confirmed) => {
         if (confirmed) {

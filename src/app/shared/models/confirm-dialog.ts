@@ -1,7 +1,7 @@
 export interface ConfirmDialog {
-    title: string,
-    message: string,
+    title?: string,
+    message?: string,
     param: string,
-    confirmCaption: string,
-    cancelCaption: string
+    confirmCaption?: string,
+    cancelCaption?: string
 }

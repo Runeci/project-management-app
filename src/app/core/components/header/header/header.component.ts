@@ -61,8 +61,7 @@ export class HeaderComponent implements OnInit {
   public editProfile(): void {
     this.dialog
       .open(UserProfileComponent, {
-        width: '30%',
-        height: '65%',
+        width: '300px',
         data: this.userService.currentUser,
       })
       .afterClosed();
