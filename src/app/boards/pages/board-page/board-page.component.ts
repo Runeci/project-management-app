@@ -125,7 +125,6 @@ export class BoardPageComponent implements OnInit, DoCheck {
   }
 
   public getConnectedList(): any[] {
-    // console.log(this.columnsArray.map((x: { order: any }) => `${x.order}`));
     return this.columnsArray.map((x: { order: any }) => `${x.order}`);
   }
 
