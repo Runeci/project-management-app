@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@shared/shared.module';
 import { MaterialModule } from '@shared/modules/material/material.module';
 import { BoardsDialogComponent } from '@boards/components/boards-dialog/boards-dialog.component';
+import { FileSaverModule } from 'ngx-filesaver';
 import { BoardsRoutingModule } from './boards-routing.module';
 import { BoardsPageComponent } from './pages/boards-page/boards-page.component';
 import { BoardPreviewComponent } from './components/board-preview/board-preview.component';
@@ -36,6 +37,7 @@ import { GlobalSearchComponent } from './components/global-search/global-search.
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
+    FileSaverModule,
   ],
   exports: [
     BoardsPageComponent,

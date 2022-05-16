@@ -173,20 +173,15 @@ export class BoardColumnComponent implements OnInit {
         event.previousIndex,
         event.currentIndex,
       );
-      this.tasksApiService.updateTask(
-        this.boardId,
-        startColumnId,
-        draggedTask.id,
-        {
-          title: draggedTask.title,
-          order: event.container.data.indexOf(draggedTask) + 1,
-          userId: draggedTask.userId,
-          description: draggedTask.description,
-          boardId: this.boardId,
-          columnId: this.column.id,
-          done: false,
-        },
-      ).subscribe(
+      this.tasksApiService.updateTask(this.boardId, startColumnId, draggedTask.id, {
+        title: draggedTask.title,
+        order: event.container.data.indexOf(draggedTask) + 1,
+        userId: draggedTask.userId,
+        description: draggedTask.description,
+        boardId: this.boardId,
+        columnId: this.column.id,
+        done: false,
+      }).subscribe(
         () => {
           this.updateTasksOrder(event.container.data, this.column.id);
         },
@@ -196,20 +191,15 @@ export class BoardColumnComponent implements OnInit {
 
   private updateTasksOrder(tasksArr: TaskI[], columnId: Column['id']) {
     tasksArr.forEach((task, index) => {
-      this.tasksApiService.updateTask(
-        this.boardId,
+      this.tasksApiService.updateTask(this.boardId, columnId, task.id, {
+        title: task.title,
+        order: index + 1,
+        description: task.description,
+        userId: task.userId,
+        boardId: this.boardId,
         columnId,
-        task.id,
-        {
-          title: task.title,
-          order: index + 1,
-          description: task.description,
-          userId: task.userId,
-          boardId: this.boardId,
-          columnId,
-          done: false,
-        },
-      ).subscribe();
+        done: false,
+      }).subscribe();
     });
   }
 }
