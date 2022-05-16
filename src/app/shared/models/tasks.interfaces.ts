@@ -1,5 +1,5 @@
 export interface TaskI {
-  id: string,
+  id?: string,
   title: string,
   order: number,
   done: boolean,

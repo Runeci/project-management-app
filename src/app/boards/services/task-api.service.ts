@@ -33,10 +33,10 @@ export class TaskApiService {
   }
 
   public updateTask(
-    boardId: Board['id'],
-    columnId: Column['id'],
-    taskId: TaskI['id'],
-    body: Pick<TaskI, 'title' | 'order' | 'done' | 'description' | 'userId' | 'boardId' | 'columnId'>,
+      boardId: Board['id'],
+      columnId: Column['id'],
+      taskId: TaskI['id'],
+      body: Exclude<TaskI, 'id'>,
   ) {
     return this.http.put<TaskI>(`/api/boards/${boardId}/columns/${columnId}/tasks/${taskId}`, body);
   }

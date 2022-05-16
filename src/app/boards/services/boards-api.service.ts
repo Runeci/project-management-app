@@ -26,8 +26,8 @@ export class BoardsApiService {
     return this.http.put(`/api/boards/${id}`, { title });
   }
 
-  public getBoard(id: Board['id']) {
-    return this.http.get(`/api/boards/${id}`);
+  public getBoard(id: Board['id']): Observable<Board> {
+    return this.http.get<Board>(`/api/boards/${id}`);
   }
 
   public deleteBoard(id: Board['id']) {

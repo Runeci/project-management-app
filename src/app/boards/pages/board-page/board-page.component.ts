@@ -5,11 +5,14 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Board } from '@shared/models/boards.interfaces';
 import {
+  finalize,
   forkJoin, switchMap, take,
 } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NewColumnDialogComponent } from '@boards/components/new-column-dialog/new-column-dialog.component';
+import { FileSaverService } from 'ngx-filesaver';
 import { DialogService } from '@core/services/dialog/dialog.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-board-page',
@@ -26,6 +29,8 @@ export class BoardPageComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private dialogService: DialogService,
     private dialog: MatDialog,
+    private fileSaver: FileSaverService,
+    private spinner: NgxSpinnerService,
   ) {
   }
 
@@ -124,14 +129,36 @@ export class BoardPageComponent implements OnInit {
   }
 
   private getColumns(): void {
+    this.spinner.show();
     this.columnApiService.getColumns(this.boardId)
       .pipe(
         switchMap((columns) => forkJoin(
           columns.map((col) => this.columnApiService.getColumn(this.boardId, col.id)),
         )),
+        finalize(() => this.spinner.hide())
       )
       .subscribe((res) => {
         this.columnsArray = res.sort((prev, next) => prev.order - next.order);
       });
+  }
+
+  public downloadFile(): void {
+    const headers = `${this.columnsArray.map((i) => i.title).join(';')}\n`;
+
+    const maxTasksLength = Math.max.apply(null, this.columnsArray
+      .map((column) => column.tasks.length));
+
+    const result = [];
+    for (let i = 0; i < maxTasksLength; i += 1) {
+      const row = [];
+      for (let j = 0; j < this.columnsArray.length; j += 1) {
+        const task = this.columnsArray[j].tasks[i];
+        row.push(task ? `Title: ${task.title} - Description: ${task.description}` : '');
+      }
+      result.push(`${row.join(';')}\n`);
+    }
+
+    const res = new Blob([headers + result.join('')], { type: 'text/csv' });
+    this.fileSaver.save(res, 'board.csv');
   }
 }

@@ -1,3 +1,4 @@
+.user,
 .title-container {
   display: flex;
   justify-content: flex-start;
@@ -20,6 +21,10 @@
   &:hover {
     cursor: pointer;
     color: #663bb8;
+  }
+
+  p {
+    margin: 0 0 0 10px;
   }
 }
 
