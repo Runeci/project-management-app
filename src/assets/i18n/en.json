@@ -67,7 +67,7 @@
     "message": "Do you really want to delete {{param}}?",
     "paramProf": "profile",
     "paramBoard": "board",
-    "paramColomn": "colomn",
+    "paramColumn": "column",
     "paramTask": "task",
     "CANCEL": "CANCEL",
     "DELETE": "DELETE"
