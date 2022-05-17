@@ -39,7 +39,8 @@
   },
   "BOARD": {
     "EDIT_DIALOG": {
-      "DESCR": "Description"
+      "DESCR": "Description",
+      "DONE": "Done"
     },
     "NEW_TASK_DIALOG": {
       "TITLE": "Task title",

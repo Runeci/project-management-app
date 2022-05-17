@@ -19,6 +19,8 @@ export class TaskEditDialogComponent implements OnInit {
 
   public editTitle = false;
 
+  public editDone = false;
+
   public editTaskForm = this.fb.group(
     {
       title: [`${this.data.task.title}`],
@@ -47,6 +49,7 @@ export class TaskEditDialogComponent implements OnInit {
     this.dialogRef.close({
       title: this.editTaskForm.value.title,
       description: this.editTaskForm.value.description,
+      done: this.data.task.done,
     });
   }
 }

@@ -72,6 +72,7 @@ export class BoardTaskComponent implements OnInit {
       {
         data: { task: this.task, columnId: this.column.id, boardId: this.boardId },
         width: '500px',
+        minHeight: '260px',
       },
     );
 
@@ -82,6 +83,7 @@ export class BoardTaskComponent implements OnInit {
         }
         const { title } = res;
         const { description } = res;
+        const { done } = res;
 
         this.tasksApiService.updateTask(this.boardId, this.column.id, this.task.id, {
           title,
@@ -90,7 +92,7 @@ export class BoardTaskComponent implements OnInit {
           userId: this.task.userId,
           boardId: this.boardId,
           columnId: this.task.columnId,
-          done: false,
+          done,
         }).subscribe();
         this.task.title = res.title;
         this.task.description = res.description;
