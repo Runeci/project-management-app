@@ -70,7 +70,9 @@ export class BoardTaskComponent implements OnInit {
     const ref = this.dialog.open(
       TaskEditDialogComponent,
       {
-        data: { task: this.task, columnId: this.column.id, boardId: this.boardId },
+        data: {
+ task: this.task, columnId: this.column.id, boardId: this.boardId, taskFiles: this.task.files,
+},
         width: '500px',
       },
     );
@@ -98,3 +100,8 @@ export class BoardTaskComponent implements OnInit {
     );
   }
 }
+
+/* name: "cat.jpg"
+size: 42499
+type: "image/jpeg"
+webkitRelativePath: "" */

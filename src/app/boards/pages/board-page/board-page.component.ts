@@ -135,7 +135,7 @@ export class BoardPageComponent implements OnInit {
         switchMap((columns) => forkJoin(
           columns.map((col) => this.columnApiService.getColumn(this.boardId, col.id)),
         )),
-        finalize(() => this.spinner.hide())
+        finalize(() => this.spinner.hide()),
       )
       .subscribe((res) => {
         this.columnsArray = res.sort((prev, next) => prev.order - next.order);

@@ -66,7 +66,7 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
     this.spinner.show();
     this.boardsService.getBoards()
       .pipe(
-        finalize(() => this.spinner.hide())
+        finalize(() => this.spinner.hide()),
       )
       .subscribe((res) => {
         this.boardsArr = res;

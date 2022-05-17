@@ -60,7 +60,10 @@
     "SAVE": "Save",
     "CANCEL": "CANCEL",
     "UPDATE": "UPDATE",
-    "DELETE": "Delete profile"
+    "DELETE": "Delete profile",
+    "CHOOSE": "CHOOSE FILE",
+    "UPLOAD": "UPLOAD",
+    "DOWNLOAD": "DOWNLOAD"
   },
   "CONFIRM": {
     "title": "Data will be deleted permanently",

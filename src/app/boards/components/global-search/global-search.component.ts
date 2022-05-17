@@ -108,6 +108,7 @@ export class GlobalSearchComponent implements OnInit {
             boardId: task.boardId,
             columnId: task.columnId,
             done: false,
+            files: task.files,
           }).subscribe();
         }
       },

@@ -34,6 +34,28 @@
       </mat-form-field>
     </ng-container>
 
+    <div class="title-container file">
+      <mat-icon>attach_file</mat-icon>
+      <button type="button" mat-button (click)="fileInput.click()">{{'BUTTON.CHOOSE' | translate}}</button>
+      <input hidden (change)="onSelectFile($event)" #fileInput type="file">
+      <span class="file-name"></span>
+      <button mat-button color="primary" type="button" (click)="onUpLoad()">{{'BUTTON.UPLOAD' | translate}}</button>
+    </div>
+
+    <ng-container *ngIf="selectFile">
+      <img [src]="url" alt="">
+    </ng-container>
+
+    <ng-container *ngIf="data.taskFiles">
+      <div class="file-container">
+        <div class="file-details" *ngFor="let file of data.taskFiles">
+          <img [src]="file.fileUrl" alt="">
+          <p class="file-name" (click)="onOpenFile(file.filename)">{{file.filename}}</p>
+          <button mat-button color="accent" type="submit" (click)="onDownloadFile(file.filename)">{{'BUTTON.DOWNLOAD' | translate}}</button>
+        </div>
+      </div>
+    </ng-container>
+
     <div class="edit-btns" *ngIf="editDescription || editTitle">
       <button mat-button color="primary" type="submit" mat-dialog-close="true">
         {{ 'BUTTON.SAVE' | translate }}
@@ -42,6 +64,3 @@
 
   </form>
 </mat-dialog-content>
-
-
-
