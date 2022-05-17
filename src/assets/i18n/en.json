@@ -113,5 +113,6 @@
   "img": {
     "required": "Please enter a link to the image",
     "checkUrl": "The image link is invalid"
-  }
+  },
+  "SEARCH": "Search"
 }

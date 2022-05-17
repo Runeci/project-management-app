@@ -1,5 +1,5 @@
 <mat-form-field class="search" appearance="outline">
-  <mat-label>Search</mat-label>
+  <mat-label>{{ 'SEARCH' | translate }}</mat-label>
   <input matInput type="text" [(ngModel)]="searchValue" (input)="searchTask(searchValue)">
   <button *ngIf="searchValue" matSuffix mat-icon-button aria-label="search" (click)="searchValue=''; foundTasks = []">
     <mat-icon>close</mat-icon>
