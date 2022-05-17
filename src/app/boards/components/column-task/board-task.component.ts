@@ -14,6 +14,7 @@ import { Column } from '@shared/models/columns.interfaces';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskEditDialogComponent } from '@boards/components/task-edit-dialog/task-edit-dialog.component';
 import { UserApiService } from '@core/services/user/user-api.service';
+import { UserInfo } from '@shared/models/user.interfaces';
 
 @Component({
   selector: 'app-column-task',
@@ -45,7 +46,7 @@ export class BoardTaskComponent implements OnInit {
   @Output() deletedTask = new EventEmitter<Pick<TaskI, 'id' | 'order'>>();
 
   private boardId: Board['id'];
-  userName: any;
+  userName!: string[];
 
   constructor(
     private tasksApiService: TaskApiService,
@@ -60,7 +61,7 @@ export class BoardTaskComponent implements OnInit {
     this.userApiService.getAllUsers().subscribe((res) => {
       this.userName = res
         .filter((user) => user.id === this.task.userId)
-        .map((user: any) => user.name);
+        .map((user: UserInfo) => user.name);
     });
   }
 

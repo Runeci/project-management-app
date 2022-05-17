@@ -30,16 +30,18 @@ export class NotificationService {
   }
 
   createToastError(message: string): void {
+    const translateService = this.inject.get(TranslateService);
     this.toast.error({
-      detail: 'Error Message',
+      detail: translateService.instant('ERROR_MESSAGE'),
       summary: message,
       duration: 7000,
     });
   }
 
   createToastSuccess(message: string | undefined): void {
+    const translateService = this.inject.get(TranslateService);
     this.toast.warning({
-      detail: 'Success Message',
+      detail: translateService.instant('SUCCESS_MESSAGE'),
       summary: message,
       duration: 7000,
     });

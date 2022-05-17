@@ -181,7 +181,6 @@ export class BoardColumnComponent implements OnInit {
         boardId: this.boardId,
         columnId: this.column.id,
         done: false,
-        files: event.container.data.task.files,
       }).subscribe(
         () => {
           this.updateTasksOrder(event.container.data, this.column.id);
@@ -200,7 +199,6 @@ export class BoardColumnComponent implements OnInit {
         boardId: this.boardId,
         columnId,
         done: false,
-        files: task.files,
       }).subscribe();
     });
   }

@@ -39,7 +39,7 @@
       <button type="button" mat-button (click)="fileInput.click()">{{'BUTTON.CHOOSE' | translate}}</button>
       <input hidden (change)="onSelectFile($event)" #fileInput type="file">
       <span class="file-name"></span>
-      <button mat-button color="primary" type="button" (click)="onUpLoad()">{{'BUTTON.UPLOAD' | translate}}</button>
+      <button mat-button color="primary" type="button" (click)="onUpLoad()" [disabled]="!fileInput.value">{{'BUTTON.UPLOAD' | translate}}</button>
     </div>
 
     <ng-container *ngIf="selectFile">
@@ -51,7 +51,7 @@
         <div class="file-details" *ngFor="let file of data.taskFiles">
           <img [src]="file.fileUrl" alt="">
           <p class="file-name" (click)="onOpenFile(file.filename)">{{file.filename}}</p>
-          <button mat-button color="accent" type="submit" (click)="onDownloadFile(file.filename)">{{'BUTTON.DOWNLOAD' | translate}}</button>
+          <button mat-button color="accent" type="button" (click)="onDownloadFile(file.filename)">{{'BUTTON.DOWNLOAD' | translate}}</button>
         </div>
       </div>
     </ng-container>

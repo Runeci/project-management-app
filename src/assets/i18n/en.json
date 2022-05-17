@@ -89,6 +89,9 @@
   "Created": "Registration completed successfully",
   "No Content": "Profile deleted",
   "OK": "User updated successfully",
+  "File already exists!": "File already exists!",
+  "ERROR_MESSAGE": "Error Message",
+  "SUCCESS_MESSAGE": "Success Message",
   "name": {
     "required": "Please enter a name",
     "minlength": "The name is too short"

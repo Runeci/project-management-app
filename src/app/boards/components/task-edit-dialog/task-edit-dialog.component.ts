@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { FileService } from '@core/services/file/file.service';
 import saveAs from 'file-saver';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TaskApiService } from '@boards/services/task-api.service';
 
 @Component({
   selector: 'app-task-edit-boards-dialog',
@@ -42,6 +43,7 @@ export class TaskEditDialogComponent {
     private fb: FormBuilder,
     private fileService: FileService,
     private sanitizer: DomSanitizer,
+    private tasksApiService: TaskApiService,
     @Inject(MAT_DIALOG_DATA)
     public data: {
       task: TaskI;

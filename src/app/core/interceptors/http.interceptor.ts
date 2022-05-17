@@ -23,11 +23,13 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       tap((result) => {
         if (result instanceof HttpResponse) {
+          console.log(result);
           if (
             !Array.isArray(result.body) &&
             !result.url?.includes('assets') &&
             !result.url?.includes('boards') &&
-            !result.url?.includes('signin')
+            !result.url?.includes('signin') &&
+            !result.url?.includes('file')
           ) {
             notificationService.translateToast(result.statusText);
           }
