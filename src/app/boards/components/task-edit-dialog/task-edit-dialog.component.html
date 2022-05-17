@@ -3,7 +3,7 @@
 
     <div class="user">
       <mat-icon>person</mat-icon>
-      <p>{{(user$ | async)?.name}}</p>
+      <p>{{this.data.userName}}</p>
     </div>
 
     <div class="title-container" *ngIf="!editTitle" (click)="editTitle = true">

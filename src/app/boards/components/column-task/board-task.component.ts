@@ -1,8 +1,10 @@
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
- Component, EventEmitter, Input, OnInit, Output,
-} from '@angular/core';
-import {
-  animate, state, style, transition, trigger,
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
 } from '@angular/animations';
 import { TaskI } from '@shared/models/tasks.interfaces';
 import { TaskApiService } from '@boards/services/task-api.service';
@@ -11,6 +13,7 @@ import { Board } from '@shared/models/boards.interfaces';
 import { Column } from '@shared/models/columns.interfaces';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskEditDialogComponent } from '@boards/components/task-edit-dialog/task-edit-dialog.component';
+import { UserApiService } from '@core/services/user/user-api.service';
 
 @Component({
   selector: 'app-column-task',
@@ -18,12 +21,18 @@ import { TaskEditDialogComponent } from '@boards/components/task-edit-dialog/tas
   styleUrls: ['./board-task.component.scss'],
   animations: [
     trigger('hovered', [
-      state('start', style({
-        visibility: 'hidden',
-      })),
-      state('end', style({
-        visibility: 'visible',
-      })),
+      state(
+        'start',
+        style({
+          visibility: 'hidden',
+        })
+      ),
+      state(
+        'end',
+        style({
+          visibility: 'visible',
+        })
+      ),
       transition('start <=> end', animate('0s ease-out')),
     ]),
   ],
@@ -36,16 +45,23 @@ export class BoardTaskComponent implements OnInit {
   @Output() deletedTask = new EventEmitter<Pick<TaskI, 'id' | 'order'>>();
 
   private boardId: Board['id'];
+  userName: any;
 
   constructor(
     private tasksApiService: TaskApiService,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
-  ) {
-  }
+    private userApiService: UserApiService
+  ) {}
 
   public ngOnInit() {
     this.boardId = this.activatedRoute.snapshot.params['id'];
+
+    this.userApiService.getAllUsers().subscribe((res) => {
+      this.userName = res
+        .filter((user) => user.id === this.task.userId)
+        .map((user: any) => user.name);
+    });
   }
 
   public animationStatus: string = 'start';
@@ -67,25 +83,26 @@ export class BoardTaskComponent implements OnInit {
   }
 
   public openTaskEditDialog() {
-    const ref = this.dialog.open(
-      TaskEditDialogComponent,
-      {
-        data: {
- task: this.task, columnId: this.column.id, boardId: this.boardId, taskFiles: this.task.files,
-},
-        width: '500px',
+    const ref = this.dialog.open(TaskEditDialogComponent, {
+      data: {
+        task: this.task,
+        columnId: this.column.id,
+        boardId: this.boardId,
+        taskFiles: this.task.files,
+        userName: this.userName,
       },
-    );
+      width: '500px',
+    });
 
-    ref.afterClosed().subscribe(
-      (res) => {
-        if (typeof res === 'undefined') {
-          return;
-        }
-        const { title } = res;
-        const { description } = res;
+    ref.afterClosed().subscribe((res) => {
+      if (typeof res === 'undefined') {
+        return;
+      }
+      const { title } = res;
+      const { description } = res;
 
-        this.tasksApiService.updateTask(this.boardId, this.column.id, this.task.id, {
+      this.tasksApiService
+        .updateTask(this.boardId, this.column.id, this.task.id, {
           title,
           order: this.task.order,
           description,
@@ -93,15 +110,10 @@ export class BoardTaskComponent implements OnInit {
           boardId: this.boardId,
           columnId: this.task.columnId,
           done: false,
-        }).subscribe();
-        this.task.title = res.title;
-        this.task.description = res.description;
-      },
-    );
+        })
+        .subscribe();
+      this.task.title = res.title;
+      this.task.description = res.description;
+    });
   }
 }
-
-/* name: "cat.jpg"
-size: 42499
-type: "image/jpeg"
-webkitRelativePath: "" */

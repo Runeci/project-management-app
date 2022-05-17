@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TaskFile, TaskI } from '@shared/models/tasks.interfaces';
 import { FormBuilder } from '@angular/forms';
@@ -15,7 +15,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: './task-edit-dialog.component.html',
   styleUrls: ['./task-edit-dialog.component.scss'],
 })
-export class TaskEditDialogComponent implements OnInit {
+export class TaskEditDialogComponent {
   public editDescription = false;
 
   public editTitle = false;
@@ -48,7 +48,8 @@ export class TaskEditDialogComponent implements OnInit {
       columnId: Column['id'];
       boardId: Board['id'];
       taskFiles: TaskFile[];
-    },
+      userName: string
+    }
   ) {}
 
   public ngOnInit() {
