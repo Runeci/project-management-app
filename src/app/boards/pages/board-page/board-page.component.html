@@ -6,12 +6,12 @@
          (cdkDropListDropped)="dropGroup($event)">
       <app-board-column class="column"
                         cdkDropListGroup
-                        *ngFor="let column of columnsArray"
+                        *ngFor="let column of columnsArray; let i = index"
                         cdkDrag
                         [cdkDragData]="column"
                         [column]="column"
                         [columnsArr]="columnsArray"
-                        (deletedColumn)="openConfirmationModal($event)"
+                        (deletedColumn)="openConfirmationModal(i, $event)"
       >
       </app-board-column>
       <div class="new-column" (click)="openNewColumnDialog()">

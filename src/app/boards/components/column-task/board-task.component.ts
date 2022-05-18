@@ -11,6 +11,7 @@ import { Board } from '@shared/models/boards.interfaces';
 import { Column } from '@shared/models/columns.interfaces';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskEditDialogComponent } from '@boards/components/task-edit-dialog/task-edit-dialog.component';
+import { UserApiService } from '@core/services/user/user-api.service';
 
 @Component({
   selector: 'app-column-task',
@@ -36,6 +37,7 @@ export class BoardTaskComponent implements OnInit {
   @Output() deletedTask = new EventEmitter<Pick<TaskI, 'id' | 'order'>>();
 
   private boardId: Board['id'];
+  userName: any;
 
   public taskIsDone: TaskI['done'] | undefined;
 
@@ -43,12 +45,18 @@ export class BoardTaskComponent implements OnInit {
     private tasksApiService: TaskApiService,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
+    private userApiService: UserApiService,
   ) {
   }
 
   public ngOnInit() {
     this.boardId = this.activatedRoute.snapshot.params['id'];
     this.taskIsDone = this.task.done;
+    
+    this.userApiService.getAllUsers().subscribe((res) => {
+      this.userName = res.filter(user => user.id === this.task.userId)
+      .map((user: any) =>user.name)
+    });
   }
 
   public animationStatus: string = 'start';
@@ -73,7 +81,7 @@ export class BoardTaskComponent implements OnInit {
     const ref = this.dialog.open(
       TaskEditDialogComponent,
       {
-        data: { task: this.task, columnId: this.column.id, boardId: this.boardId },
+        data: { task: this.task, columnId: this.column.id, boardId: this.boardId, userName: this.userName },
         width: '500px',
         minHeight: '270px',
       },
