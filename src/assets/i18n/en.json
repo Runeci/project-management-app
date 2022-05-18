@@ -43,6 +43,7 @@
       "DONE": "Done"
     },
     "NEW_TASK_DIALOG": {
+      "CREATE": "Create task",
       "TITLE": "Task title",
       "DESCRIPTION": "Task description"
     },
