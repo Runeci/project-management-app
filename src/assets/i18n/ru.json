@@ -34,7 +34,6 @@
   },
   "MAIN": {
     "WORKSPACES": "Ваши рабочие пространства",
-    "BOARD_TITLE": "Заголовок доски",
     "COLUMN_TITLE": "Заголовок списка"
   },
   "BOARD": {
@@ -48,9 +47,14 @@
       "DESCRIPTION": "Описание задания"
     },
     "NEW_COLUMN_DIALOG": {
-      "COLUMN": "Создайте новый список",
+      "COLUMN": "Создайте список",
       "TITLE": "Заголовок списка",
       "DESCRIPTION": "Описание списка"
+    },
+    "NEW_BOARD_DIALOG": {
+      "CREATE": "Создайте доску",
+      "TITLE": "Заголовок доски",
+      "DESCRIPTION": "Описание доски"
     }
   },
   "BUTTON": {

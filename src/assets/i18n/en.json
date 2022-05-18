@@ -51,6 +51,11 @@
       "COLUMN": "Create new column",
       "TITLE": "Column title",
       "DESCRIPTION": "Column description"
+    },
+    "NEW_BOARD_DIALOG": {
+      "CREATE": "Create new board",
+      "TITLE": "Board title",
+      "DESCRIPTION": "Board description"
     }
   },
   "BUTTON": {
