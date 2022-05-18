@@ -28,6 +28,11 @@
   }
 }
 
+.checkbox {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
 .mat-dialog-title {
   font-size: 24px;
 }
@@ -41,16 +46,10 @@
   text-align: center;
   margin-bottom: 10px;
 
-  .mat-icon {
-    margin: 0;
-    font-size: 22px;
-    transition: transform 0.2s ease-in-out;
 
-    &:hover {
-      color: #663bb8;
-      cursor: pointer;
-      transform: scale(1.2);
-    }
+  &:hover {
+    cursor: pointer;
+    color: #663bb8;
   }
 
   .description {
@@ -86,10 +85,4 @@
 
 .close-btn {
   transition: transform 0.2s ease-in-out;
-
-  &:hover {
-    color: #663bb8;
-    cursor: pointer;
-    transform: scale(1.2);
-  }
 }

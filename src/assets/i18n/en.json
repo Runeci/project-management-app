@@ -39,7 +39,8 @@
   },
   "BOARD": {
     "EDIT_DIALOG": {
-      "DESCR": "Description"
+      "DESCR": "Description",
+      "DONE": "Done"
     },
     "NEW_TASK_DIALOG": {
       "TITLE": "Task title",
@@ -113,5 +114,6 @@
   "img": {
     "required": "Please enter a link to the image",
     "checkUrl": "The image link is invalid"
-  }
+  },
+  "SEARCH": "Search"
 }
