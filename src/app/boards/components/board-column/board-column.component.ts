@@ -46,6 +46,8 @@ export class BoardColumnComponent implements OnInit {
     this.boardId = this.activatedRoute.snapshot.params['id'];
 
     this.newColumnTitle = this.column.title;
+
+    this.column.tasks = this.column.tasks.sort((prev, next) => prev.order - next.order);
   }
 
   private getTasks() {

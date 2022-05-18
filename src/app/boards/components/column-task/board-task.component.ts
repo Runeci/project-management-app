@@ -1,5 +1,5 @@
 import {
- Component, EventEmitter, Input, OnInit, Output,
+  Component, EventEmitter, Input, OnInit, Output,
 } from '@angular/core';
 import {
   animate, state, style, transition, trigger,
@@ -39,6 +39,8 @@ export class BoardTaskComponent implements OnInit {
   private boardId: Board['id'];
   userName: any;
 
+  public taskIsDone: TaskI['done'] | undefined;
+
   constructor(
     private tasksApiService: TaskApiService,
     private activatedRoute: ActivatedRoute,
@@ -49,6 +51,7 @@ export class BoardTaskComponent implements OnInit {
 
   public ngOnInit() {
     this.boardId = this.activatedRoute.snapshot.params['id'];
+    this.taskIsDone = this.task.done;
     
     this.userApiService.getAllUsers().subscribe((res) => {
       this.userName = res.filter(user => user.id === this.task.userId)
@@ -80,7 +83,7 @@ export class BoardTaskComponent implements OnInit {
       {
         data: { task: this.task, columnId: this.column.id, boardId: this.boardId, userName: this.userName },
         width: '500px',
-        minHeight: '260px',
+        minHeight: '270px',
       },
     );
 
@@ -92,6 +95,13 @@ export class BoardTaskComponent implements OnInit {
         const { title } = res;
         const { description } = res;
         const { done } = res;
+
+        if (this.task.title === title
+          && this.task.description === description
+          && this.task.done === this.taskIsDone) {
+          this.task.done = this.taskIsDone;
+          return;
+        }
 
         this.tasksApiService.updateTask(this.boardId, this.column.id, this.task.id, {
           title,
