@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,8 +7,8 @@ import { Observable } from 'rxjs';
 export class FileService {
   constructor(private http: HttpClient) { }
 
-  upLoadFile(file: FormData): Observable<void> {
-    return this.http.post<void>('/api/file', file);
+  upLoadFile(file: FormData) {
+    return this.http.post('/api/file', file, { responseType: 'text' as 'json' });
   }
 
   getFile(taskid: string, filename: string) {

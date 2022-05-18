@@ -61,7 +61,7 @@
     "CANCEL": "CANCEL",
     "UPDATE": "UPDATE",
     "DELETE": "Delete profile",
-    "CHOOSE": "CHOOSE FILE",
+    "CHOOSE": "Choose image",
     "UPLOAD": "UPLOAD",
     "DOWNLOAD": "DOWNLOAD"
   },
@@ -89,7 +89,9 @@
   "Created": "Registration completed successfully",
   "No Content": "Profile deleted",
   "OK": "User updated successfully",
-  "File already exists!": "File already exists!",
+  "File uploaded!": "File uploaded!",
+  "Conflict": "File already exists!",
+  "Only image files are allowed!": "Only image files are allowed!",
   "ERROR_MESSAGE": "Error Message",
   "SUCCESS_MESSAGE": "Success Message",
   "name": {

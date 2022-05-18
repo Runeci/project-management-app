@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Board } from '@shared/models/boards.interfaces';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Column } from '@shared/models/columns.interfaces';
-import { TaskI } from '@shared/models/tasks.interfaces';
+import { TaskFile, TaskI } from '@shared/models/tasks.interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskApiService {
+  private filesNumber$$ = new BehaviorSubject<TaskFile[]>([]);
+
+  public filesNumber$ = this.filesNumber$$.pipe();
+
   constructor(private http: HttpClient) {
   }
 
@@ -47,5 +51,15 @@ export class TaskApiService {
     taskId: TaskI['id'],
   ) {
     return this.http.delete<TaskI>(`/api/boards/${boardId}/columns/${columnId}/tasks/${taskId}`);
+  }
+
+  getFilesFromTask(boardId: string, columnId: string): Observable<TaskFile[]> {
+    this.getTasks(boardId, columnId)
+      .subscribe((res) => {
+        res.forEach((task) => {
+          this.filesNumber$$.next(task.files!);
+        });
+      });
+      return this.filesNumber$;
   }
 }

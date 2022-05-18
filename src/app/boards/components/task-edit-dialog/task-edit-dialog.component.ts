@@ -1,22 +1,27 @@
-import { Component, Inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TaskFile, TaskI } from '@shared/models/tasks.interfaces';
 import { FormBuilder } from '@angular/forms';
 import { Board } from '@shared/models/boards.interfaces';
 import { Column } from '@shared/models/columns.interfaces';
-import { UserInfo } from '@shared/models/user.interfaces';
-import { Observable } from 'rxjs';
 import { FileService } from '@core/services/file/file.service';
 import saveAs from 'file-saver';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { TaskApiService } from '@boards/services/task-api.service';
 
 @Component({
   selector: 'app-task-edit-boards-dialog',
   templateUrl: './task-edit-dialog.component.html',
   styleUrls: ['./task-edit-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TaskEditDialogComponent {
+export class TaskEditDialogComponent implements OnInit {
   public editDescription = false;
 
   public editTitle = false;
@@ -26,15 +31,11 @@ export class TaskEditDialogComponent {
     description: [`${this.data.task.description}` || ''],
   });
 
-  public user$: Observable<UserInfo> | undefined;
-
-  url: any;
+  url!: string;
 
   selectedFile?: [File | undefined] | Blob | string;
 
-  files!: TaskFile[];
-
-  fileUrl: any;
+  fileUrl!: SafeUrl;
 
   selectFile: boolean = false;
 
@@ -43,29 +44,24 @@ export class TaskEditDialogComponent {
     private fb: FormBuilder,
     private fileService: FileService,
     private sanitizer: DomSanitizer,
-    private tasksApiService: TaskApiService,
+    private changeDetectorRef: ChangeDetectorRef,
+    public taskService: TaskApiService,
     @Inject(MAT_DIALOG_DATA)
     public data: {
       task: TaskI;
       columnId: Column['id'];
       boardId: Board['id'];
       taskFiles: TaskFile[];
-      userName: string
-    }
+      userName: string;
+    },
   ) {}
 
   public ngOnInit() {
-    this.data.taskFiles.forEach((file: TaskFile, index: number) => {
-      this.fileService
-        .getFile(this.data.task.id!, file.filename)
-        .subscribe((res) => {
-          const url = TaskEditDialogComponent.typedArrayToURL(
-            res,
-            'image/jpeg; charset=utf-8',
-          );
-          this.fileUrl = this.sanitizer.bypassSecurityTrustUrl(url);
-          this.data.taskFiles[index].fileUrl = this.fileUrl;
-        });
+    this.taskService.getFilesFromTask(this.data.boardId!, this.data.columnId);
+    this.taskService.filesNumber$.subscribe((files) => {
+      this.changeDetectorRef.markForCheck();
+      this.data.taskFiles = files;
+      this.getFiles();
     });
   }
 
@@ -85,17 +81,42 @@ export class TaskEditDialogComponent {
       const reader = new FileReader();
       reader.readAsDataURL(this.selectedFile as Blob);
       reader.onload = (selectEvent: any) => {
+        this.changeDetectorRef.markForCheck();
         this.url = selectEvent.target.result;
       };
       this.selectFile = true;
     }
   }
 
+  getFiles() {
+    this.data.taskFiles.forEach((file: TaskFile, index: number) => {
+      this.fileService
+        .getFile(this.data.task.id!, file.filename)
+        .subscribe((res) => {
+          this.changeDetectorRef.markForCheck();
+          const url = TaskEditDialogComponent.typedArrayToURL(
+            res,
+            'image/jpeg; charset=utf-8',
+          );
+          this.fileUrl = this.sanitizer.bypassSecurityTrustUrl(url);
+          this.data.taskFiles[index].fileUrl = this.fileUrl;
+        });
+    });
+  }
+
   onUpLoad(): void {
     const fileData = new FormData();
     fileData.set('taskId', this.data.task.id!);
     fileData.set('file', this.selectedFile as Blob);
-    this.fileService.upLoadFile(fileData).subscribe();
+    this.fileService.upLoadFile(fileData).subscribe(() => {
+      this.taskService.getFilesFromTask(this.data.boardId!, this.data.columnId);
+      this.taskService.filesNumber$.subscribe((files) => {
+        this.changeDetectorRef.markForCheck();
+        this.data.taskFiles = files;
+        this.getFiles();
+        this.selectFile = false;
+      });
+    });
   }
 
   onOpenFile(name: string): void {

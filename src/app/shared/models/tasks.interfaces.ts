@@ -7,7 +7,7 @@ export interface TaskI {
   userId?: string;
   boardId?: string;
   columnId?: string;
-  files?: TaskFile[] | []
+  files?: TaskFile[]
 }
 
 export interface TaskFile {

@@ -11,13 +11,13 @@ export class NotificationService {
   constructor(private inject: Injector, private toast: NgToastService) {}
 
   translateToast(message: string, action?: string): void {
-    this.translateMessage(message as string);
+    this.translateMessage(message);
     if (action === 'error') {
       this.createToastError(this.message);
     } else this.createToastSuccess(this.message);
   }
 
-  translateMessage(message: string | string[]) {
+  translateMessage(message: string | string[]): string {
     const translateService = this.inject.get(TranslateService);
     if (Array.isArray(message)) {
       this.message = Object.values(

@@ -4,7 +4,9 @@ import { Column } from '@shared/models/columns.interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Board } from '@shared/models/boards.interfaces';
-import { finalize, forkJoin, switchMap, take } from 'rxjs';
+import {
+ finalize, forkJoin, switchMap, take,
+} from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NewColumnDialogComponent } from '@boards/components/new-column-dialog/new-column-dialog.component';
 import { FileSaverService } from 'ngx-filesaver';
@@ -33,7 +35,7 @@ export class BoardPageComponent implements OnInit, DoCheck {
     private dialogService: DialogService,
     private dialog: MatDialog,
     private fileSaver: FileSaverService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
   ) {}
 
   public ngOnInit(): void {
@@ -49,7 +51,7 @@ export class BoardPageComponent implements OnInit, DoCheck {
 
   public openConfirmationModal(
     index: any,
-    columnInfo: Pick<Column, 'order' | 'id'>
+    columnInfo: Pick<Column, 'order' | 'id'>,
   ) {
     this.dialogService
       .confirmDialog({
@@ -137,14 +139,10 @@ export class BoardPageComponent implements OnInit, DoCheck {
     this.columnApiService
       .getColumns(this.boardId)
       .pipe(
-        switchMap((columns) =>
-          forkJoin(
-            columns.map((col) =>
-              this.columnApiService.getColumn(this.boardId, col.id)
-            )
-          )
-        ),
-        finalize(() => this.spinner.hide())
+        switchMap((columns) => forkJoin(
+            columns.map((col) => this.columnApiService.getColumn(this.boardId, col.id)),
+          )),
+        finalize(() => this.spinner.hide()),
       )
       .subscribe((res) => {
         this.columnsArray = res.sort((prev, next) => prev.order - next.order);
@@ -156,7 +154,7 @@ export class BoardPageComponent implements OnInit, DoCheck {
 
     const maxTasksLength = Math.max.apply(
       null,
-      this.columnsArray.map((column) => column.tasks.length)
+      this.columnsArray.map((column) => column.tasks.length),
     );
 
     const result = [];
@@ -165,7 +163,7 @@ export class BoardPageComponent implements OnInit, DoCheck {
       for (let j = 0; j < this.columnsArray.length; j += 1) {
         const task = this.columnsArray[j].tasks[i];
         row.push(
-          task ? `Title: ${task.title} - Description: ${task.description}` : ''
+          task ? `Title: ${task.title} - Description: ${task.description}` : '',
         );
       }
       result.push(`${row.join(';')}\n`);

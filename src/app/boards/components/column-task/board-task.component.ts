@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+ Component, EventEmitter, Input, OnInit, Output,
+} from '@angular/core';
 import {
   animate,
   state,
@@ -26,13 +28,13 @@ import { UserInfo } from '@shared/models/user.interfaces';
         'start',
         style({
           visibility: 'hidden',
-        })
+        }),
       ),
       state(
         'end',
         style({
           visibility: 'visible',
-        })
+        }),
       ),
       transition('start <=> end', animate('0s ease-out')),
     ]),
@@ -46,18 +48,19 @@ export class BoardTaskComponent implements OnInit {
   @Output() deletedTask = new EventEmitter<Pick<TaskI, 'id' | 'order'>>();
 
   private boardId: Board['id'];
+
   userName!: string[];
 
   constructor(
-    private tasksApiService: TaskApiService,
+    public tasksApiService: TaskApiService,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
-    private userApiService: UserApiService
+    private userApiService: UserApiService,
   ) {}
 
   public ngOnInit() {
     this.boardId = this.activatedRoute.snapshot.params['id'];
-
+    this.tasksApiService.getFilesFromTask(this.boardId!, this.column.id);
     this.userApiService.getAllUsers().subscribe((res) => {
       this.userName = res
         .filter((user) => user.id === this.task.userId)
