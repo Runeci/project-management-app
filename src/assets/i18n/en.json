@@ -67,7 +67,10 @@
     "SAVE": "Save",
     "CANCEL": "CANCEL",
     "UPDATE": "UPDATE",
-    "DELETE": "Delete profile"
+    "DELETE": "Delete profile",
+    "CHOOSE": "Choose image",
+    "UPLOAD": "UPLOAD",
+    "DOWNLOAD": "DOWNLOAD"
   },
   "CONFIRM": {
     "title": "Data will be deleted permanently",
@@ -93,6 +96,11 @@
   "Created": "Registration completed successfully",
   "No Content": "Profile deleted",
   "OK": "User updated successfully",
+  "File uploaded!": "File uploaded!",
+  "Conflict": "File already exists!",
+  "Only image files are allowed!": "Only image files are allowed!",
+  "ERROR_MESSAGE": "Error Message",
+  "SUCCESS_MESSAGE": "Success Message",
   "name": {
     "required": "Please enter a name",
     "minlength": "The name is too short"

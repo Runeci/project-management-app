@@ -34,6 +34,6 @@ export class BoardsDialogComponent implements OnInit {
     this.dialogRef.close({
       title: this.form.value.title,
       description: this.form.value.description,
-    })
+    });
   }
 }

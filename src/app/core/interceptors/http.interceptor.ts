@@ -7,7 +7,9 @@ import {
   HttpErrorResponse,
   HttpResponse,
 } from '@angular/common/http';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import {
+ catchError, Observable, tap, throwError,
+} from 'rxjs';
 
 import { NotificationService } from '@core/services/notification.service';
 
@@ -17,17 +19,18 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
 
   intercept(
     request: HttpRequest<unknown>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<unknown>> {
     const notificationService = this.inject.get(NotificationService);
     return next.handle(request).pipe(
       tap((result) => {
         if (result instanceof HttpResponse) {
           if (
-            !Array.isArray(result.body) &&
-            !result.url?.includes('assets') &&
-            !result.url?.includes('boards') &&
-            !result.url?.includes('signin')
+            !Array.isArray(result.body)
+            && !result.url?.includes('assets')
+            && !result.url?.includes('boards')
+            && !result.url?.includes('signin')
+            && !result.url?.includes('file')
           ) {
             notificationService.translateToast(result.statusText);
           }
@@ -37,10 +40,12 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
         let errorMessage;
         if (error.status) {
           errorMessage = error.error.message;
+        } if (error.status === 409) {
+          errorMessage = error.statusText;
         }
         notificationService.translateToast(errorMessage, 'error');
         return throwError(errorMessage);
-      })
+      }),
     );
   }
 }

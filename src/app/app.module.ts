@@ -40,7 +40,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     TOKEN_INTERCEPTOR_PROVIDERS,
-    ERROR_HANDLER_INTERCEPTOR_PROVIDERS
+    ERROR_HANDLER_INTERCEPTOR_PROVIDERS,
   ],
   bootstrap: [AppComponent],
 })
