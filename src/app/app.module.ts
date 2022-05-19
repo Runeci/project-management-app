@@ -16,7 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -38,7 +38,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       defaultLanguage: 'ru',
     }),
   ],
-  providers: [TOKEN_INTERCEPTOR_PROVIDERS, ERROR_HANDLER_INTERCEPTOR_PROVIDERS],
+  providers: [
+    TOKEN_INTERCEPTOR_PROVIDERS,
+    ERROR_HANDLER_INTERCEPTOR_PROVIDERS
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

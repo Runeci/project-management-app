@@ -8,6 +8,7 @@ import {
 import { Path, StorageKeys } from 'src/app/app.constants';
 import { LocalStorageService } from '@core/services/localstorage.service';
 import { UserAuth, UserInfo } from '@shared/models/user.interfaces';
+import environment from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -34,7 +35,7 @@ export class AuthService {
   }
 
   signUp(user: UserAuth): Observable<UserInfo> {
-    return this.http.post<UserInfo>('/api/signup', user).pipe(
+    return this.http.post<UserInfo>(`${environment.BASE_URL}/signup`, user).pipe(
       tap(() => {
         this.router.navigate([Path.loginPage]);
       }),
@@ -43,7 +44,7 @@ export class AuthService {
 
   login({ login, password }: UserAuth) {
     return this.http
-      .post<{ token: string }>('/api/signin', { login, password })
+      .post<{ token: string }>(`${environment.BASE_URL}/signin`, { login, password })
       .pipe(
         switchMap(({ token }) => {
           this.isLoggedIn$.next(true);
@@ -73,7 +74,7 @@ export class AuthService {
     if (!token) {
       return of(undefined);
     }
-    return this.http.get<UserInfo[]>('/api/users');
+    return this.http.get<UserInfo[]>(`${environment.BASE_URL}/users`);
   }
 
   logout(): void {

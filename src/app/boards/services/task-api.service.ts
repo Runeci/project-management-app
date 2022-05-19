@@ -4,6 +4,7 @@ import { Board } from '@shared/models/boards.interfaces';
 import { Observable } from 'rxjs';
 import { Column } from '@shared/models/columns.interfaces';
 import { TaskI } from '@shared/models/tasks.interfaces';
+import environment from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class TaskApiService {
   }
 
   public getTasks(boardId: Board['id'], columnId: Column['id']): Observable<TaskI[]> {
-    return this.http.get<TaskI[]>(`/api/boards/${boardId}/columns/${columnId}/tasks`);
+    return this.http.get<TaskI[]>(`${environment.BASE_URL}/boards/${boardId}/columns/${columnId}/tasks`);
   }
 
   public getTask(
@@ -21,7 +22,7 @@ export class TaskApiService {
     columnId: Column['id'],
     taskId: TaskI['id'],
   ) {
-    return this.http.get<TaskI>(`/api/boards/${boardId}/columns/${columnId}/tasks/${taskId}`);
+    return this.http.get<TaskI>(`${environment.BASE_URL}/boards/${boardId}/columns/${columnId}/tasks/${taskId}`);
   }
 
   public createTask(
@@ -29,7 +30,7 @@ export class TaskApiService {
     columnId: Column['id'],
     body: Pick<TaskI, 'title' | 'order' | 'description' | 'userId' | 'done'>,
 ) {
-    return this.http.post<TaskI>(`/api/boards/${boardId}/columns/${columnId}/tasks`, body);
+    return this.http.post<TaskI>(`${environment.BASE_URL}/boards/${boardId}/columns/${columnId}/tasks`, body);
   }
 
   public updateTask(
@@ -38,7 +39,7 @@ export class TaskApiService {
       taskId: TaskI['id'],
       body: Exclude<TaskI, 'id'>,
   ) {
-    return this.http.put<TaskI>(`/api/boards/${boardId}/columns/${columnId}/tasks/${taskId}`, body);
+    return this.http.put<TaskI>(`${environment.BASE_URL}/boards/${boardId}/columns/${columnId}/tasks/${taskId}`, body);
   }
 
   public deleteTask(
@@ -46,6 +47,6 @@ export class TaskApiService {
     columnId: Column['id'],
     taskId: TaskI['id'],
   ) {
-    return this.http.delete<TaskI>(`/api/boards/${boardId}/columns/${columnId}/tasks/${taskId}`);
+    return this.http.delete<TaskI>(`${environment.BASE_URL}/boards/${boardId}/columns/${columnId}/tasks/${taskId}`);
   }
 }
