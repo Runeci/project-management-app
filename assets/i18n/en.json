@@ -1,0 +1,133 @@
+{
+  "HEADER": {
+    "LOGIN": "Login",
+    "SIGNUP": "Register",
+    "LOGOUT": "Logout",
+    "ADD_BOARD": "Add board"
+  },
+  "HOME": {
+    "TITLE": "RSTrello - your next level of task design.",
+    "SUBTITLE": "An app with an intuitive interface and powerful features allows teams to effectively coordinate and manage their projects.",
+    "SECTION_TITLE": {
+      "progect": "ABOUT PROJECT",
+      "team": "ABOUT TEAM"
+    },
+    "SECTION_SUBTITLE": {
+      "ability": "Project opportunities",
+      "design": "App design and interface",
+      "adaptive": "Adaptive layout",
+      "func": "Main functionality"
+    },
+    "SECTION_DESCRIPTION": {
+      "ability": "The application is a prototype of Trello, developed using Angular, RxJS. To store and process the necessary data, interaction with the server is provided.",
+      "design": "All pages of the application are designed in the same style, simple and intuitive design, smooth animations, styles for interactive elements are applied, a pop-up appears with an explanation for network errors, when trying to delete elements, a confirmation modal is implemented with confirmation of the seriousness of intentions.",
+      "adaptive": "Resolutions for desktop (1024px), tablets (768px) and mobile devices (at least 320px) are supported.",
+      "func": "To work on the project, boards are used - a space where you can follow the information. The board consists of progress columns. You can add as many columns as you want to your board, and then arrange and rename them to your liking. In each column, you can create a card with a task or idea. All fields can be edited or deleted. Dragging cards or moving columns is done using drag-n-drop."
+    }
+  },
+  "AUTH": {
+    "NAME": "Name",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "ROUT_REGISTR": "Register an account",
+    "ROUT_LOGIN": "Already have an account? Login"
+  },
+  "MAIN": {
+    "WORKSPACES": "Your workspaces",
+    "BOARD_TITLE": "Board title",
+    "COLUMN_TITLE": "Column title"
+  },
+  "BOARD": {
+    "EDIT_DIALOG": {
+      "DESCR": "Description",
+      "DONE": "Done"
+    },
+    "NEW_TASK_DIALOG": {
+      "CREATE": "Create task",
+      "TITLE": "Task title",
+      "DESCRIPTION": "Task description"
+    },
+    "NEW_COLUMN_DIALOG": {
+      "COLUMN": "Create new column",
+      "TITLE": "Column title",
+      "DESCRIPTION": "Column description"
+    },
+    "NEW_BOARD_DIALOG": {
+      "CREATE": "Create new board",
+      "TITLE": "Board title",
+      "DESCRIPTION": "Board description"
+    }
+  },
+  "BUTTON": {
+    "LANG": "EN",
+    "CONTINUE": "Continue",
+    "CREATE": "Create",
+    "ADD_COLUMN": "Add column",
+    "ADD_TASK": "Add task",
+    "SAVE": "Save",
+    "CANCEL": "CANCEL",
+    "UPDATE": "UPDATE",
+    "DELETE": "Delete profile",
+    "CHOOSE": "Choose image",
+    "UPLOAD": "UPLOAD",
+    "DOWNLOAD": "DOWNLOAD"
+  },
+  "CONFIRM": {
+    "title": "Data will be deleted permanently",
+    "message": "Do you really want to delete {{param}}?",
+    "paramProf": "profile",
+    "paramBoard": "board",
+    "paramColumn": "column",
+    "paramTask": "task",
+    "CANCEL": "CANCEL",
+    "DELETE": "DELETE"
+  },
+  "name should not be empty": "name should not be empty",
+  "login should not be empty": "login should not be empty",
+  "password should not be empty": "password should not be empty",
+  "User was not founded!": "User was not founded!",
+  "User login already exists!": "User login already exists!",
+  "Task was not founded!": "Task was not founded!",
+  "Column was not founded!": "Column was not founded!",
+  "Title is too long": "Title is too long",
+  "Title is required": "Title is required",
+  "Description is required": "Description is required",
+  "Internal server error": "This username or password already exists",
+  "Created": "Registration completed successfully",
+  "No Content": "Profile deleted",
+  "OK": "User updated successfully",
+  "File uploaded!": "File uploaded!",
+  "Conflict": "File already exists!",
+  "Only image files are allowed!": "Only image files are allowed!",
+  "ERROR_MESSAGE": "Error Message",
+  "SUCCESS_MESSAGE": "Success Message",
+  "name": {
+    "required": "Please enter a name",
+    "minlength": "The name is too short"
+  },
+  "login": {
+    "required": "Please enter a login email",
+    "email": "The login email is invalid"
+  },
+  "password": {
+    "required": "Please enter a password",
+    "minlength": "at least 8 characters",
+    "hasNumber": "a mixture of letters and numbers",
+    "hasCapitalCase": "a mixture of both uppercase and lowercase letters",
+    "hasSmallCase": "a mixture of both uppercase and lowercase letters",
+    "hasSpecialCharacters": "inclusion of at least one special character, e.g., ! @ # ? ]"
+  },
+  "title": {
+    "required": "Please enter a title",
+    "minlength": "The title is too short",
+    "maxlength": "The title is too long"
+  },
+  "description": {
+    "maxlength": "The description is too long"
+  },
+  "img": {
+    "required": "Please enter a link to the image",
+    "checkUrl": "The image link is invalid"
+  },
+  "SEARCH": "Search"
+}
