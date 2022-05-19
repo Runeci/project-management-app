@@ -2,7 +2,11 @@ import {
   Component, EventEmitter, Input, OnInit, Output,
 } from '@angular/core';
 import {
-  animate, state, style, transition, trigger,
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
 } from '@angular/animations';
 import { TaskI } from '@shared/models/tasks.interfaces';
 import { TaskApiService } from '@boards/services/task-api.service';
@@ -12,6 +16,7 @@ import { Column } from '@shared/models/columns.interfaces';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskEditDialogComponent } from '@boards/components/task-edit-dialog/task-edit-dialog.component';
 import { UserApiService } from '@core/services/user/user-api.service';
+import { UserInfo } from '@shared/models/user.interfaces';
 
 @Component({
   selector: 'app-column-task',
@@ -19,12 +24,18 @@ import { UserApiService } from '@core/services/user/user-api.service';
   styleUrls: ['./board-task.component.scss'],
   animations: [
     trigger('hovered', [
-      state('start', style({
-        visibility: 'hidden',
-      })),
-      state('end', style({
-        visibility: 'visible',
-      })),
+      state(
+        'start',
+        style({
+          visibility: 'hidden',
+        }),
+      ),
+      state(
+        'end',
+        style({
+          visibility: 'visible',
+        }),
+      ),
       transition('start <=> end', animate('0s ease-out')),
     ]),
   ],
@@ -34,29 +45,37 @@ export class BoardTaskComponent implements OnInit {
 
   @Input() column!: Column;
 
+  @Input() fileNumber!: number;
+
   @Output() deletedTask = new EventEmitter<Pick<TaskI, 'id' | 'order'>>();
 
   private boardId: Board['id'];
-  userName: any;
+
+  userName!: string[];
+  fileNumbers!: any;
 
   public taskIsDone: TaskI['done'] | undefined;
 
   constructor(
-    private tasksApiService: TaskApiService,
+    public tasksApiService: TaskApiService,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
     private userApiService: UserApiService,
-  ) {
-  }
+  ) {}
 
   public ngOnInit() {
     this.boardId = this.activatedRoute.snapshot.params['id'];
+
     this.taskIsDone = this.task.done;
 
     this.userApiService.getAllUsers().subscribe((res) => {
-      this.userName = res.filter(user => user.id === this.task.userId)
-      .map((user: any) =>user.name)
+      this.userName = res
+        .filter((user) => user.id === this.task.userId)
+        .map((user: UserInfo) => user.name);
     });
+    //this.tasksApiService.getFilesFromTask(this.boardId!, this.column.id, this.task.id).subscribe()
+    this.tasksApiService.filesNumber$.subscribe((res) =>{
+     })
   }
 
   public animationStatus: string = 'start';
@@ -78,14 +97,16 @@ export class BoardTaskComponent implements OnInit {
   }
 
   public openTaskEditDialog() {
-    const ref = this.dialog.open(
-      TaskEditDialogComponent,
-      {
-        data: { task: this.task, columnId: this.column.id, boardId: this.boardId, userName: this.userName },
-        width: '500px',
-        minHeight: '270px',
+    const ref = this.dialog.open(TaskEditDialogComponent, {
+      data: {
+        task: this.task,
+        columnId: this.column.id,
+        boardId: this.boardId,
+        taskFiles: this.task.files,
+        userName: this.userName,
       },
-    );
+      width: '500px',
+    });
 
     ref.afterClosed().subscribe(
       (res) => {
@@ -106,7 +127,8 @@ export class BoardTaskComponent implements OnInit {
           return;
         }
 
-        this.tasksApiService.updateTask(this.boardId, this.column.id, this.task.id, {
+      this.tasksApiService
+        .updateTask(this.boardId, this.column.id, this.task.id, {
           title,
           order: this.task.order,
           description,

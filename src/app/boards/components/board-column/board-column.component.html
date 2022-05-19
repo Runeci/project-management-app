@@ -22,9 +22,10 @@
     (cdkDropListDropped)="dropItem($event)"
     [cdkDropListConnectedTo]="getConnectedList()">
     <app-column-task cdkDrag
-                     *ngFor="let task of column.tasks"
+                     *ngFor="let task of column.tasks; let i = index"
                      [cdkDragData]="task"
                      [task]="task"
+                     [fileNumber]="task.files.length"
                      [column]="column"
                      (deletedTask)="openConfirmationModal($event)"
     >
