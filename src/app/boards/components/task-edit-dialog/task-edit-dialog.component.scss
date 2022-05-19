@@ -89,15 +89,19 @@
 }
 
 .file {
+  justify-content: space-between;
+  width: 100%;
   margin-top: 30px;
 }
 
 .file-container {
   flex-direction: column;
+  margin-top: 15px;
 
   .file-details {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     row-gap: 10px;
     width: 100%;
     box-sizing: border-box;
