@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Board } from '@shared/models/boards.interfaces';
-import environment from 'src/environments/environment';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BoardsApiService {
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   public getBoards(): Observable<Board[]> {
     return this.http.get<Board[]>(`${environment.BASE_URL}/boards`);

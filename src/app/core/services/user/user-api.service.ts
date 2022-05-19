@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { UserAuth, UserInfo } from '@shared/models/user.interfaces';
 import { Path, StorageKeys } from 'src/app/app.constants';
 import { LocalStorageService } from '../localstorage.service';
-import environment from 'src/environments/environment';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',

@@ -2,12 +2,11 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-const environment = {
+export const environment = {
   production: false,
   BASE_URL: 'https://ancient-refuge-50337.herokuapp.com',
 };
 
-export default environment;
 
 /*
  * For easier debugging in development mode, you can import the following file

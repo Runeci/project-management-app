@@ -8,7 +8,7 @@ import {
 import { Path, StorageKeys } from 'src/app/app.constants';
 import { LocalStorageService } from '@core/services/localstorage.service';
 import { UserAuth, UserInfo } from '@shared/models/user.interfaces';
-import environment from 'src/environments/environment';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',

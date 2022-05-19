@@ -4,7 +4,7 @@ import { Board } from '@shared/models/boards.interfaces';
 import { Observable } from 'rxjs';
 import { Column } from '@shared/models/columns.interfaces';
 import { TaskI } from '@shared/models/tasks.interfaces';
-import environment from 'src/environments/environment';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
