@@ -6,9 +6,9 @@
 >
   <div class="task-item">{{ task.title }}</div>
 
-  <div *ngIf="(tasksApiService.filesNumber$ | async)?.length !== 0" class="task-item">
+  <div *ngIf="fileNumber !== 0" class="task-item">
     <mat-icon class="file-icon">attach_file</mat-icon>
-    <span>{{ (tasksApiService.filesNumber$ | async)!.length }}</span>
+    <span>{{ fileNumber }}</span>
   </div>
  
   <mat-icon [@hovered]="animationStatus" (click)="deleteTask($event)">close</mat-icon>

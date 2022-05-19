@@ -45,11 +45,14 @@ export class BoardTaskComponent implements OnInit {
 
   @Input() column!: Column;
 
+  @Input() fileNumber!: number;
+
   @Output() deletedTask = new EventEmitter<Pick<TaskI, 'id' | 'order'>>();
 
   private boardId: Board['id'];
 
   userName!: string[];
+  fileNumbers!: any;
 
   constructor(
     public tasksApiService: TaskApiService,
@@ -60,12 +63,14 @@ export class BoardTaskComponent implements OnInit {
 
   public ngOnInit() {
     this.boardId = this.activatedRoute.snapshot.params['id'];
-    this.tasksApiService.getFilesFromTask(this.boardId!, this.column.id);
     this.userApiService.getAllUsers().subscribe((res) => {
       this.userName = res
         .filter((user) => user.id === this.task.userId)
         .map((user: UserInfo) => user.name);
     });
+    //this.tasksApiService.getFilesFromTask(this.boardId!, this.column.id, this.task.id).subscribe()
+    this.tasksApiService.filesNumber$.subscribe((res) =>{
+     })
   }
 
   public animationStatus: string = 'start';

@@ -1,9 +1,11 @@
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  Component, EventEmitter, Input, OnInit, Output,
-} from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 import { Column } from '@shared/models/columns.interfaces';
-import { TaskI } from '@shared/models/tasks.interfaces';
+import { TaskFile, TaskI } from '@shared/models/tasks.interfaces';
 import { TaskApiService } from '@boards/services/task-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Board } from '@shared/models/boards.interfaces';
@@ -31,16 +33,16 @@ export class BoardColumnComponent implements OnInit {
   public newColumnTitle!: Column['title'];
 
   private boardId: Board['id'];
+  fileNumbers!: TaskFile[][];
 
   constructor(
-    private tasksApiService: TaskApiService,
+    public tasksApiService: TaskApiService,
     private columnApiService: ColumnsApiService,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
     private dialogService: DialogService,
-    private userService: UserApiService,
-  ) {
-  }
+    private userService: UserApiService
+  ) {}
 
   public ngOnInit(): void {
     this.boardId = this.activatedRoute.snapshot.params['id'];
@@ -49,10 +51,9 @@ export class BoardColumnComponent implements OnInit {
   }
 
   private getTasks() {
-    this.tasksApiService.getTasks(this.boardId, this.column.id)
-      .pipe(
-        take(1),
-      )
+    this.tasksApiService
+      .getTasks(this.boardId, this.column.id)
+      .pipe(take(1))
       .subscribe((res) => {
         // @ts-ignore
         this.column.tasks = res.sort((prev, next) => prev.order - next.order);
@@ -66,14 +67,11 @@ export class BoardColumnComponent implements OnInit {
 
   public updateColumnName() {
     if (this.newColumnTitle && this.newColumnTitle !== this.column.title) {
-      this.columnApiService.updateColumn(
-        this.boardId,
-        this.column.id,
-        {
+      this.columnApiService
+        .updateColumn(this.boardId, this.column.id, {
           title: this.newColumnTitle.trim(),
           order: this.column.order,
-        },
-      )
+        })
         .subscribe();
     }
     this.column.title = this.newColumnTitle;
@@ -81,23 +79,21 @@ export class BoardColumnComponent implements OnInit {
   }
 
   public openConfirmationModal(currentTask: Pick<TaskI, 'id' | 'order'>) {
-    this.dialogService.confirmDialog(
-      {
+    this.dialogService
+      .confirmDialog({
         param: 'CONFIRM.paramTask',
-      },
-    ).subscribe(
-      (confirmed) => {
+      })
+      .subscribe((confirmed) => {
         if (confirmed) {
           this.deleteTask(currentTask);
         }
-      },
-    );
+      });
   }
 
   public deleteTask(currentTask: Pick<TaskI, 'id' | 'order'>) {
     this.tasksApiService
-      .deleteTask(this.boardId, this.column.id, currentTask.id).subscribe(
-      () => {
+      .deleteTask(this.boardId, this.column.id, currentTask.id)
+      .subscribe(() => {
         this.column.tasks.splice(currentTask.order - 1, 1);
 
         this.column.tasks = this.column.tasks.map((task, index) => ({
@@ -111,8 +107,7 @@ export class BoardColumnComponent implements OnInit {
         }));
 
         this.updateTasksOrder(this.column.tasks, this.column.id);
-      },
-    );
+      });
   }
 
   public toggleColumnInput(): void {
@@ -120,86 +115,84 @@ export class BoardColumnComponent implements OnInit {
   }
 
   public openNewTaskDialog() {
-    const ref = this.dialog.open(
-      NewTaskDialogComponent,
-      {
-        data:
-          {
-            taskOrder: this.column.tasks.length + 1,
-            columnId: this.column.id,
-            boardId: this.boardId,
-          },
+    const ref = this.dialog.open(NewTaskDialogComponent, {
+      data: {
+        taskOrder: this.column.tasks.length + 1,
+        columnId: this.column.id,
+        boardId: this.boardId,
       },
-    );
+    });
 
-    ref.afterClosed().subscribe(
-      (res) => {
-        if (typeof res === 'undefined') {
-          return;
-        }
-        this.tasksApiService.createTask(
-          this.boardId,
-          this.column.id,
-          {
-            title: res.title,
-            description: res.description,
-            userId: this.userService.currentUser?.id,
-            order: this.column.tasks.length + 1,
-            done: false,
-          },
-        ).subscribe(
-          () => this.getTasks(),
-        );
-      },
-    );
+    ref.afterClosed().subscribe((res) => {
+      if (typeof res === 'undefined') {
+        return;
+      }
+      this.tasksApiService
+        .createTask(this.boardId, this.column.id, {
+          title: res.title,
+          description: res.description,
+          userId: this.userService.currentUser?.id,
+          order: this.column.tasks.length + 1,
+          done: false,
+        })
+        .subscribe(() => this.getTasks());
+    });
   }
 
   public getConnectedList(): string[] {
-    return this.columnsArr.map((x: { order: any; }) => `${x.order}`);
+    return this.columnsArr.map((x: { order: any }) => `${x.order}`);
   }
 
   public dropItem(event: CdkDragDrop<any>) {
     const draggedTask = event.item.data;
-    const startColumn = this.columnsArr.filter((i) => i.tasks.includes(draggedTask));
+    const startColumn = this.columnsArr.filter((i) =>
+      i.tasks.includes(draggedTask)
+    );
     const startColumnId = startColumn[0].id;
 
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
       this.updateTasksOrder(event.container.data, this.column.id);
     } else {
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex,
+        event.currentIndex
       );
-      this.tasksApiService.updateTask(this.boardId, startColumnId, draggedTask.id, {
-        title: draggedTask.title,
-        order: event.container.data.indexOf(draggedTask) + 1,
-        userId: draggedTask.userId,
-        description: draggedTask.description,
-        boardId: this.boardId,
-        columnId: this.column.id,
-        done: false,
-      }).subscribe(
-        () => {
+      this.tasksApiService
+        .updateTask(this.boardId, startColumnId, draggedTask.id, {
+          title: draggedTask.title,
+          order: event.container.data.indexOf(draggedTask) + 1,
+          userId: draggedTask.userId,
+          description: draggedTask.description,
+          boardId: this.boardId,
+          columnId: this.column.id,
+          done: false,
+        })
+        .subscribe(() => {
           this.updateTasksOrder(event.container.data, this.column.id);
-        },
-      );
+        });
     }
   }
 
   private updateTasksOrder(tasksArr: TaskI[], columnId: Column['id']) {
     tasksArr.forEach((task, index) => {
-      this.tasksApiService.updateTask(this.boardId, columnId, task.id, {
-        title: task.title,
-        order: index + 1,
-        description: task.description,
-        userId: task.userId,
-        boardId: this.boardId,
-        columnId,
-        done: false,
-      }).subscribe();
+      this.tasksApiService
+        .updateTask(this.boardId, columnId, task.id, {
+          title: task.title,
+          order: index + 1,
+          description: task.description,
+          userId: task.userId,
+          boardId: this.boardId,
+          columnId,
+          done: false,
+        })
+        .subscribe();
     });
   }
 }
