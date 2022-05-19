@@ -52,7 +52,7 @@ export class BoardTaskComponent implements OnInit {
   public ngOnInit() {
     this.boardId = this.activatedRoute.snapshot.params['id'];
     this.taskIsDone = this.task.done;
-    
+
     this.userApiService.getAllUsers().subscribe((res) => {
       this.userName = res.filter(user => user.id === this.task.userId)
       .map((user: any) =>user.name)
@@ -90,8 +90,12 @@ export class BoardTaskComponent implements OnInit {
     ref.afterClosed().subscribe(
       (res) => {
         if (typeof res === 'undefined') {
+          if (typeof this.taskIsDone !== 'undefined') {
+            this.task.done = this.taskIsDone;
+          }
           return;
         }
+
         const { title } = res;
         const { description } = res;
         const { done } = res;
@@ -99,7 +103,6 @@ export class BoardTaskComponent implements OnInit {
         if (this.task.title === title
           && this.task.description === description
           && this.task.done === this.taskIsDone) {
-          this.task.done = this.taskIsDone;
           return;
         }
 
