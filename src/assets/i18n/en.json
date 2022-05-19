@@ -39,9 +39,11 @@
   },
   "BOARD": {
     "EDIT_DIALOG": {
-      "DESCR": "Description"
+      "DESCR": "Description",
+      "DONE": "Done"
     },
     "NEW_TASK_DIALOG": {
+      "CREATE": "Create task",
       "TITLE": "Task title",
       "DESCRIPTION": "Task description"
     },
@@ -49,6 +51,11 @@
       "COLUMN": "Create new column",
       "TITLE": "Column title",
       "DESCRIPTION": "Column description"
+    },
+    "NEW_BOARD_DIALOG": {
+      "CREATE": "Create new board",
+      "TITLE": "Board title",
+      "DESCRIPTION": "Board description"
     }
   },
   "BUTTON": {
@@ -121,5 +128,6 @@
   "img": {
     "required": "Please enter a link to the image",
     "checkUrl": "The image link is invalid"
-  }
+  },
+  "SEARCH": "Search"
 }

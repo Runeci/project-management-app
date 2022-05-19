@@ -8,6 +8,7 @@ import { WelcomePageComponent } from './pages/welcome/welcome-page.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { FooterComponent } from './components/footer/footer.component';
     UserProfileComponent,
     ConfirmComponent,
     FooterComponent,
+    PageNotFoundComponent,
   ],
   imports: [CommonModule, SharedModule, RouterModule],
   exports: [

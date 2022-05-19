@@ -1,5 +1,5 @@
 import {
- Component, EventEmitter, Input, OnInit, Output,
+  Component, EventEmitter, Input, OnInit, Output,
 } from '@angular/core';
 import {
   animate,
@@ -54,6 +54,8 @@ export class BoardTaskComponent implements OnInit {
   userName!: string[];
   fileNumbers!: any;
 
+  public taskIsDone: TaskI['done'] | undefined;
+
   constructor(
     public tasksApiService: TaskApiService,
     private activatedRoute: ActivatedRoute,
@@ -63,6 +65,9 @@ export class BoardTaskComponent implements OnInit {
 
   public ngOnInit() {
     this.boardId = this.activatedRoute.snapshot.params['id'];
+
+    this.taskIsDone = this.task.done;
+
     this.userApiService.getAllUsers().subscribe((res) => {
       this.userName = res
         .filter((user) => user.id === this.task.userId)
@@ -103,12 +108,24 @@ export class BoardTaskComponent implements OnInit {
       width: '500px',
     });
 
-    ref.afterClosed().subscribe((res) => {
-      if (typeof res === 'undefined') {
-        return;
-      }
-      const { title } = res;
-      const { description } = res;
+    ref.afterClosed().subscribe(
+      (res) => {
+        if (typeof res === 'undefined') {
+          if (typeof this.taskIsDone !== 'undefined') {
+            this.task.done = this.taskIsDone;
+          }
+          return;
+        }
+
+        const { title } = res;
+        const { description } = res;
+        const { done } = res;
+
+        if (this.task.title === title
+          && this.task.description === description
+          && this.task.done === this.taskIsDone) {
+          return;
+        }
 
       this.tasksApiService
         .updateTask(this.boardId, this.column.id, this.task.id, {
@@ -118,11 +135,11 @@ export class BoardTaskComponent implements OnInit {
           userId: this.task.userId,
           boardId: this.boardId,
           columnId: this.task.columnId,
-          done: false,
-        })
-        .subscribe();
-      this.task.title = res.title;
-      this.task.description = res.description;
-    });
+          done,
+        }).subscribe();
+        this.task.title = res.title;
+        this.task.description = res.description;
+      },
+    );
   }
 }

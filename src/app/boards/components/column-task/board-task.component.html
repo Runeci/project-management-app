@@ -1,5 +1,6 @@
 <div
   class="task-box"
+  [class.done]="task.done"
   (click)="openTaskEditDialog()"
   (mouseenter)="startAnimation()"
   (mouseleave)="stopAnimation()"

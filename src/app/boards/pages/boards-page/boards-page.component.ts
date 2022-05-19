@@ -21,7 +21,7 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
   private dialogSubscription: Subscription | undefined;
 
   constructor(
-    private boardsService: BoardsApiService,
+    private boardsApiService: BoardsApiService,
     private dialog: MatDialog,
     private dialogService: DialogService,
     private dialogBoardService: BoardDialogService,
@@ -44,8 +44,15 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
   public openNewBoardDialog(): void {
     const dialogRef = this.dialog
       .open(BoardsDialogComponent, { data: DialogUse.board });
-    dialogRef.afterClosed().subscribe(() => {
-      this.getBoards();
+    dialogRef.afterClosed().subscribe((res) => {
+      if (typeof res === 'undefined') {
+        return;
+      }
+      this.boardsApiService
+        .createBoard(res.title, res.description)
+        .subscribe(
+          () => this.getBoards()
+        );
     });
   }
 
@@ -55,7 +62,7 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
     })
       .subscribe((confirmed) => {
         if (confirmed) {
-          this.boardsService.deleteBoard(id).subscribe(
+          this.boardsApiService.deleteBoard(id).subscribe(
             () => this.getBoards(),
           );
         }
@@ -64,7 +71,7 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
 
   private getBoards(): void {
     this.spinner.show();
-    this.boardsService.getBoards()
+    this.boardsApiService.getBoards()
       .pipe(
         finalize(() => this.spinner.hide()),
       )
