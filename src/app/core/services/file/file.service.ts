@@ -13,6 +13,6 @@ export class FileService {
   }
 
   getFile(taskid: string, filename: string) {
-    return this.http.get(`${environment.BASE_URL}/file/${taskid}/${filename}`, { responseType: 'blob' });
+    return this.http.get(`${environment.BASE_URL}/file/${taskid}/${filename}`, { responseType: 'arraybuffer' });
   }
 }
