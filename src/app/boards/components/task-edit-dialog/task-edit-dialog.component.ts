@@ -96,7 +96,7 @@ export class TaskEditDialogComponent implements OnInit {
     this.data.taskFiles.forEach((file: TaskFile, index: number) => {
       this.fileService
         .getFile(this.data.task.id!, file.filename)
-        .subscribe((res) => {
+        .subscribe((res: Blob) => {
           const url = TaskEditDialogComponent.typedArrayToURL(
             res,
             'image/jpeg; charset=utf-8',
@@ -115,7 +115,7 @@ export class TaskEditDialogComponent implements OnInit {
     this.fileService.upLoadFile(fileData).subscribe(() => {
       this.taskService
         .getTask(this.data.boardId!, this.data.columnId, this.data.task.id)
-        .subscribe((res) => {       
+        .subscribe((res:TaskI) => {       
           this.data.taskFiles = res.files!;
           this.changeDetectorRef.markForCheck();
           this.getFiles();
