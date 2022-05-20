@@ -66,7 +66,7 @@ export class TaskEditDialogComponent implements OnInit {
       .getTask(this.data.boardId!, this.data.columnId, this.data.task.id)
       .subscribe((res) => {
         this.changeDetectorRef.markForCheck();
-        this.data.taskFiles = res.files!;       
+        this.data.taskFiles = res.files!;
         this.getFiles();
       });
   }
@@ -115,7 +115,7 @@ export class TaskEditDialogComponent implements OnInit {
     this.fileService.upLoadFile(fileData).subscribe(() => {
       this.taskService
         .getTask(this.data.boardId!, this.data.columnId, this.data.task.id)
-        .subscribe((res:TaskI) => {       
+        .subscribe((res:TaskI) => {
           this.data.taskFiles = res.files!;
           this.changeDetectorRef.markForCheck();
           this.getFiles();
