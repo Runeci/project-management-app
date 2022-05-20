@@ -69,7 +69,7 @@ export class BoardTaskComponent implements OnInit {
 
     this.taskIsDone = this.task.done;
 
-    this.userApiService.getAllUsers().subscribe((res) => {
+    this.userApiService.getAllUsers().subscribe((res: UserInfo[]) => {
       this.userName = res
         .filter((user) => user.id === this.task.userId)
         .map((user: UserInfo) => user.name);

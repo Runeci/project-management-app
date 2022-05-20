@@ -64,7 +64,7 @@ export class TaskEditDialogComponent implements OnInit {
   public ngOnInit() {
     this.taskService
       .getTask(this.data.boardId!, this.data.columnId, this.data.task.id)
-      .subscribe((res) => {
+      .subscribe((res: TaskI) => {
         this.changeDetectorRef.markForCheck();
         this.data.taskFiles = res.files!;       
         this.getFiles();
@@ -96,7 +96,7 @@ export class TaskEditDialogComponent implements OnInit {
     this.data.taskFiles.forEach((file: TaskFile, index: number) => {
       this.fileService
         .getFile(this.data.task.id!, file.filename)
-        .subscribe((res: Blob) => {
+        .subscribe((res: ArrayBuffer) => {
           const url = TaskEditDialogComponent.typedArrayToURL(
             res,
             'image/jpeg; charset=utf-8',
