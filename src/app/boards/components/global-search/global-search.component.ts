@@ -26,6 +26,8 @@ export class GlobalSearchComponent implements OnInit {
 
   private users: UserInfo[] = [];
 
+  userName!: string[];
+
   constructor(
     private boardsApiService: BoardsApiService,
     private taskApiService: TaskApiService,
@@ -39,7 +41,9 @@ export class GlobalSearchComponent implements OnInit {
   public ngOnInit() {
     this.getTasks();
     this.userApiService.getAllUsers().subscribe(
-      (r) => this.users = r,
+      (r) => {
+        this.users = r;
+      },
     );
   }
 
@@ -55,11 +59,15 @@ export class GlobalSearchComponent implements OnInit {
             .pipe(
               map((currBoard) => currBoard.columns!
                 .map((column) => column.tasks
-                .map((task) => ({ ...task, boardId: board.id, columnId: column.id})))),
+                  .map((task) => ({ ...task, boardId: board.id, columnId: column.id}))
+                )),
             )))),
         map((tasks) => tasks.flat(2)),
       ).subscribe(
-      (result) => this.allTasks = result,
+      (result) => {
+        // @ts-ignore
+        this.allTasks = result;
+      },
     );
   }
 
@@ -84,7 +92,7 @@ export class GlobalSearchComponent implements OnInit {
       this.router.navigate(['/boards', task.boardId]);
     }
 
-    const userName = this.users
+   const userName = this.users
         .filter((user) => user.id === task.userId)
         .map((user: UserInfo) => user.name);
    
