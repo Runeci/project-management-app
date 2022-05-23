@@ -51,7 +51,7 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
       this.boardsApiService
         .createBoard(res.title, res.description)
         .subscribe(
-          () => this.getBoards()
+          () => this.getBoards(),
         );
     });
   }

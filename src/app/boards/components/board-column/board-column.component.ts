@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+ Component, EventEmitter, Input, OnInit, Output,
+} from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -33,6 +35,7 @@ export class BoardColumnComponent implements OnInit {
   public newColumnTitle!: Column['title'];
 
   private boardId: Board['id'];
+
   fileNumbers!: TaskFile[][];
 
   constructor(
@@ -41,7 +44,7 @@ export class BoardColumnComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
     private dialogService: DialogService,
-    private userService: UserApiService
+    private userService: UserApiService,
   ) {}
 
   public ngOnInit(): void {
@@ -147,16 +150,14 @@ export class BoardColumnComponent implements OnInit {
 
   public dropItem(event: CdkDragDrop<any>) {
     const draggedTask = event.item.data;
-    const startColumn = this.columnsArr.filter((i) =>
-      i.tasks.includes(draggedTask)
-    );
+    const startColumn = this.columnsArr.filter((i) => i.tasks.includes(draggedTask));
     const startColumnId = startColumn[0].id;
 
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
         event.previousIndex,
-        event.currentIndex
+        event.currentIndex,
       );
       this.updateTasksOrder(event.container.data, this.column.id);
     } else {
@@ -164,7 +165,7 @@ export class BoardColumnComponent implements OnInit {
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex
+        event.currentIndex,
       );
       this.tasksApiService
         .updateTask(this.boardId, startColumnId, draggedTask.id, {

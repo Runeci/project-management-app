@@ -26,6 +26,8 @@ export class GlobalSearchComponent implements OnInit {
 
   private users: UserInfo[] = [];
 
+  userName!: string[];
+
   constructor(
     private boardsApiService: BoardsApiService,
     private taskApiService: TaskApiService,
@@ -39,7 +41,9 @@ export class GlobalSearchComponent implements OnInit {
   public ngOnInit() {
     this.getTasks();
     this.userApiService.getAllUsers().subscribe(
-      (r) => this.users = r,
+      (r) => {
+        this.users = r;
+      },
     );
   }
 
@@ -54,13 +58,16 @@ export class GlobalSearchComponent implements OnInit {
           .map((board) => this.boardsApiService.getBoard(board.id)
             .pipe(
               map((currBoard) => currBoard.columns!
-                .map((column) => (column.tasks))
-                .map((tasks) => tasks
-                  .map((task) => ({ ...task, boardId: board.id })))),
+                .map((column) => column.tasks
+                  .map((task) => ({ ...task, boardId: board.id, columnId: column.id}))
+                )),
             )))),
         map((tasks) => tasks.flat(2)),
       ).subscribe(
-      (result) => this.allTasks = result,
+      (result) => {
+        // @ts-ignore
+        this.allTasks = result;
+      },
     );
   }
 
@@ -84,10 +91,15 @@ export class GlobalSearchComponent implements OnInit {
     if (task.boardId) {
       this.router.navigate(['/boards', task.boardId]);
     }
+
+   const userName = this.users
+        .filter((user) => user.id === task.userId)
+        .map((user: UserInfo) => user.name);
+   
     const dialogRef = this.dialog.open(
       TaskEditDialogComponent,
       {
-        data: { task, columnId: task.columnId, boardId: task.boardId },
+        data: { task, columnId: task.columnId, boardId: task.boardId, taskFiles: task.files, userName: userName },
         width: '500px',
       },
     );

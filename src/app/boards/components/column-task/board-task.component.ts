@@ -52,6 +52,7 @@ export class BoardTaskComponent implements OnInit {
   private boardId: Board['id'];
 
   userName!: string[];
+
   fileNumbers!: any;
 
   public taskIsDone: TaskI['done'] | undefined;
@@ -68,14 +69,12 @@ export class BoardTaskComponent implements OnInit {
 
     this.taskIsDone = this.task.done;
 
-    this.userApiService.getAllUsers().subscribe((res) => {
+    this.userApiService.getAllUsers().subscribe((res: UserInfo[]) => {
       this.userName = res
         .filter((user) => user.id === this.task.userId)
         .map((user: UserInfo) => user.name);
     });
-    //this.tasksApiService.getFilesFromTask(this.boardId!, this.column.id, this.task.id).subscribe()
-    this.tasksApiService.filesNumber$.subscribe((res) =>{
-     })
+    this.tasksApiService.filesNumber$.subscribe();
   }
 
   public animationStatus: string = 'start';

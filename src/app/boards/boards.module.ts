@@ -6,6 +6,7 @@ import { SharedModule } from '@shared/shared.module';
 import { MaterialModule } from '@shared/modules/material/material.module';
 import { BoardsDialogComponent } from '@boards/components/boards-dialog/boards-dialog.component';
 import { FileSaverModule } from 'ngx-filesaver';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BoardsRoutingModule } from './boards-routing.module';
 import { BoardsPageComponent } from './pages/boards-page/boards-page.component';
 import { BoardPreviewComponent } from './components/board-preview/board-preview.component';
@@ -16,7 +17,6 @@ import { TaskEditDialogComponent } from './components/task-edit-dialog/task-edit
 import { NewTaskDialogComponent } from './components/new-task-dialog/new-task-dialog.component';
 import { NewColumnDialogComponent } from './components/new-column-dialog/new-column-dialog.component';
 import { GlobalSearchComponent } from './components/global-search/global-search.component';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [

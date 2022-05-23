@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  BASE_URL: 'https://ancient-refuge-50337.herokuapp.com',
 };
 
 /*

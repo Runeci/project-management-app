@@ -42,6 +42,7 @@ export class TaskEditDialogComponent implements OnInit {
   fileUrl!: SafeUrl;
 
   selectFile: boolean = false;
+  fileName: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<TaskEditDialogComponent>,
@@ -57,20 +58,15 @@ export class TaskEditDialogComponent implements OnInit {
       boardId: Board['id'];
       taskFiles: TaskFile[];
       userName: string;
-    }
+    },
   ) {}
 
   public ngOnInit() {
-    this.taskService.getFilesFromTask(
-      this.data.boardId!,
-      this.data.columnId,
-      this.data.task.id
-    );
     this.taskService
       .getTask(this.data.boardId!, this.data.columnId, this.data.task.id)
-      .subscribe((res) => {
-        this.data.taskFiles = res.files!;
+      .subscribe((res: TaskI) => {
         this.changeDetectorRef.markForCheck();
+        this.data.taskFiles = res.files!;
         this.getFiles();
       });
   }
@@ -89,12 +85,9 @@ export class TaskEditDialogComponent implements OnInit {
     } = event;
     [this.selectedFile] = files;
     if (event.target!.files) {
+      this.fileName = (this.selectedFile as File).name
       const reader = new FileReader();
       reader.readAsDataURL(this.selectedFile as Blob);
-      reader.onload = (selectEvent: any) => {
-        this.changeDetectorRef.markForCheck();
-        this.url = selectEvent.target.result;
-      };
       this.selectFile = true;
     }
   }
@@ -103,13 +96,12 @@ export class TaskEditDialogComponent implements OnInit {
     this.data.taskFiles.forEach((file: TaskFile, index: number) => {
       this.fileService
         .getFile(this.data.task.id!, file.filename)
-        .subscribe((res) => {
-          this.changeDetectorRef.markForCheck();
-
+        .subscribe((res: ArrayBuffer) => {
           const url = TaskEditDialogComponent.typedArrayToURL(
             res,
-            'image/jpeg; charset=utf-8'
+            'image/jpeg; charset=utf-8',
           );
+          this.changeDetectorRef.markForCheck();
           this.fileUrl = this.sanitizer.bypassSecurityTrustUrl(url);
           this.data.taskFiles[index].fileUrl = this.fileUrl;
         });
@@ -122,15 +114,8 @@ export class TaskEditDialogComponent implements OnInit {
     fileData.set('file', this.selectedFile as Blob);
     this.fileService.upLoadFile(fileData).subscribe(() => {
       this.taskService
-        .getFilesFromTask(
-          this.data.boardId!,
-          this.data.columnId,
-          this.data.task.id
-        )
-        .subscribe();
-      this.taskService
         .getTask(this.data.boardId!, this.data.columnId, this.data.task.id)
-        .subscribe((res) => {
+        .subscribe((res:TaskI) => {
           this.data.taskFiles = res.files!;
           this.changeDetectorRef.markForCheck();
           this.getFiles();
@@ -143,7 +128,7 @@ export class TaskEditDialogComponent implements OnInit {
     this.fileService.getFile(this.data.task.id!, name).subscribe((res) => {
       const url = TaskEditDialogComponent.typedArrayToURL(
         res,
-        'image/jpeg; charset=utf-8'
+        'image/jpeg; charset=utf-8',
       );
       window.open(url);
     });
@@ -162,7 +147,7 @@ export class TaskEditDialogComponent implements OnInit {
 
   static typedArrayToURL(typedArray: BlobPart, mimeType: string): string {
     return window.URL.createObjectURL(
-      new Blob([typedArray], { type: mimeType })
+      new Blob([typedArray], { type: mimeType }),
     );
   }
 }

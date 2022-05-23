@@ -45,16 +45,14 @@
       </button>
     </div>
 
-    <div class="title-container file">
-      <mat-icon>attach_file</mat-icon>
-      <button type="button" mat-button (click)="fileInput.click()">{{'BUTTON.CHOOSE' | translate}}</button>
+    <div class="title-container file"> 
+      <button type="button" mat-button (click)="fileInput.click()"><mat-icon>attach_file</mat-icon>{{'BUTTON.CHOOSE' | translate}}</button>
       <input hidden (change)="onSelectFile($event)" #fileInput type="file">
-      <span class="file-name"></span>
       <button mat-button color="primary" type="button" (click)="onUpLoad()" [disabled]="!fileInput.value">{{'BUTTON.UPLOAD' | translate}}</button>
     </div>
 
     <ng-container *ngIf="selectFile">
-      <img [src]="url" alt="">
+      <span class="file-name">{{fileName}}</span>
     </ng-container>
 
     <ng-container *ngIf="data.taskFiles">
