@@ -1,0 +1,40 @@
+<div class="header">
+    <mat-icon class="user-icon">account_circle</mat-icon>
+    <h2 mat-dialog-title>{{user.name}}</h2>
+    <span class="example-spacer"></span>
+    <button mat-icon-button [mat-dialog-close]="false">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<mat-divider></mat-divider>
+<mat-dialog-content class="mat-typography">
+    <form class="dialog-form" [formGroup]="profileForm">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>{{'AUTH.NAME' | translate}}</mat-label>
+            <input type="text" matInput formControlName="name" placeholder="Name" [value]="user.name">
+            <mat-error *ngIf="validationService.formErrors.name">{{validationService.formErrors.name}}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>{{'AUTH.EMAIL' | translate}}</mat-label>
+            <input type="text" matInput formControlName="login" placeholder="Email">
+            <mat-error *ngIf="validationService.formErrors.login">{{validationService.formErrors.login}}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>{{'AUTH.PASSWORD' | translate}}</mat-label>
+            <input type="text" matInput formControlName="password" placeholder="Password">
+            <mat-error *ngIf="validationService.formErrors.password">{{validationService.formErrors.password}}
+            </mat-error>
+        </mat-form-field>
+        <div mat-dialog-actions>
+            <button mat-button (click)="cancelUpdate()">{{'BUTTON.CANCEL' | translate}}</button>
+            <button mat-flat-button type="submit" color="accent" [disabled]="profileForm.invalid"
+                [mat-dialog-close]="true" (click)="updateUser()">{{'BUTTON.UPDATE' | translate}}</button>
+            <span class="example-spacer"></span>
+            <button mat-flat-button style="color: red" (click)="openConfirmDialog()">{{'BUTTON.DELETE' |
+                translate}}</button>
+        </div>
+    </form>
+</mat-dialog-content>
+<lib-ng-toast></lib-ng-toast>

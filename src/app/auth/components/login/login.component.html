@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="register-modal">
+        <div class="close">
+            <div class="close-icon" routerLink='/home'></div>
+        </div>
+        <form class="example-form form" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+            <h2>{{'HEADER.LOGIN' | translate }}</h2>
+            <div class="form__container">
+
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>{{'AUTH.EMAIL' | translate}}</mat-label>
+                    <input matInput class="form__input" type="email" placeholder="Enter your email"
+                        formControlName="login" autocomplete="off">
+                    <mat-error *ngIf="validationService.formErrors.login">{{validationService.formErrors.login}}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>{{'AUTH.PASSWORD' | translate}}</mat-label>
+                    <input matInput class="form__input" type="password" placeholder="Enter password"
+                        formControlName="password" autocomplete="off">
+                    <mat-error *ngIf="validationService.formErrors.password">{{validationService.formErrors.password}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <button mat-flat-button class="form__button" [disabled]="formGroup.invalid">{{'HEADER.LOGIN' | translate
+                }}</button>
+            <button mat-flat-button routerLink='/signup' class="form__button login-btn">{{'AUTH.ROUT_REGISTR' |
+                translate}}</button>
+        </form>
+    </div>
+</div>

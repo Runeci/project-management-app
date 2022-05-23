@@ -1,0 +1,47 @@
+<mat-toolbar class="header" [class.header-color]="currentRoute !== '/' && currentRoute !== '/home'" appHeaderAnimate>
+  <div class="logo-container" routerLink="/boards">
+    <img class="logo" src="assets/icons/logo-1.svg" alt="logo">
+    <span class="logo-text">RSTrello</span>
+  </div>
+
+  <div class="add-btn-container" *ngIf="currentRoute === '/boards'">
+    <button
+      (click)="openDialog()"
+      mat-button color="accent" class="add-btn"
+    >
+      {{ 'HEADER.ADD_BOARD' | translate}}
+    </button>
+  </div>
+
+  <span class="example-spacer"></span>
+
+  <mat-slide-toggle
+    class="toggle-btn"
+    [(ngModel)]="slideValue"
+    (ngModelChange)="changeLang(slideValue)"
+  >
+    {{'BUTTON.LANG' | translate}}
+  </mat-slide-toggle>
+
+  <div class="registr-btns" *ngIf="checkRoute('/home')">
+    <button mat-flat-button (click)="togglePath('login')" *ngIf="!isSmall">{{ 'HEADER.LOGIN' | translate}}</button>
+
+    <button mat-button (click)="togglePath('login')" *ngIf="isSmall" class="login-btn centered">
+      <mat-icon>login</mat-icon>
+    </button>
+
+    <button mat-flat-button color="primary" class="text-white"
+            (click)="togglePath('signup')">{{ 'HEADER.SIGNUP' | translate }}
+    </button>
+  </div>
+
+
+  <div class="logout-btn" *ngIf="currentRoute === '/boards'">
+    <mat-icon class="user-icon" (click)="editProfile()">account_circle</mat-icon>
+    <button mat-button color="accent" (click)="logout()">
+      <div *ngIf="!isSmall">{{ 'HEADER.LOGOUT' | translate}}</div>
+      <mat-icon *ngIf="isSmall">logout</mat-icon>
+    </button>
+  </div>
+
+</mat-toolbar>

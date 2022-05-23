@@ -1,0 +1,19 @@
+<div class="header">
+    <h2 mat-dialog-title>{{'CONFIRM.title' | translate}}</h2>
+    <button mat-icon-button [mat-dialog-close]="false">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<div mat-dialog-content>
+    <p>{{ 'CONFIRM.message' | translate: {param: data?.param} }}</p>
+</div>
+
+<div mat-dialog-actions [align]="'end'">
+    <button mat-raised-button [mat-dialog-close]="false">
+        {{'CONFIRM.CANCEL' | translate}}
+    </button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true">
+        {{'CONFIRM.DELETE' | translate}}
+    </button>
+</div>

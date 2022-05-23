@@ -1,0 +1,149 @@
+.header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.logo-container {
+  cursor: pointer;
+}
+
+.add-btn-container,
+.logo-container,
+.toggle-btn,
+.registr-btns,
+.logout-btn {
+  display: flex;
+  align-items: center;
+}
+
+.example-icon {
+  display: none;
+}
+
+.mat-toolbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  font: 800 28px/32px Montserrat, "Montserrat", sans-serif;
+  background: transparent;
+  transition: background 1s ease 0s;
+}
+
+.logo {
+  width: 40px;
+  margin-right: 7px;
+}
+
+.mat-flat-button {
+  width: 80px;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.text-white {
+  width: 140px;
+  color: #fff;
+}
+
+.scroll {
+  background-color: #8462c6 !important;
+  -webkit-box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+}
+
+.header-color {
+  background: #663bb8;
+  color: white;
+}
+
+.user-icon {
+  color: white;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: #ffd740;
+  }
+}
+
+.user-icon,
+.add-btn {
+  margin: 0 10px;
+}
+
+.logo-text {
+  cursor: pointer;
+}
+
+.mat-slide-toggle {
+  font-size: 16px;
+  font-weight: 400;
+  width: 110px;
+}
+
+.logout-btn {
+  min-width: 100px;
+}
+
+@media (max-width: 600px) {
+  .add-btn-container {
+    display: none;
+  }
+
+  .registr-btns {
+    .mat-button {
+      color: #ffd740;
+      min-width: 40px;
+      max-width: 40px;
+      height: 40px;
+      margin-left: 10px;
+      transition: color 0.2s ease-in-out;
+    }
+  }
+
+  .centered ::ng-deep .mat-button-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .mat-flat-button {
+    font-size: 14px;
+    margin-left: 7px;
+  }
+
+  .text-white {
+    width: 120px;
+  }
+
+  .mat-slide-toggle {
+    width: 70px;
+  }
+}
+
+@media (max-width: 530px) {
+  .logo-text {
+    display: none;
+  }
+}
+
+@media (max-width: 330px) {
+  .registr-btns {
+    margin: 0;
+  }
+
+  .text-white {
+    width: 100px;
+    padding: 0;
+  }
+}
+

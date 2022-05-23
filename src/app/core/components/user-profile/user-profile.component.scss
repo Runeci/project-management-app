@@ -1,0 +1,35 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.header>h2 {
+  margin: 0;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.dialog-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-dialog-actions {
+  width: 100%;
+  margin: 50px auto 0;
+}
+
+.user-icon {
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
+  margin-right: 10px;
+}

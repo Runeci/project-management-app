@@ -1,0 +1,69 @@
+<mat-dialog-content class="container">
+  <mat-checkbox [(ngModel)]="data.task.done"
+                (click)="editDone = true"
+                class="checkbox"
+                value="after"> {{ 'BOARD.EDIT_DIALOG.DONE' | translate }}</mat-checkbox>
+
+  <form [formGroup]="editTaskForm" (ngSubmit)="onSubmit()">
+
+    <div class="user">
+      <mat-icon>person</mat-icon>
+      <p>{{this.data.userName}}</p>
+    </div>
+
+    <div class="title-container" *ngIf="!editTitle" (click)="editTitle = true">
+      <mat-icon>newspaper</mat-icon>
+      <h2 mat-dialog-title>{{ data.task.title }}</h2>
+    </div>
+
+    <ng-container *ngIf="editTitle">
+      <mat-form-field class="edit-form edit-title">
+        <input type="text" matInput formControlName="title">
+        <mat-icon matSuffix class="close-btn" (click)="editTitle = false">close</mat-icon>
+      </mat-form-field>
+    </ng-container>
+
+    <div class="description-container" (click)="editDescription = true">
+      <mat-icon>subject</mat-icon>
+      <h3 class="description"> {{ 'BOARD.EDIT_DIALOG.DESCR' | translate }}</h3>
+      <div class="spacer"></div>
+    </div>
+
+    <p class="task-description" *ngIf="!editDescription">{{ data.task.description }}</p>
+
+    <ng-container *ngIf="editDescription">
+      <mat-form-field appearance="fill" class="edit-form">
+        <textarea matInput formControlName="description" rows="5"></textarea>
+        <mat-icon matSuffix class="close-btn" (click)="editDescription = false">close</mat-icon>
+      </mat-form-field>
+    </ng-container>
+
+
+    <div class="edit-btns" *ngIf="editDescription || editTitle || editDone">
+      <button mat-button color="primary" type="submit" mat-dialog-close="true">
+        {{ 'BUTTON.SAVE' | translate }}
+      </button>
+    </div>
+
+    <div class="title-container file"> 
+      <button type="button" mat-button (click)="fileInput.click()"><mat-icon>attach_file</mat-icon>{{'BUTTON.CHOOSE' | translate}}</button>
+      <input hidden (change)="onSelectFile($event)" #fileInput type="file">
+      <button mat-button color="primary" type="button" (click)="onUpLoad()" [disabled]="!fileInput.value">{{'BUTTON.UPLOAD' | translate}}</button>
+    </div>
+
+    <ng-container *ngIf="selectFile">
+      <span class="file-name">{{fileName}}</span>
+    </ng-container>
+
+    <ng-container *ngIf="data.taskFiles">
+      <div class="file-container">
+        <div class="file-details" *ngFor="let file of data.taskFiles">
+          <img [src]="file.fileUrl" alt="">
+          <p class="file-name" (click)="onOpenFile(file.filename)">{{file.filename}}</p>
+          <button mat-button color="accent" type="button" (click)="onDownloadFile(file.filename)">{{'BUTTON.DOWNLOAD' | translate}}</button>
+        </div>
+      </div>
+    </ng-container>
+
+  </form>
+</mat-dialog-content>

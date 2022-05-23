@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>{{ 'BOARD.NEW_COLUMN_DIALOG.COLUMN' | translate }}</h2>
+<mat-divider></mat-divider>
+<mat-dialog-content>
+  <form class="dialog-form" (ngSubmit)="onSubmit()" [formGroup]="form">
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'BOARD.NEW_COLUMN_DIALOG.TITLE' | translate }}</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="title"
+        placeholder="{{ 'BOARD.NEW_COLUMN_DIALOG.TITLE' | translate }}">
+
+      <mat-error *ngIf="form.get('title')?.hasError('required')">
+        {{ 'Title is required' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <button
+      [mat-dialog-close]="true"
+      mat-flat-button
+      type="submit"
+      color="accent"
+      [disabled]="form.invalid"
+    >
+      {{ 'BUTTON.CREATE' | translate }}
+    </button>
+  </form>
+</mat-dialog-content>
+
